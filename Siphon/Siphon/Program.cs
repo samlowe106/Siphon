@@ -4,8 +4,8 @@ namespace Siphon
 {
 #if WINDOWS || LINUX
     /// <summary>
-    /// The main class REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.
-    /// </summaryczuhsuhcsuzhz>
+    /// The main class 
+    /// </summary>
     public static class Program
     {
         /// <summary>
