@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 namespace Siphon
 {
     /// <summary>
+	/// qwertyuiop[]
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
