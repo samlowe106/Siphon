@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Siphon
 {
-	class Button
+	class Button : GameObject
 	{
 	}
 }
