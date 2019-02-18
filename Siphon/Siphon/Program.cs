@@ -5,7 +5,7 @@ namespace Siphon
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.
-    /// </summary>
+    /// </summaryczuhsuhcsuzhz>
     public static class Program
     {
         /// <summary>
