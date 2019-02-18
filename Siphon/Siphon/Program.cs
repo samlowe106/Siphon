@@ -4,7 +4,7 @@ namespace Siphon
 {
 #if WINDOWS || LINUX
     /// <summary>
-    /// The main class.
+    /// The main class REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.
     /// </summary>
     public static class Program
     {
@@ -16,6 +16,8 @@ namespace Siphon
         {
             using (var game = new Game1())
                 game.Run();
+
+
         }
     }
 #endif
