@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Siphon", "Siphon\Siphon.csproj", "{41B15168-0353-477D-8D60-A3E367746A99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41B15168-0353-477D-8D60-A3E367746A99}.Debug|x86.ActiveCfg = Debug|x86
+		{41B15168-0353-477D-8D60-A3E367746A99}.Debug|x86.Build.0 = Debug|x86
+		{41B15168-0353-477D-8D60-A3E367746A99}.Release|x86.ActiveCfg = Release|x86
+		{41B15168-0353-477D-8D60-A3E367746A99}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28E92FA9-012C-422E-99D3-E49D0F773E8D}
+	EndGlobalSection
+EndGlobal
