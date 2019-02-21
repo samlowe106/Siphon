@@ -1,9 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Siphon
 {
+    enum gameState
+    {
+        Menu,
+        Game,
+        Options
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -11,6 +23,8 @@ namespace Siphon
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Stack<gameState> state;
+
 
         public Game1()
         {
@@ -27,6 +41,8 @@ namespace Siphon
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            state.Push(gameState.Menu);
 
             base.Initialize();
         }
@@ -63,6 +79,7 @@ namespace Siphon
                 Exit();
 
             // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }
@@ -76,6 +93,21 @@ namespace Siphon
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+
+            // finite state machine for draw
+            switch (state.Peek())
+            {
+                case gameState.Menu:
+                    break;
+                case gameState.Game:
+                    break;
+                case gameState.Options:
+                    break;
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
