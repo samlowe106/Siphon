@@ -51,9 +51,9 @@ namespace Siphon
             graphics.ApplyChanges();
 
             //intializing the buttons
-            startButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.1, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
-            optionsButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.4, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
-            exitButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.7, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
+            startButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.1), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
+            optionsButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.4), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
+            exitButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.7), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
 
             state.Push(gameState.Menu);
 
