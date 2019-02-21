@@ -13,7 +13,8 @@ namespace Siphon
     {
         Menu,
         Game,
-        Options
+        Options,
+        Back
     }
 
     /// <summary>
