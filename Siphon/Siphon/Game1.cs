@@ -24,6 +24,9 @@ namespace Siphon
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Stack<gameState> state;
+        Rectangle startButton;
+        Rectangle optionsButton;
+        Rectangle exitButton;
 
 
         public Game1()
@@ -45,6 +48,11 @@ namespace Siphon
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
+
+            //intializing the buttons
+            startButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.1, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
+            optionsButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.4, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
+            exitButton = new Rectangle(GraphicsDevice.Viewport.Width*0.1, GraphicsDevice.Viewport.Height * 0.7, GraphicsDevice.Viewport.Width*0.8, GraphicsDevice.Viewport.Height*0.2);
 
             state.Push(gameState.Menu);
 
@@ -84,6 +92,15 @@ namespace Siphon
 
             // TODO: Add your update logic here
             
+            switch (state.Peek())
+            {
+                case gameState.Menu:
+                    break;
+                case gameState.Game:
+                    break;
+                case gameState.Options:
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -94,7 +111,7 @@ namespace Siphon
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
 
@@ -104,6 +121,9 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
+                    spriteBatch.Draw(startButton);
+                    spriteBatch.Draw(optionsButton);
+                    spriteBatch.Draw(exitButton);
                     break;
                 case gameState.Game:
                     break;
