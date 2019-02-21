@@ -46,6 +46,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDamageable.cs" />
+    <Compile Include="IDisplayable.cs" />
     <Compile Include="IWeapon.cs" />
     <Compile Include="ParameterizedEnemy.cs" />
     <Compile Include="Pistol.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\ResearchManager.cs" />
+    <Compile Include="Structure.cs" />
     <Compile Include="WeaponManager.cs" />
   </ItemGroup>
   <ItemGroup>

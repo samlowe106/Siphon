@@ -10,11 +10,10 @@ using Microsoft.Xna.Framework.Input;
 namespace Siphon
 {
     /// <summary>
-    /// GameObject from which the player and enemies will inherit
+    /// GameObject from which the player, enemies, and structures will inherit
     /// </summary>
-	abstract class GameObject : IDamageable
+	abstract class GameObject : IDamageable, IDisplayable
 	{
-        
         Vector2 position;
         Texture2D texture;
         Rectangle rectangle;
@@ -30,7 +29,7 @@ namespace Siphon
         /// <param name="position">The GameObject's position</param>
         /// <param name="texture">The GameObject's texture</param>
         /// <param name="rectangle">The GameObject's hitbox</param>
-        public GameObject(Vector2 position, Texture2D texture, Rectangle rectangle)
+        public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height)
         {
             this.position = position;
             this.texture = texture;
@@ -47,9 +46,14 @@ namespace Siphon
         {
             if (this.active)
             {
-                sp.Draw(texture);
+                sp.Draw(this.texture);
             }
         }
+
+        /// <summary>
+        /// Updates this object. Base method is empty
+        /// </summary>
+        public void Update() { }
 
         /// <summary>
         /// Performs a basic damage calculation
@@ -67,6 +71,13 @@ namespace Siphon
                 // trigger the on-death event
             }
             return currentHealth - damage;
+        }
+
+        /// <param name="obj">Object to compare this object's distance to</param>
+        /// <returns>The distance from this object to another object</returns>
+        public double GetDistance(GameObject obj)
+        {
+            return Math.Sqrt(Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
         }
 
         /// <summary>
