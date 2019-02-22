@@ -14,20 +14,28 @@ namespace Siphon
     /// </summary>
     abstract class Weapon : IDisplayable
     {
+        #region Fields
+
         Vector2 position;
         Texture2D texture;
         Rectangle rectangle;
 
-        GameObject holder; // holder of the weapon; determines position, direction, etc
         int damage;
         float fireDelay; // delay (in seconds) between firing shots
         bool active;
+
+        #endregion
+
+        #region Constructor
 
         public Weapon()
         {
             active = true;
         }
 
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Method that spawns a bullet
         /// </summary>
@@ -44,6 +52,15 @@ namespace Siphon
         {
             sp.Draw(texture, rectangle, Color.White);
         }
+
+        /// <summary>
+        /// Virtual update method to be called by the manager
+        /// </summary>
+        public virtual void Update() { }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Boolean determining if this object's sprite should be drawn to the screen
@@ -78,5 +95,7 @@ namespace Siphon
                 return position;
             }
         }
+
+        #endregion
     }
 }

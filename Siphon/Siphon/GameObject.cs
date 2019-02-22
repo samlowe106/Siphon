@@ -14,6 +14,8 @@ namespace Siphon
     /// </summary>
 	abstract class GameObject : IDamageable, IDisplayable
 	{
+        #region Fields
+
         // MonoGame-relevant fields
         protected Vector2 position;
         protected Texture2D texture;
@@ -24,6 +26,10 @@ namespace Siphon
         protected int currentHealth;
         protected int maxHealth;
         protected bool active;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Basic constructor, with parameters only necessary for MonoGame
@@ -68,6 +74,9 @@ namespace Siphon
             active = true;
         }
 
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Draws this GameObject's texture (if this object is active)
         /// </summary>
@@ -110,6 +119,9 @@ namespace Siphon
             return Math.Sqrt(Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
         }
 
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
@@ -164,5 +176,7 @@ namespace Siphon
                 return position;
             }
         }
-	}
+
+        #endregion
+    }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Siphon
 {
+    /// <summary>
+    /// Basic starter pistol weapon
+    /// </summary>
 	class Pistol : Weapon
 	{
 	}
