@@ -14,7 +14,7 @@ namespace Siphon
     /// Object is produced when a gun is fired
     /// Managed by the BulletManager class
     /// </summary>
-	class Bullet : IDisplayable
+	class Bullet : GameObject
 	{
         Texture2D texture;
         Vector2 position;
@@ -23,9 +23,10 @@ namespace Siphon
         bool active;
         int damage;
 
-        public Bullet(int damage)
+        public Bullet(Vector2 position, Texture2D texture, int x, int y, int width, int height)
+            : base (position, texture, x, y, width, height)
         {
-            this.damage = damage;
+
         }
 
         /// <summary>
