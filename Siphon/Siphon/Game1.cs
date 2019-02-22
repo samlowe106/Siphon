@@ -29,6 +29,19 @@ namespace Siphon
         Rectangle optionsButton;
         Rectangle exitButton;
 
+		// inputs
+		KeyboardState kbState;
+		MouseState mState;
+
+		// states
+		MenuManager menu;
+
+		// screen data
+		int screenWidth;
+		int screenHeight;
+
+		// textures
+		Texture2D startButtonTexture;
 
         public Game1()
         {
@@ -50,11 +63,21 @@ namespace Siphon
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
-            //intializing the buttons
-            startButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.1), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
-            optionsButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.4), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
-            exitButton = new Rectangle((int)(GraphicsDevice.Viewport.Width*0.1), (int)(GraphicsDevice.Viewport.Height * 0.7), (int)(GraphicsDevice.Viewport.Width*0.8), (int)(GraphicsDevice.Viewport.Height*0.2));
+			// screen elements
+			screenHeight = GraphicsDevice.Viewport.Height;
+			screenWidth = GraphicsDevice.Viewport.Width;
 
+			//intializing the buttons
+			startButton =    new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.1), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
+            optionsButton =  new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.4), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
+            exitButton =     new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.7), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
+
+			// load menu content
+			startButtonTexture = Content.Load<Texture2D>("startButton");
+
+			// states
+			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
+			state = new Stack<gameState>();
             state.Push(gameState.Menu);
 
             base.Initialize();
@@ -91,11 +114,14 @@ namespace Siphon
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            
+			// TODO: Add your update logic here
+			mState = Mouse.GetState();
+			kbState = Keyboard.GetState();
+
             switch (state.Peek())
             {
                 case gameState.Menu:
+					menu.Update(mState);
                     break;
                 case gameState.Game:
                     break;
@@ -122,9 +148,7 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-                    spriteBatch.Draw(startButton);
-                    spriteBatch.Draw(optionsButton);
-                    spriteBatch.Draw(exitButton);
+					menu.Draw(spriteBatch);
                     break;
                 case gameState.Game:
                     break;
