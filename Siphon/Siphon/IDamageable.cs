@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Siphon
 {
+    /// <summary>
+    /// Interface for objects which can take damage
+    /// </summary>
 	interface IDamageable
 	{
         /// <summary>

@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Siphon
 {
+    /// <summary>
+    /// The GameObject player-character which the player will control
+    /// </summary>
 	class Player : GameObject
 	{
         // fields

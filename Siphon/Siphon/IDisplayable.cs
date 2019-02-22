@@ -24,5 +24,10 @@ namespace Siphon
         /// Boolean determining if this object's sprite should be drawn to the screen
         /// </summary>
         bool Active { get; }
+
+        /// <summary>
+        /// Vector2 representing this object's position
+        /// </summary>
+        Vector2 Position { get; }
     }
 }

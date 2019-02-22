@@ -24,7 +24,7 @@ namespace Siphon
         protected bool active;
 
         /// <summary>
-        /// Basic GameObject from which other objects will inherit
+        /// Basic constructor, with parameters only necessary for MonoGame
         /// </summary>
         /// <param name="position">The GameObject's position</param>
         /// <param name="texture">The GameObject's texture</param>
@@ -34,6 +34,28 @@ namespace Siphon
             this.position = position;
             this.texture = texture;
             this.rectangle = new Rectangle(x, y, width, height);
+            this.armorRating = 0f; // we may decide to change this default value later
+            // TODO: initialize maxHealth to a default value
+            this.currentHealth = this.maxHealth;
+            this.active = true;
+        }
+
+        /// <summary>
+        /// Overloaded constructor with additional parameters relevant to game mechanics
+        /// </summary>
+        /// <param name="position">The GameObject's position</param>
+        /// <param name="texture">The GameObject's texture</param>
+        /// <param name="rectangle">The GameObject's hitbox</param>
+        /// <param name="armorRating">The percentage amount of damage the GameObect will ignore</param>
+        /// <param name="maxHealth">The maximum amount of health the GameObject will have</param>
+        public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height,
+            float armorRating, int maxHealth)
+        {
+            this.position = position;
+            this.texture = texture;
+            this.rectangle = new Rectangle(x, y, width, height);
+            this.armorRating = armorRating;
+            this.maxHealth = maxHealth;
             this.currentHealth = this.maxHealth;
             active = true;
         }
@@ -121,6 +143,17 @@ namespace Siphon
             get
             {
                 return active;
+            }
+        }
+
+        /// <summary>
+        /// Vector2 representing this object's position
+        /// </summary>
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
             }
         }
 	}
