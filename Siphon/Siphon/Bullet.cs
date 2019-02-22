@@ -16,31 +16,12 @@ namespace Siphon
     /// </summary>
 	class Bullet : GameObject
 	{
-        Texture2D texture;
-        Vector2 position;
-        Rectangle rectangle;
-
-        bool active;
         int damage;
 
         public Bullet(Vector2 position, Texture2D texture, int x, int y, int width, int height)
             : base (position, texture, x, y, width, height)
         {
 
-        }
-
-        /// <summary>
-        /// The method that will draw this object to the screen
-        /// </summary>
-        /// <param name="sp">The spritebatch that will draw this object's texture</param>
-        public void Draw(SpriteBatch sp)
-        {
-            sp.Draw(texture, rectangle, Color.White);
-        }
-
-        public void Update()
-        {
-            // TODO
         }
 
         /// <summary>
@@ -56,28 +37,6 @@ namespace Siphon
             }
             // Deactivate this bullet
             this.active = false;
-        }
-
-        /// <summary>
-        /// Boolean determining if this object's sprite should be drawn to the screen
-        /// </summary>
-        public bool Active
-        {
-            get
-            {
-                return active;
-            }
-        }
-
-        /// <summary>
-        /// Vector2 representing this object's position
-        /// </summary>
-        public Vector2 Position
-        {
-            get
-            {
-                return position;
-            }
         }
     }
 }
