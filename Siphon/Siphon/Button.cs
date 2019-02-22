@@ -9,30 +9,66 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Siphon
 {
-	class Button : GameObject
+	class Button : IDisplayable
 	{
-        // fields
-        gameState state;
-        Stack<gameState> stack;
+		// fields
+		private Texture2D texture;
+        private gameState state;
+        private Stack<gameState> stack;
+		private Rectangle rectangle;
+		private bool mouseHover;
 
-        /// <summary>
-        /// When clicked, the button will change the game state
-        /// </summary>
-        /// <param name="position">The center of the object</param>
-        /// <param name="texture">What the button looks like</param>
-        /// <param name="rectangle">The area of the button</param>
-        /// <param name="state">The game state that clicking the button will summon (Back will take them to the last game state they were in)</param>
-        public Button(Vector2 position, Texture2D texture, Rectangle rectangle, gameState state, Stack<gameState> stack) : base(position, texture, rectangle)
+		// properties
+		public Vector2 Position
+		{
+			get { return new Vector2(rectangle.X + (rectangle.Width / 2), rectangle.Y + (rectangle.Height / 2)); }
+		}
+		public bool Active { get { return mouseHover; } }
+
+		/// <summary>
+		/// When clicked, the button will change the game state
+		/// </summary>
+		/// <param name="texture">What the button looks like</param>
+		/// <param name="rectangle">The area of the button</param>
+		/// <param name="state">The game state that clicking the button will summon (Back will take them to the last game state they were in)</param>
+		/// <param name="stack">The Game1 stach that is used in the finite state machine</param>
+		public Button(Texture2D texture, Rectangle rectangle, gameState state, Stack<gameState> stack)
         {
+			this.texture = texture;
             this.state = state;
             this.stack = stack;
+			this.rectangle = rectangle;
+			mouseHover = false;
         }
 
-        // methods
+		// methods
 
-        public void Update(Vector2 mousePosition)
+		// Draws the button and checks for hover 
+		public void Draw(SpriteBatch sp)
+		{
+			if (mouseHover)
+				sp.Draw(texture, rectangle, Color.DimGray);
+
+			else
+				sp.Draw(texture, rectangle, Color.White);
+		}
+
+		// Does hover over effect and changes the game state if clicked
+		public void Update(MouseState mouse)
         {
-            if ()
+            if (rectangle.Contains(mouse.Position))
+			{
+				mouseHover = true;
+
+				if (mouse.LeftButton == ButtonState.Pressed)
+				{
+					stack.Push(state);
+				}
+			}
+			else
+			{
+				mouseHover = false;
+			}
         }
 	}
 }
