@@ -28,7 +28,10 @@ namespace Siphon
         /// </summary>
         /// <param name="position">The GameObject's position</param>
         /// <param name="texture">The GameObject's texture</param>
-        /// <param name="rectangle">The GameObject's hitbox</param>
+        /// <param name="x">The upper top-left x coordinate of the GameObject's position</param>
+        /// <param name="y">The upper top-left y coordinate of the GameObject's position</param>
+        /// <param name="width">The width of this GameObject</param>
+        /// <param name="height">The height of this GameObject</param>
         public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height)
         {
             this.position = position;
@@ -45,9 +48,12 @@ namespace Siphon
         /// </summary>
         /// <param name="position">The GameObject's position</param>
         /// <param name="texture">The GameObject's texture</param>
-        /// <param name="rectangle">The GameObject's hitbox</param>
-        /// <param name="armorRating">The percentage amount of damage the GameObect will ignore</param>
-        /// <param name="maxHealth">The maximum amount of health the GameObject will have</param>
+        /// <param name="x">The upper top-left x coordinate of the GameObject's position</param>
+        /// <param name="y">The upper top-left y coordinate of the GameObject's position</param>
+        /// <param name="width">The width of this GameObject</param>
+        /// <param name="height">The height of this GameObject</param>
+        /// <param name="armorRating">The percentage amount of damage this object will ignore</param>
+        /// <param name="maxHealth">The maximum amount of health this object has</param>
         public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height,
             float armorRating, int maxHealth)
         {
