@@ -14,10 +14,12 @@ namespace Siphon
     /// </summary>
 	abstract class GameObject : IDamageable, IDisplayable
 	{
+        // MonoGame-relevant fields
         protected Vector2 position;
         protected Texture2D texture;
         protected Rectangle rectangle;
 
+        // Siphon-relevant fields
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;

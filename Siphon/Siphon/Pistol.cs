@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Siphon
 {
-	class Pistol : IWeapon
+	class Pistol : Weapon
 	{
 	}
 }
