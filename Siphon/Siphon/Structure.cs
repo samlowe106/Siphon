@@ -14,7 +14,6 @@ namespace Siphon
     /// </summary>
     abstract class Structure : GameObject
     {
-
         public Structure(Vector2 position, Texture2D texture, int x, int y, int width, int height)
             : base(position, texture, x, y, width, height)
         {

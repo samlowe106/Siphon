@@ -14,8 +14,15 @@ namespace Siphon
     /// </summary>
     interface IDisplayable
     {
+        /// <summary>
+        /// The method that will draw this object to the screen
+        /// </summary>
+        /// <param name="sp">The spritebatch that will draw this object's texture</param>
         void Draw(SpriteBatch sp);
 
+        /// <summary>
+        /// Boolean determining if this object's sprite should be drawn to the screen
+        /// </summary>
         bool Active { get; }
     }
 }

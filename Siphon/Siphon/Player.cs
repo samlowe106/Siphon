@@ -13,6 +13,15 @@ namespace Siphon
 	{
         // fields
         
+        public Player(Vector2 position, Texture2D texture, int x, int y, int width, int height)
+            : base(position, texture, x, y, width, height)
+        {
+            // Set armor rating to 100 so the player mitigates 100% of damage
+            armorRating = 100f;
 
+
+        }
+
+        
 	}
 }

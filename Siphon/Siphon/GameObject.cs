@@ -14,14 +14,14 @@ namespace Siphon
     /// </summary>
 	abstract class GameObject : IDamageable, IDisplayable
 	{
-        Vector2 position;
-        Texture2D texture;
-        Rectangle rectangle;
+        protected Vector2 position;
+        protected Texture2D texture;
+        protected Rectangle rectangle;
 
-        float armorRating;
-        int currentHealth;
-        int maxHealth;
-        bool active;
+        protected float armorRating;
+        protected int currentHealth;
+        protected int maxHealth;
+        protected bool active;
 
         /// <summary>
         /// Basic GameObject from which other objects will inherit
@@ -33,7 +33,7 @@ namespace Siphon
         {
             this.position = position;
             this.texture = texture;
-            this.rectangle = rectangle;
+            this.rectangle = new Rectangle(x, y, width, height);
             this.currentHealth = this.maxHealth;
             active = true;
         }
@@ -46,14 +46,14 @@ namespace Siphon
         {
             if (this.active)
             {
-                sp.Draw(this.texture);
+                sp.Draw(this.texture, this.position, Color.White);
             }
         }
 
         /// <summary>
         /// Updates this object. Base method is empty
         /// </summary>
-        public void Update() { }
+        public virtual void Update() { }
 
         /// <summary>
         /// Performs a basic damage calculation
@@ -110,6 +110,17 @@ namespace Siphon
             get
             {
                 return armorRating;
+            }
+        }
+
+        /// <summary>
+        /// Whether this object should be drawn to the screen or not
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return active;
             }
         }
 	}
