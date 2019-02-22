@@ -9,11 +9,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Siphon
 {
-	abstract class Enemy : GameObject, IDamageable
+    /// <summary>
+    /// Abstract class from which other enemies will inherit. Inherits from GameObject and implements IDamageable
+    /// </summary>
+	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;
+        protected int damage;
 
         public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height)
             : base(position, texture, x, y, width, height)
@@ -74,5 +78,28 @@ namespace Siphon
             }
         }
 
+        /// <summary>
+        /// Amount of damage that this object deals per hit
+        /// </summary>
+        public int Damage
+        {
+            get
+            {
+                return damage;
+            }
+        }
+
+        /// <summary>
+        /// Deals this object's damage to a specified target
+        /// </summary>
+        /// <param name="target">Damageable target</param>
+        public void DealDamage(IDamageable target)
+        {
+            // Deal damage to the specified enemy
+            if (this.active)
+            {
+                target.TakeDamage(this.damage);
+            }
+        }
     }
 }

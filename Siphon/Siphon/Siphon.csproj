@@ -46,6 +46,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDamageable.cs" />
+    <Compile Include="IDealDamage.cs" />
     <Compile Include="IDisplayable.cs" />
     <Compile Include="ParameterizedEnemy.cs" />
     <Compile Include="Pistol.cs" />

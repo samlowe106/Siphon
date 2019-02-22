@@ -14,7 +14,7 @@ namespace Siphon
     /// Object is produced when a gun is fired
     /// Managed by the BulletManager class
     /// </summary>
-	class Bullet : GameObject
+	class Bullet : GameObject, IDealDamage
 	{
         int damage;
 
@@ -27,7 +27,7 @@ namespace Siphon
         /// <summary>
         /// Deals this bullet's damage to a specified target
         /// </summary>
-        /// <param name="target">Damageable target that</param>
+        /// <param name="target">Damageable target</param>
         public void DealDamage(IDamageable target)
         {
             // Deal damage to the specified enemy
@@ -37,6 +37,17 @@ namespace Siphon
             }
             // Deactivate this bullet
             this.active = false;
+        }
+
+        /// <summary>
+        /// Amount of damage this bullet deals
+        /// </summary>
+        public int Damage
+        {
+            get
+            {
+                return damage;
+            }
         }
     }
 }
