@@ -76,8 +76,8 @@ namespace Siphon
 			startButtonTexture = Content.Load<Texture2D>("startButton");
 
 			// states
-			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
 			state = new Stack<gameState>();
+			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
             state.Push(gameState.Menu);
 
             base.Initialize();
