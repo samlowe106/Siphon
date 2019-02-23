@@ -14,10 +14,13 @@ namespace Siphon
     /// </summary>
     abstract class Structure : GameObject, IDamageable
     {
+        #region Fields
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;
+        #endregion
 
+        #region Constructor
         public Structure(Vector2 position, Texture2D texture, int x, int y, int width, int height)
             : base(position, texture, x, y, width, height)
         {
@@ -25,7 +28,9 @@ namespace Siphon
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Performs a basic damage calculation
         /// </summary>
@@ -43,7 +48,9 @@ namespace Siphon
             }
             return currentHealth - damage;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
@@ -76,5 +83,6 @@ namespace Siphon
                 return armorRating;
             }
         }
+        #endregion
     }
 }

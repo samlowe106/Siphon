@@ -14,11 +14,14 @@ namespace Siphon
     /// </summary>
 	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
+        #region Fields
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
+        #endregion
 
+        #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height)
             : base(position, texture, x, y, width, height)
         {
@@ -26,7 +29,9 @@ namespace Siphon
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Performs a basic damage calculation
         /// </summary>
@@ -45,6 +50,22 @@ namespace Siphon
             return currentHealth - damage;
         }
 
+        /// <summary>
+        /// Deals this object's damage to a specified target
+        /// </summary>
+        /// <param name="target">Damageable target</param>
+        public void DealDamage(IDamageable target)
+        {
+            // Deal damage to the specified enemy
+            if (this.active)
+            {
+                target.TakeDamage(this.damage);
+            }
+        }
+
+        #endregion
+
+        #region properties
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
@@ -89,17 +110,6 @@ namespace Siphon
             }
         }
 
-        /// <summary>
-        /// Deals this object's damage to a specified target
-        /// </summary>
-        /// <param name="target">Damageable target</param>
-        public void DealDamage(IDamageable target)
-        {
-            // Deal damage to the specified enemy
-            if (this.active)
-            {
-                target.TakeDamage(this.damage);
-            }
-        }
+        #endregion
     }
 }
