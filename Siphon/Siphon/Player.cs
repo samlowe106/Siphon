@@ -20,8 +20,38 @@ namespace Siphon
             : base(position, texture, x, y, width, height)
         {
 
+            
+        }
+
+        //Player Movement Method that will be called in the update method
+        public void PlayerMovement(KeyboardState current)
+        {
+            if (current.IsKeyDown(Keys.W))
+            {
+                position = new Vector2(position.X, position.Y - 3);
+
+            }
+            if (current.IsKeyDown(Keys.A))
+            {
+                position = new Vector2(position.X - 3, position.Y);
+
+            }
+            if (current.IsKeyDown(Keys.S))
+            {
+                position = new Vector2(position.X, position.Y + 3);
+            }
+            if (current.IsKeyDown(Keys.D))
+            {
+                position = new Vector2(position.X + 3, position.Y);
+
+            }
+        }
+
+        public void PlayerAngle()
+        {
 
         }
+
 
         
 	}

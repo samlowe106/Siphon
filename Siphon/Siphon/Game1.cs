@@ -42,7 +42,11 @@ namespace Siphon
 
 		// textures
 		Texture2D startButtonTexture;
+        Texture2D arrow;
 
+        //Player
+        Player player;
+        Vector2 playerPos;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -60,7 +64,7 @@ namespace Siphon
             //Full Screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            graphics.IsFullScreen = true;
+            
             graphics.ApplyChanges();
 
 			// screen elements
@@ -80,6 +84,10 @@ namespace Siphon
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
             state.Push(gameState.Menu);
 
+            //player
+            playerPos = new Vector2(screenWidth * 0.5f, screenHeight * 0.5f);
+            arrow = Content.Load<Texture2D>("Arrow");
+            player = new Player(playerPos, arrow, 30, 30, 30, 30);
             base.Initialize();
         }
 
@@ -93,6 +101,7 @@ namespace Siphon
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            
         }
 
         /// <summary>
@@ -124,6 +133,7 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
+                    player.PlayerMovement(kbState);
                     break;
                 case gameState.Options:
                     break;
@@ -151,6 +161,7 @@ namespace Siphon
 					menu.Draw(spriteBatch);
                     break;
                 case gameState.Game:
+                    player.Draw(spriteBatch);
                     break;
                 case gameState.Options:
                     break;
