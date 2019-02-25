@@ -35,6 +35,7 @@ namespace Siphon
 
 		// states
 		MenuManager menu;
+		GameManager gameManager;
 
 		// screen data
 		int screenWidth;
@@ -64,8 +65,8 @@ namespace Siphon
             //Full Screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            
             graphics.ApplyChanges();
+			IsMouseVisible = true;
 
 			// screen elements
 			screenHeight = GraphicsDevice.Viewport.Height;
@@ -78,16 +79,16 @@ namespace Siphon
 
 			// load menu content
 			startButtonTexture = Content.Load<Texture2D>("startButton");
+			arrow = Content.Load<Texture2D>("Arrow");
 
 			// states
 			state = new Stack<gameState>();
+			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-            state.Push(gameState.Menu);
+			gameManager = new GameManager(arrow, screenWidth, screenHeight);
 
-            //player
-            playerPos = new Vector2(screenWidth * 0.5f, screenHeight * 0.5f);
-            arrow = Content.Load<Texture2D>("Arrow");
-            player = new Player(playerPos, arrow, 30, 30, 30, 30);
+
+            
             base.Initialize();
         }
 
@@ -133,7 +134,7 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-                    player.PlayerMovement(kbState);
+					gameManager.Update(kbState, mState);
                     break;
                 case gameState.Options:
                     break;
@@ -161,7 +162,7 @@ namespace Siphon
 					menu.Draw(spriteBatch);
                     break;
                 case gameState.Game:
-                    player.Draw(spriteBatch);
+					gameManager.Draw(spriteBatch);
                     break;
                 case gameState.Options:
                     break;

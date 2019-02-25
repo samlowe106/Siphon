@@ -11,16 +11,24 @@ namespace Siphon
 {
 	class GameManager
 	{
+		// fields
+		private Player player;
 
-
-		public GameManager()
+		public GameManager(Texture2D playerTexture, int screenWidth, int screenHeight)
 		{
-
+			//player
+			
+			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, 30, 30);
 		}
 
 		public void Update(KeyboardState kbState, MouseState mouse)
 		{
+			player.PlayerMovement(kbState);
+		}
 
+		public void Draw(SpriteBatch sp)
+		{
+			player.Draw(sp);
 		}
 	}
 }

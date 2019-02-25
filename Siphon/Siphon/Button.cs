@@ -62,7 +62,14 @@ namespace Siphon
 
 				if (mouse.LeftButton == ButtonState.Pressed)
 				{
-					stack.Push(state);
+					if (state == gameState.Back)
+					{
+						stack.Pop();
+					}
+					else
+					{
+						stack.Push(state);
+					}
 				}
 			}
 			else
