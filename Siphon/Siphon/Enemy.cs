@@ -19,6 +19,7 @@ namespace Siphon
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
+        int distanceToStructure;
         #endregion
 
         #region Constructor
@@ -28,6 +29,14 @@ namespace Siphon
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
+
+            // TODO: set this enemy to face the main structure
+
+            // Keep track of the distance from this enemy to the main structure
+            //  that way, we only need to call GetDistance once
+            // distanceToStructure = GetDistance
+
+
         }
         #endregion
 
@@ -63,9 +72,24 @@ namespace Siphon
             }
         }
 
+        public override void Update()
+        {
+            if (distanceToStructure > 0)
+            {
+                // Move this enemy closer to the main structure
+                // Update distanceToStructure
+            }
+            else
+            {
+                // this.DealDamage(mainStructure);
+            }
+
+            base.Update();
+        }
+
         #endregion
 
-        #region properties
+        #region Properties
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
