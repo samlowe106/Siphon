@@ -64,7 +64,7 @@ namespace Siphon
             //Full Screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            
+            //graphics.IsFullScreen = true; This line toggles if its full screen or not.
             graphics.ApplyChanges();
 
 			// screen elements
