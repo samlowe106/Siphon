@@ -72,6 +72,9 @@ namespace Siphon
             }
         }
 
+        /// <summary>
+        /// Moves this enemy to the main structure; damages the main structure if already there
+        /// </summary>
         public override void Update()
         {
             if (distanceToStructure > 0)
