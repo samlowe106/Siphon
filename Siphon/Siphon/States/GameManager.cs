@@ -24,6 +24,7 @@ namespace Siphon
 		public void Update(KeyboardState kbState, MouseState mouse)
 		{
 			player.PlayerMovement(kbState);
+            player.SetAngle(mouse.X, mouse.Y);
 		}
 
 		public void Draw(SpriteBatch sp)
