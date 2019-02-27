@@ -19,11 +19,11 @@ namespace Siphon
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
-        int distanceToStructure;
+        double distanceToStructure;
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height)
+        public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height, MainStructure mainStruct)
             : base(position, texture, x, y, width, height)
         {
             this.armorRating = 0f; // we may decide to change this default value later
@@ -34,9 +34,7 @@ namespace Siphon
 
             // Keep track of the distance from this enemy to the main structure
             //  that way, we only need to call GetDistance once
-            // distanceToStructure = GetDistance
-
-
+            distanceToStructure = GetDistance(mainStruct);
         }
         #endregion
 
@@ -89,7 +87,6 @@ namespace Siphon
 
             base.Update();
         }
-
         #endregion
 
         #region Properties
@@ -136,7 +133,6 @@ namespace Siphon
                 return damage;
             }
         }
-
         #endregion
     }
 }
