@@ -28,6 +28,7 @@ namespace Siphon
 
 		// inputs
 		KeyboardState kbState;
+		KeyboardState lastKbState;
 		MouseState mState;
 
 		// states
@@ -43,9 +44,9 @@ namespace Siphon
 		Texture2D backButtonTexture;
         Texture2D arrow;
 
-        //Player
-        Player player;
-        Vector2 playerPos;
+		// sprite fonts 
+		SpriteFont Arial12;
+		
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -75,12 +76,13 @@ namespace Siphon
 			startButtonTexture = Content.Load<Texture2D>("start");
 			backButtonTexture = Content.Load<Texture2D>("back");
 			arrow = Content.Load<Texture2D>("Arrow");
+			Arial12 = Content.Load<SpriteFont>("Arial12");
 
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(arrow, backButtonTexture, screenWidth, screenHeight, state);
+			gameManager = new GameManager(arrow, backButtonTexture, screenWidth, screenHeight, state, Arial12);
 			
             
             base.Initialize();
@@ -115,8 +117,8 @@ namespace Siphon
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                //Exit();
 
 			// TODO: Add your update logic here
 			mState = Mouse.GetState();
@@ -128,13 +130,15 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, mState);
+					gameManager.Update(kbState, lastKbState, mState);
                     break;
                 case gameState.Options:
                     break;
             }
 
             base.Update(gameTime);
+
+			lastKbState = kbState;
         }
 
         /// <summary>
