@@ -25,6 +25,7 @@ namespace Siphon
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+            this.mainStructureTexture = mainStructureTexture;
 
             Load();
         }
