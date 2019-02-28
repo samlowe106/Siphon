@@ -16,8 +16,8 @@ namespace Siphon
 	{
         Weapon currentWeapon;
         
-        public Player(Vector2 position, Texture2D texture, int x, int y, int width, int height)
-            : base(position, texture, x, y, width, height)
+        public Player(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
+            : base(position, texture, x, y, width, height, screen)
         {
 
             
