@@ -58,17 +58,17 @@ namespace Siphon
         {
             if (this.active)
             {
-
-                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI/2)), origin, 1f, SpriteEffects.None, 1f);
-                /*sp.Draw(texture,
-                    rectangle,
+                //Draws Player
+                sp.Draw(texture,
+                    position,
                     null,
                     Color.White,
-                    (float)(angle),
-                    origin,                    
+                    angle,
+                    origin,
+                    1f,
                     SpriteEffects.None,
-                    0);
-                    */
+                    1f);
+                
                
                 
             }
@@ -96,7 +96,7 @@ namespace Siphon
             direction.X = objX - this.Position.X;
             direction.Y = objY - this.Position.Y;
 
-            angle = (float)Math.Atan2(direction.Y, direction.X);
+            angle = (float)(Math.Atan2(direction.Y, direction.X) + Math.PI / 2);
             return angle;
         }
         #endregion
