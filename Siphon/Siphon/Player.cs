@@ -16,10 +16,11 @@ namespace Siphon
 	{
         Weapon currentWeapon;
         
-        public Player(Vector2 position, Texture2D texture, int x, int y, int width, int height, int screenWidth, int screenHeight)
-            : base(position, texture, x, y, width, height, screenWidth, screenHeight)
+        public Player(Vector2 position, Texture2D texture, int width, int height, int screenWidth, int screenHeight)
+            : base(position, texture, width, height, screenWidth, screenHeight)
         {
-
+            // The player's starting weapon will just be a pistol
+            this.currentWeapon = new Pistol();
             
         }
 

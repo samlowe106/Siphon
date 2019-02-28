@@ -29,12 +29,10 @@ namespace Siphon
         /// </summary>
         /// <param name="position"></param>
         /// <param name="texture"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Structure(Vector2 position, Texture2D texture, int x, int y, int width, int height)
-            : base(position, texture, x, y, width, height, 0, 0)
+        public Structure(Vector2 position, Texture2D texture, int width, int height)
+            : base(position, texture, width, height, 0, 0)
         {
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
