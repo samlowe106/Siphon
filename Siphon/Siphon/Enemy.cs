@@ -25,8 +25,8 @@ namespace Siphon
 
         #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height,
-            DisplayMode screen, MainStructure mainStructure)
-            : base(position, texture, x, y, width, height, screen)
+            int screenWidth, int screenHeight, MainStructure mainStructure)
+            : base(position, texture, x, y, width, height, screenWidth, screenHeight)
         {
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
