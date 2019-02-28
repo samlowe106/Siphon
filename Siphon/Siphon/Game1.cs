@@ -25,12 +25,10 @@ namespace Siphon
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Stack<gameState> state;
-        Rectangle startButton;
-        Rectangle optionsButton;
-        Rectangle exitButton;
 
 		// inputs
 		KeyboardState kbState;
+		KeyboardState lastKbState;
 		MouseState mState;
 
 		// states
@@ -43,11 +41,12 @@ namespace Siphon
 
 		// textures
 		Texture2D startButtonTexture;
+		Texture2D backButtonTexture;
         Texture2D arrow;
 
-        //Player
-        Player player;
-        Vector2 playerPos;
+		// sprite fonts 
+		SpriteFont Arial12;
+		
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -72,23 +71,19 @@ namespace Siphon
 			// screen elements
 			screenHeight = GraphicsDevice.Viewport.Height;
 			screenWidth = GraphicsDevice.Viewport.Width;
-
-			//intializing the buttons
-			startButton =    new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.1), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
-            optionsButton =  new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.4), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
-            exitButton =     new Rectangle((int)(screenWidth * 0.1), (int)(screenHeight * 0.7), (int)(screenWidth * 0.8), (int)(screenHeight * 0.2));
-
+			
 			// load menu content
-			startButtonTexture = Content.Load<Texture2D>("startButton");
+			startButtonTexture = Content.Load<Texture2D>("start");
+			backButtonTexture = Content.Load<Texture2D>("back");
 			arrow = Content.Load<Texture2D>("Arrow");
+			Arial12 = Content.Load<SpriteFont>("Arial12");
 
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(arrow, screenWidth, screenHeight);
-
-
+			gameManager = new GameManager(arrow, backButtonTexture, screenWidth, screenHeight, state, Arial12);
+			
             
             base.Initialize();
         }
@@ -122,8 +117,8 @@ namespace Siphon
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                //Exit();
 
 			// TODO: Add your update logic here
 			mState = Mouse.GetState();
@@ -135,13 +130,15 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, mState);
+					gameManager.Update(kbState, lastKbState, mState);
                     break;
                 case gameState.Options:
                     break;
             }
 
             base.Update(gameTime);
+
+			lastKbState = kbState;
         }
 
         /// <summary>
