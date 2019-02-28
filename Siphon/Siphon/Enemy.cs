@@ -15,29 +15,30 @@ namespace Siphon
 	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
         #region Fields
+        MainStructure mainStructure;
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
-        int distanceToStructure;
+        double distanceToStructure;
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height)
-            : base(position, texture, x, y, width, height)
+        public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height,
+            DisplayMode screen, MainStructure mainStructure)
+            : base(position, texture, x, y, width, height, screen)
         {
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
 
-            // TODO: set this enemy to face the main structure
+            // Set this enemy to face the main structure
+            this.SetAngle((int)mainStructure.Position.X, (int)mainStructure.Position.Y);
 
             // Keep track of the distance from this enemy to the main structure
             //  that way, we only need to call GetDistance once
-            // distanceToStructure = GetDistance
-
-
-        }
+            this.distanceToStructure = GetDistance(mainStructure);
+        }                             
         #endregion
 
         #region Methods
@@ -82,14 +83,14 @@ namespace Siphon
                 // Move this enemy closer to the main structure
                 // Update distanceToStructure
             }
+            // Otherwise, if this enemy is close enough to the main structure, do damage
             else
             {
-                // this.DealDamage(mainStructure);
+                this.DealDamage(mainStructure);
             }
 
             base.Update();
         }
-
         #endregion
 
         #region Properties
@@ -136,7 +137,6 @@ namespace Siphon
                 return damage;
             }
         }
-
         #endregion
     }
 }
