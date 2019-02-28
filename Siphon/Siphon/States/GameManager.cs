@@ -9,6 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Siphon
 {
+    enum mapData
+    {
+        empty,
+        turret,
+        mainBase
+    }
+
 	class GameManager
 	{
 		// fields
@@ -17,6 +24,10 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
 
+        // map
+        private mapData[][] map;
+
+        // constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
 		{
 			// base values
@@ -30,6 +41,7 @@ namespace Siphon
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 		}
 
+        // methods
 		public void Update(KeyboardState kbState, KeyboardState lastKbState, MouseState mouse)
 		{
 			// runs when not paused
