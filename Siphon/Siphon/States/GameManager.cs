@@ -50,6 +50,7 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
+                map.Update();
 				player.PlayerMovement(kbState);
 				
 				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
@@ -73,6 +74,7 @@ namespace Siphon
 		{
 			player.Draw(sp);
 			backButton.Draw(sp);
+            map.Draw(sp);
 
 			// draws when paused
 			if (paused)

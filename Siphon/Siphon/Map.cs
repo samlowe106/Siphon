@@ -59,15 +59,33 @@ namespace Siphon
                             //structures[r, c] = TURRET
                             break;
                         case 2:
-                            structures[r, c] = new MainStructure(new Vector2((screenWidth / 2) - (r - width / 2) * sideLength, 
-                                                                (screenHeight / 2) - (r - height / 2) * sideLength), 
+                            structures[r, c] = new MainStructure(new Vector2((screenWidth / 2) - ((r - 5) * sideLength), 
+                                                                (screenHeight / 2) - (c - 5) * sideLength), 
                                                                 mainStructureTexture, 
                                                                 (screenWidth / 2) - (r - 5) * sideLength, 
-                                                                (screenHeight / 2) - (r - 5) * sideLength, 
+                                                                (screenHeight / 2) - (c - 5) * sideLength, 
                                                                 sideLength * 2, sideLength * 2);
                             break;
                     }
                 }
+            }
+        }
+
+        public void Update()
+        {
+            foreach (Structure structure in structures)
+            {
+                if (structure != null)
+                    structure.Update();
+            }
+        }
+
+        public void Draw(SpriteBatch sp)
+        {
+            foreach (Structure structure in structures)
+            {
+                if (structure != null)
+                    structure.Draw(sp);
             }
         }
 
