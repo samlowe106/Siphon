@@ -21,6 +21,7 @@ namespace Siphon
         protected int maxHealth;
         protected int damage;
         double distanceToStructure;
+        Vector2 structureDistanceVector;
         #endregion
 
         #region Constructor
@@ -35,9 +36,12 @@ namespace Siphon
             // Set this enemy to face the main structure
             this.SetAngle((int)mainStructure.Position.X, (int)mainStructure.Position.Y);
 
-            // Keep track of the distance from this enemy to the main structure
-            //  that way, we only need to call GetDistance once
-            this.distanceToStructure = GetDistance(mainStructure);
+            // Keep track of the distance from this enemy to the main structure as a vector
+            //  that way, we can decide where to move this enemy
+            this.structureDistanceVector = GetDistanceVector(mainStructure);
+
+            // Combine structure distance vector with speed in some way so we can decide
+            //  where this enemy moves and how fast it moves there
         }                             
         #endregion
 

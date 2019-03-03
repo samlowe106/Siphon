@@ -84,6 +84,13 @@ namespace Siphon
             return Math.Sqrt(Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
         }
 
+        /// <param name="obj">Object to compare this object's distance to</param>
+        /// <returns>A vector representing the distance from this object to the specified GameObject</returns>
+        public Vector2 GetDistanceVector(GameObject obj)
+        {
+            return obj.position - this.position;
+        }
+
         /// <summary>
         /// 
         /// </summary>
