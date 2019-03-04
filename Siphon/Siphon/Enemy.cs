@@ -84,8 +84,8 @@ namespace Siphon
         {
             if (distanceToStructure > 0)
             {
-                // Move this enemy closer to the main structure
-                // Update distanceToStructure
+                // Normalize the resultant vector: mainStructure.Position - this.Position;
+                // Update: distanceToStructure -= 
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else
