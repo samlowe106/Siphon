@@ -52,20 +52,21 @@ namespace Siphon
         /// Draws this GameObject's texture (if this object is active)
         /// </summary>
         /// <param name="sp">The current spritebatch</param>
-        public void Draw(SpriteBatch sp)
+        public virtual void Draw(SpriteBatch sp)
         {
             if (this.active)
             {
 
-                
-                sp.Draw(texture,
+                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+
+                /*sp.Draw(texture,
                     rectangle,
                     null,
                     Color.White,
                     (float)(angle),
                     origin,                    
                     SpriteEffects.None,
-                    0);
+                    0); */
                     
                
                 

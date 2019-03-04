@@ -36,7 +36,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture);
 
 			// player
-			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, 30, 30, screenWidth, screenHeight);
+			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, screenWidth, screenHeight);
 
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
@@ -52,8 +52,8 @@ namespace Siphon
 			{
                 map.Update();
 				player.PlayerMovement(kbState);
-				
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                player.SetAngle(mouse.X, mouse.Y);
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
 
