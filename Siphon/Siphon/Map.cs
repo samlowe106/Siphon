@@ -32,7 +32,7 @@ namespace Siphon
 
         private void Load()
         {
-            Load("empty.level");
+            Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)
@@ -61,7 +61,7 @@ namespace Siphon
                         case 2:
                             structures[r, c] = new MainStructure(new Vector2((screenWidth / 2) - ((r - 5) * sideLength), 
                                                                 (screenHeight / 2) - (c - 5) * sideLength), 
-                                                                mainStructureTexture,                                                                 
+                                                                mainStructureTexture, 
                                                                 sideLength * 2, sideLength * 2);
                             break;
                     }

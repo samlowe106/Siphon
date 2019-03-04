@@ -55,16 +55,22 @@ namespace Siphon
             {
                 active = false;
                 // trigger the on-death event
+				
             }
             return currentHealth - damage;
         }
-        #endregion
 
-        #region Properties
-        /// <summary>
-        /// Amount of health that this object currently has
-        /// </summary>
-        public int CurrentHealth
+		public override void Draw(SpriteBatch sp)
+		{
+			//sp.Draw(texture, )
+		}
+		#endregion
+
+		#region Properties
+		/// <summary>
+		/// Amount of health that this object currently has
+		/// </summary>
+		public int CurrentHealth
         {
             get
             {
