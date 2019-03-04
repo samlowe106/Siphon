@@ -22,7 +22,7 @@ namespace Siphon
         protected int damage;
         double distanceToStructure;
         Vector2 structureDistanceVector;
-        Vector2 speed;
+       
         #endregion
 
         #region Constructor
