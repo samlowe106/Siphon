@@ -20,13 +20,25 @@ namespace LevelEditor
 		private int height;
 		private int width;
 		private string title;
+        private Dictionary<Color, int> pairs;
+        private Dictionary<int, Color> reversePairs;
 
 		// constructor
 		public LevelEditor(int height, int width)
 		{
 			InitializeComponent();
 
-			title = "";
+            pairs = new Dictionary<Color, int>();
+            pairs.Add(Color.Green, 0);
+            pairs.Add(Color.Blue, 1);
+            pairs.Add(Color.Red, 2);
+
+            reversePairs = new Dictionary<int, Color>();
+            reversePairs.Add(0, Color.Green);
+            reversePairs.Add(1, Color.Blue);
+            reversePairs.Add(2, Color.Red);
+
+            title = "";
 			this.height = height;
 			this.width = width;
 
@@ -41,7 +53,18 @@ namespace LevelEditor
 		{
 			InitializeComponent();
 			selected = Color.Red;
-			load(filePath);
+
+            pairs = new Dictionary<Color, int>();
+            pairs.Add(Color.Green, 0);
+            pairs.Add(Color.Blue, 1);
+            pairs.Add(Color.Red, 2);
+
+            reversePairs = new Dictionary<int, Color>();
+            reversePairs.Add(0, Color.Green);
+            reversePairs.Add(1, Color.Blue);
+            reversePairs.Add(2, Color.Red);
+
+            load(filePath);
 		}
 
 		// loads the file
@@ -63,6 +86,8 @@ namespace LevelEditor
 			Stream inStream = File.OpenRead(filePath);
 			BinaryReader input = new BinaryReader(inStream);
 
+            Console.WriteLine(filePath);
+
 			height = input.ReadInt32();
 			width = input.ReadInt32();
 			boxs = new PictureBox[height, width];
@@ -73,7 +98,7 @@ namespace LevelEditor
 			{
 				for (int c = 0; c < width; c++)
 				{
-					boxs[r, c].BackColor = Color.FromArgb(input.ReadInt32());
+					boxs[r, c].BackColor = reversePairs[input.ReadInt32()];
 				}
 			}
 
@@ -164,7 +189,7 @@ namespace LevelEditor
 				{
 					for (int c = 0; c < width; c++)
 					{
-						output.Write(boxs[r, c].BackColor.ToArgb());
+                        output.Write(pairs[boxs[r, c].BackColor]);
 					}
 				}
 
@@ -190,11 +215,11 @@ namespace LevelEditor
 		}
 
 		// Is called when the colored buttons used in the pallet are clicked
-		private void greenButton_Click(object sender, EventArgs e) { selected = Color.Lime; sample.BackColor = selected; }
+		private void greenButton_Click(object sender, EventArgs e) { selected = Color.Green; sample.BackColor = selected; }
         private void greyButton_Click(object sender, EventArgs e) { selected = Color.Silver; sample.BackColor = selected; }
         private void brownButton_Click(object sender, EventArgs e) { selected = Color.Brown; sample.BackColor = selected; }
         private void redButton_Click(object sender, EventArgs e) { selected = Color.Red; sample.BackColor = selected; }
-        private void blueButton_Click(object sender, EventArgs e) { selected = Color.Aqua; sample.BackColor = selected; }
+        private void blueButton_Click(object sender, EventArgs e) { selected = Color.Blue; sample.BackColor = selected; }
         private void blackButton_Click(object sender, EventArgs e) { selected = Color.Black; sample.BackColor = selected; }
 	}
 }

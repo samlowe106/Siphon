@@ -21,8 +21,20 @@ namespace Siphon
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// 
+        /// 
+        /// A screenWidth and screenHeight of 0 will be sent to the base constructor
+        ///  so all structures' speeds are always 0
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="texture"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public Structure(Vector2 position, Texture2D texture, int x, int y, int width, int height)
-            : base(position, texture, x, y, width, height)
+            : base(position, texture, x, y, width, height, 0, 0)
         {
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value

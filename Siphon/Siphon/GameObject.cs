@@ -24,7 +24,7 @@ namespace Siphon
         protected bool active;
         protected float angle;
         protected Vector2 origin;
-
+        protected Vector2 speed;
         #endregion
 
         #region Constructor
@@ -38,13 +38,15 @@ namespace Siphon
         /// <param name="y">The upper top-left y coordinate of the GameObject's position</param>
         /// <param name="width">The width of this GameObject</param>
         /// <param name="height">The height of this GameObject</param>
-        public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height)
+        public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height, int screenWidth, int screenHeight)
         {
+            // Set this object's speed to be 2% of the screen width and height 
+            this.speed = new Vector2(screenWidth * 0.02f, screenHeight * 0.02f);
             this.position = position;
             this.texture = texture;
             this.rectangle = new Rectangle(x, y, width, height);
             this.active = true;
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
         #endregion
