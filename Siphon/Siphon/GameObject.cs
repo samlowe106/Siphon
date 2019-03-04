@@ -61,8 +61,8 @@ namespace Siphon
             if (this.active)
             {
 
-                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI/2)), origin, 1f, SpriteEffects.None, 1f);
-                /*sp.Draw(texture,
+                
+                sp.Draw(texture,
                     rectangle,
                     null,
                     Color.White,
@@ -70,7 +70,7 @@ namespace Siphon
                     origin,                    
                     SpriteEffects.None,
                     0);
-                    */
+                    
                
                 
             }
@@ -88,19 +88,7 @@ namespace Siphon
             return Math.Sqrt(Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objectComparedTo"></param>
-        /// <returns></returns>
-        public float SetAngle(int objX, int objY)
-        {
-            direction.X = objX - this.Position.X;
-            direction.Y = objY - this.Position.Y;
-
-            angle = (float)Math.Atan2(direction.Y, direction.X);
-            return angle;
-        }
+        
         #endregion
 
         #region Properties
