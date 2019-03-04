@@ -58,13 +58,13 @@ namespace Siphon
                         case 0:
                             structures[r, c] = null;
                             break;
-                        case 2:
+                        case 1:
 							structures[r, c] = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4.5) * sideLength), 
 							(int)((screenHeight / 2) - (c - 4.5) * sideLength)), 
                                                                 mainStructureTexture, 
                                                                 sideLength, sideLength);
 							break;
-                        case 1:
+                        case 2:
                             mainStructure = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4) * sideLength), 
                                                                 (int)((screenHeight / 2) - (c - 4) * sideLength)), 
                                                                 mainStructureTexture, 

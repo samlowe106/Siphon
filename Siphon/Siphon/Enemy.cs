@@ -15,13 +15,13 @@ namespace Siphon
 	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
         #region Fields
-        MainStructure mainStructure;
+        protected MainStructure mainStructure;
         protected float armorRating;
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
-        double distanceToStructure;
-        Vector2 structureDistanceVector;
+        protected double distanceToStructure;
+        protected Vector2 structureDistanceVector;
        
         #endregion
 
@@ -30,6 +30,7 @@ namespace Siphon
             int screenWidth, int screenHeight, MainStructure mainStructure)
             : base(position, texture, width, height, screenWidth, screenHeight)
         {
+            this.mainStructure = mainStructure;
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
