@@ -130,6 +130,25 @@ namespace Siphon
             {
                 return position;
             }
+            set
+            {
+                position = value;
+            }
+        }
+
+        /// <summary>
+        /// Floating point number representing the angle that this object is facing
+        /// </summary>
+        public float Angle
+        {
+            get
+            {
+                return angle;
+            }
+            set
+            {
+                angle = value;
+            }
         }
 
         #endregion

@@ -15,21 +15,20 @@ namespace Siphon
     abstract class Weapon : IDisplayable
     {
         #region Fields
-
         Vector2 position;
         Texture2D texture;
         Rectangle rectangle;
-
+        BulletManager manager;
         int damage;
         float fireDelay; // delay (in seconds) between firing shots
         bool active;
-
         #endregion
 
         #region Constructor
 
-        public Weapon()
+        public Weapon(BulletManager manager)
         {
+            this.manager = manager;
             active = true;
         }
 
@@ -42,6 +41,7 @@ namespace Siphon
         public void Shoot()
         {
             // TODO
+            //manager.SpawnBullet(, damage, );
         }
 
         /// <summary>

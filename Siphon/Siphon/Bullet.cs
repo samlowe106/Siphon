@@ -16,14 +16,25 @@ namespace Siphon
     /// </summary>
 	class Bullet : GameObject, IDealDamage
 	{
+        #region Fields
         int damage;
+        #endregion
 
-        public Bullet(Vector2 position, Texture2D texture, int width, int height, int screenWidth, int screenHeight)
-            : base (position, texture, width, height, screenWidth, screenHeight)
+        #region Constructor
+        /// <summary>
+        /// A 5x5 pixel bullet that deals damage to any enemies that it collides with
+        /// Spawns at 0,0 and is inactive until shot by a gun
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
+        public Bullet(Texture2D texture, int screenWidth, int screenHeight)
+            : base (new Vector2(0, 0), texture, 5, 5, screenWidth, screenHeight)
         {
-
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Deals this bullet's damage to a specified target
         /// </summary>
@@ -38,7 +49,9 @@ namespace Siphon
             // Deactivate this bullet
             this.active = false;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Amount of damage this bullet deals
         /// </summary>
@@ -48,6 +61,11 @@ namespace Siphon
             {
                 return damage;
             }
+            set
+            {
+                damage = value;
+            }
         }
+        #endregion
     }
 }
