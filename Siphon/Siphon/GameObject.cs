@@ -19,29 +19,34 @@ namespace Siphon
         // MonoGame-relevant fields
         protected Vector2 position;
         protected Texture2D texture;
-        protected Rectangle rectangle;
         protected Vector2 direction;
+		protected int width;
+		protected int height;
         protected bool active;
         protected float angle;
         protected Vector2 origin;
         protected Vector2 speed;
-        #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Basic constructor, with parameters only necessary for MonoGame
-        /// </summary>
-        /// <param name="position">The position of the GameObject's center</param>
-        /// <param name="texture">The GameObject's texture</param>
-        /// <param name="width">The width of this GameObject</param>
-        /// <param name="height">The height of this GameObject</param>
-        public GameObject(Vector2 position, Texture2D texture, int width, int height, int screenWidth, int screenHeight)
+		// properties
+		public Rectangle rectangle { get { return (new Rectangle((int)(position.X - width/2), (int) (position.Y - width/2), width, height)); } }
+		#endregion
+
+		#region Constructor
+		/// <summary>
+		/// Basic constructor, with parameters only necessary for MonoGame
+		/// </summary>
+		/// <param name="position">The position of the GameObject's center</param>
+		/// <param name="texture">The GameObject's texture</param>
+		/// <param name="width">The width of this GameObject</param>
+		/// <param name="height">The height of this GameObject</param>
+		public GameObject(Vector2 position, Texture2D texture, int width, int height, int screenWidth, int screenHeight)
         {
             // Set this object's speed to be 2% of the screen width and height
             this.speed = new Vector2(screenWidth * 0.02f, screenHeight * 0.02f);
             this.position = position;
             this.texture = texture;
-            this.rectangle = new Rectangle((int)(position.X - width/2), (int)(position.Y - width/2), width, height);
+			this.width = width;
+			this.height = height;
             this.active = true;
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
