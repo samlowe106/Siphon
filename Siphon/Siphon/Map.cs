@@ -61,9 +61,7 @@ namespace Siphon
                         case 2:
                             structures[r, c] = new MainStructure(new Vector2((screenWidth / 2) - ((r - 5) * sideLength), 
                                                                 (screenHeight / 2) - (c - 5) * sideLength), 
-                                                                mainStructureTexture, 
-                                                                (screenWidth / 2) - (r - 5) * sideLength, 
-                                                                (screenHeight / 2) - (c - 5) * sideLength, 
+                                                                mainStructureTexture,                                                                 
                                                                 sideLength * 2, sideLength * 2);
                             break;
                     }

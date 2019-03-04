@@ -48,24 +48,9 @@ namespace Siphon
             }
         }
 
-		public override void Draw(SpriteBatch sp)
-		{
-			
-		}
+		
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="objectComparedTo"></param>
-		/// <returns></returns>
-		public float SetAngle(int objX, int objY)
-		{
-			direction.X = objX - this.Position.X;
-			direction.Y = objY - this.Position.Y;
-
-			angle = (float)Math.Atan2(direction.Y, direction.X);
-			return angle;
-		}
+	
 
 
 	}
