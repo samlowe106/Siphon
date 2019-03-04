@@ -47,9 +47,25 @@ namespace Siphon
             }
         }
 
-        
+		public void Draw(SpriteBatch sp)
+		{
+			sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="objectComparedTo"></param>
+		/// <returns></returns>
+		public float SetAngle(int objX, int objY)
+		{
+			direction.X = objX - this.Position.X;
+			direction.Y = objY - this.Position.Y;
+
+			angle = (float)Math.Atan2(direction.Y, direction.X);
+			return angle;
+		}
 
 
-        
 	}
 }
