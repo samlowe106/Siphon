@@ -36,8 +36,8 @@ namespace Siphon
 			if (!paused)
 			{
 				player.PlayerMovement(kbState);
-				
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                player.SetAngle(mouse.X, mouse.Y);
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
 
