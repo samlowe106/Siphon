@@ -47,9 +47,9 @@ namespace Siphon
             }
         }
 
-		public void Draw(SpriteBatch sp)
+		public override void Draw(SpriteBatch sp)
 		{
-			sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+			
 		}
 
 		/// <summary>
