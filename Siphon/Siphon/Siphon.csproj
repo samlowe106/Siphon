@@ -53,6 +53,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Pistol.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="StarterEnemy.cs" />
     <Compile Include="States\EndScreen.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="States\GameManager.cs" />

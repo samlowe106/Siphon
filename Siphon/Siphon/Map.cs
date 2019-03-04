@@ -18,6 +18,8 @@ namespace Siphon
         private int screenWidth;
         private int screenHeight;
 
+		public MainStructure mainStructure;
+
         // textures
         private Texture2D mainStructureTexture;
 
@@ -32,6 +34,7 @@ namespace Siphon
 
         private void Load()
         {
+            //Load("..\\..\\..\\..\\Content\\allBases.level");
             Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
@@ -44,7 +47,7 @@ namespace Siphon
             int width = input.ReadInt32();
             structures = new Structure[height, width];
 
-            sideLength = screenHeight / height;
+            sideLength =(int)((screenHeight / height) * 0.8);
 
             for (int r = 0; r < height; r++)
             {
@@ -56,14 +59,19 @@ namespace Siphon
                             structures[r, c] = null;
                             break;
                         case 1:
-                            //structures[r, c] = TURRET
-                            break;
+							structures[r, c] = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4.5) * sideLength), 
+							(int)((screenHeight / 2) - (c - 4.5) * sideLength)), 
+                                                                mainStructureTexture, 
+                                                                sideLength, sideLength);
+							break;
                         case 2:
-                            structures[r, c] = new MainStructure(new Vector2((screenWidth / 2) - ((r - 5) * sideLength), 
-                                                                (screenHeight / 2) - (c - 5) * sideLength), 
+                            mainStructure = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4) * sideLength), 
+                                                                (int)((screenHeight / 2) - (c - 4) * sideLength)), 
                                                                 mainStructureTexture, 
                                                                 sideLength * 2, sideLength * 2);
-                            break;
+							structures[r, c] = mainStructure;
+
+							break;
                     }
                 }
             }
@@ -87,5 +95,6 @@ namespace Siphon
             }
         }
 
+		
     }
 }

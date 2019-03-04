@@ -6,31 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 namespace Siphon
 {
-    /// <summary>
-    /// Abstract class from which other enemies will inherit. Inherits from GameObject and implements IDamageable
-    /// </summary>
-	abstract class Enemy : GameObject, IDamageable, IDealDamage
-	{
-        #region Fields
-        protected MainStructure mainStructure;
-        protected float armorRating;
-        protected int currentHealth;
-        protected int maxHealth;
-        protected int damage;
-        protected double distanceToStructure;
-        protected Vector2 structureDistanceVector;
-       
-        #endregion
+    class StarterEnemy : Enemy
+    {
 
-        #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int width, int height,
+
+        public StarterEnemy(Vector2 position, Texture2D texture, int width, int height,
             int screenWidth, int screenHeight, MainStructure mainStructure)
-            : base(position, texture, width, height, screenWidth, screenHeight)
+            : base(position, texture, width, height, screenWidth, screenHeight, mainStructure)
         {
-            this.mainStructure = mainStructure;
             this.armorRating = 0f; // we may decide to change this default value later
             // TODO: initialize maxHealth to a default value
             this.currentHealth = this.maxHealth;
@@ -46,10 +31,8 @@ namespace Siphon
             //  where this enemy moves and how fast it moves there
             speed = structureDistanceVector;
             speed.Normalize();
-            
-        }                             
-        #endregion
 
+        }
         #region Methods
         /// <summary>
         /// Performs a basic damage calculation
@@ -82,8 +65,8 @@ namespace Siphon
             }
         }
 
-        
-        
+
+
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
@@ -93,6 +76,8 @@ namespace Siphon
             {
                 // Normalize the resultant vector: mainStructure.Position - this.Position;
                 // Update: distanceToStructure -= 
+                position += speed;
+
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else
@@ -100,52 +85,6 @@ namespace Siphon
                 this.DealDamage(mainStructure);
             }
             base.Update();
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Amount of health that this object currently has
-        /// </summary>
-        public int CurrentHealth
-        {
-            get
-            {
-                return currentHealth;
-            }
-        }
-
-        /// <summary>
-        /// Maximum amount of health this object can have
-        /// </summary>
-        public int MaximumHealth
-        {
-            get
-            {
-                return maxHealth;
-            }
-        }
-
-        /// <summary>
-        /// Percentage of damage mitigated by this object
-        /// </summary>
-        public float ArmorRating
-        {
-            get
-            {
-                return armorRating;
-            }
-        }
-
-        /// <summary>
-        /// Amount of damage that this object deals per hit
-        /// </summary>
-        public int Damage
-        {
-            get
-            {
-                return damage;
-            }
         }
         #endregion
     }
