@@ -24,6 +24,7 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
+        private List<Enemy> enemies;
 
         // constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
@@ -56,6 +57,12 @@ namespace Siphon
 				player.PlayerMovement(kbState);
                 player.SetAngle(mouse.X, mouse.Y);
 
+                //Enemey update
+                foreach(Enemy e in enemies)
+                {
+                    e.Update();
+                }
+
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
@@ -78,9 +85,13 @@ namespace Siphon
 			player.Draw(sp);
 			backButton.Draw(sp);
             map.Draw(sp);
-
-			// draws when paused
-			if (paused)
+            //Enemeies Draw
+            foreach (Enemy e in enemies)
+            {
+                e.Draw(sp);
+            }
+            // draws when paused
+            if (paused)
 			{
 				// TODO pause menu
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);

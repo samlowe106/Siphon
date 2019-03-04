@@ -22,6 +22,7 @@ namespace Siphon
         protected int damage;
         double distanceToStructure;
         Vector2 structureDistanceVector;
+        Vector2 speed;
         #endregion
 
         #region Constructor
@@ -42,6 +43,9 @@ namespace Siphon
 
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
+            speed = structureDistanceVector;
+            speed.Normalize();
+            
         }                             
         #endregion
 
@@ -77,6 +81,8 @@ namespace Siphon
             }
         }
 
+        
+        
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
@@ -92,7 +98,6 @@ namespace Siphon
             {
                 this.DealDamage(mainStructure);
             }
-
             base.Update();
         }
         #endregion
