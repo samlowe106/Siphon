@@ -19,9 +19,9 @@ namespace Siphon
 		public MenuManager(Texture2D startButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight)
 		{
 			startButton = new Button(startButtonTexture,
-										new Rectangle((int)(screenWidth * 0.1), 
+										new Rectangle((int)(screenWidth * 0.2), 
 										(int)(screenHeight * 0.1), 
-										(int)(screenWidth * 0.8), 
+										(int)(screenWidth * 0.6), 
 										(int)(screenHeight * 0.2)), 
 										gameState.Game, 
 										stack);

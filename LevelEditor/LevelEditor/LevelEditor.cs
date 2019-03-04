@@ -86,6 +86,8 @@ namespace LevelEditor
 			Stream inStream = File.OpenRead(filePath);
 			BinaryReader input = new BinaryReader(inStream);
 
+            Console.WriteLine(filePath);
+
 			height = input.ReadInt32();
 			width = input.ReadInt32();
 			boxs = new PictureBox[height, width];
