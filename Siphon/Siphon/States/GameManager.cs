@@ -62,10 +62,10 @@ namespace Siphon
                 player.SetAngle(mouse.X, mouse.Y);
 
                 //Enemey update
-                foreach(Enemy e in enemies)
+                /*foreach(Enemy e in enemies)
                 {
                     e.Update();
-                }
+                }*/
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
@@ -89,12 +89,14 @@ namespace Siphon
 			player.Draw(sp);
 			backButton.Draw(sp);
             map.Draw(sp);
-            //Enemeies Draw
-            foreach (Enemy e in enemies)
+            
+			//Enemeies Draw
+            /*foreach (Enemy e in enemies)
             {
-                e.Draw(sp);
-            }
-            // draws when paused
+				e.Draw(sp);
+            }*/
+
+            //draws when paused
             if (paused)
 			{
 				// TODO pause menu

@@ -62,7 +62,7 @@ namespace Siphon
 
 		public override void Draw(SpriteBatch sp)
 		{
-			//sp.Draw(texture, )
+			sp.Draw(texture, rectangle, Color.White);
 		}
 		#endregion
 
