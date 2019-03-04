@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bullet.cs" />
+    <Compile Include="BulletManager.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Pistol.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="StarterEnemy.cs" />
     <Compile Include="States\EndScreen.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="States\GameManager.cs" />

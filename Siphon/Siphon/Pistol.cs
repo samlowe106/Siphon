@@ -11,5 +11,11 @@ namespace Siphon
     /// </summary>
 	class Pistol : Weapon
 	{
+        public Pistol()
+        {
+            
+        }
+
+        
 	}
 }
