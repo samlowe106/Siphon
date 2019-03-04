@@ -57,8 +57,8 @@ namespace Siphon
             if (this.active)
             {
 
-                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI/2)), origin, 1f, SpriteEffects.None, 1f);
-                /*sp.Draw(texture,
+                
+                sp.Draw(texture,
                     rectangle,
                     null,
                     Color.White,
@@ -66,7 +66,7 @@ namespace Siphon
                     origin,                    
                     SpriteEffects.None,
                     0);
-                    */
+                    
                
                 
             }
