@@ -17,23 +17,24 @@ namespace Siphon
         #region Fields
         protected MainStructure mainStructure;
         protected float armorRating;
-        protected int currentHealth;
-        protected int maxHealth;
+        protected float currentHealth;
+        protected float maxHealth;
         protected int damage;
         protected double distanceToStructure;
         protected Vector2 structureDistanceVector;
-       
         #endregion
 
         #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int width, int height,
-            int screenWidth, int screenHeight, MainStructure mainStructure)
+            int screenWidth, int screenHeight, MainStructure mainStructure, float maxHealth)
             : base(position, texture, width, height, screenWidth, screenHeight)
         {
             this.mainStructure = mainStructure;
-            this.armorRating = 0f; // we may decide to change this default value later
-            // TODO: initialize maxHealth to a default value
-            this.currentHealth = this.maxHealth;
+            this.armorRating = 0f;
+
+            this.maxHealth = maxHealth;
+
+            this.currentHealth = maxHealth;
 
             // Set this enemy to face the main structure
             this.SetAngle((int)mainStructure.Position.X, (int)mainStructure.Position.Y);
@@ -56,7 +57,7 @@ namespace Siphon
         /// </summary>
         /// <param name="damage"></param>
         /// <returns></returns>
-        public int TakeDamage(int damage)
+        public float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
             currentHealth = -(int)((float)damage * (100f - armorRating));
@@ -82,8 +83,6 @@ namespace Siphon
             }
         }
 
-        
-        
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
@@ -107,7 +106,7 @@ namespace Siphon
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
-        public int CurrentHealth
+        public float CurrentHealth
         {
             get
             {
@@ -118,7 +117,7 @@ namespace Siphon
         /// <summary>
         /// Maximum amount of health this object can have
         /// </summary>
-        public int MaximumHealth
+        public float MaximumHealth
         {
             get
             {
