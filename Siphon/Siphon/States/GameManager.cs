@@ -86,9 +86,10 @@ namespace Siphon
 
 		public void Draw(SpriteBatch sp)
 		{
+			map.Draw(sp);
 			player.Draw(sp);
 			backButton.Draw(sp);
-            map.Draw(sp);
+            
             
 			//Enemeies Draw
             foreach (Enemy e in enemies)

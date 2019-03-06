@@ -79,5 +79,5 @@ namespace LevelEditor
 				editor.Show();
 			}
 		}
-	}
+    }
 }

@@ -34,8 +34,8 @@ namespace Siphon
 
         private void Load()
         {
-            //Load("..\\..\\..\\..\\Content\\allBases.level");
-            Load("..\\..\\..\\..\\Content\\empty.level");
+            Load("..\\..\\..\\..\\Content\\allBases.level");
+            //Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)
@@ -45,13 +45,18 @@ namespace Siphon
 
             int height = input.ReadInt32();
             int width = input.ReadInt32();
+            //set enemy health to input.ReadInt32()
+            //set enemy damage to input.ReadInt32()
+            //set turret health to input.ReadInt32()
+            //set enemy damage to input.ReadInt32()
+            //set main structure health to input.ReadInt32()
             structures = new Structure[height, width];
 
             sideLength =(int)((screenHeight / height) * 0.8);
 
-            for (int r = 0; r < height; r++)
+            for (int r = height - 1; r >= 0; r--)
             {
-                for (int c = 0; c < width; c++)
+                for (int c = width - 1; c <= 0; c--)
                 {
                     switch (input.ReadInt32())
                     {
