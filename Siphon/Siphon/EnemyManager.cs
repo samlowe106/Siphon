@@ -22,6 +22,9 @@ namespace Siphon
         bool stageClear;
         MainStructure mainStructure;
 
+        int screenWidth;
+        int screenHeight;
+
         double timeUnitilNextWave;
 
         // Starter enemy's texture
@@ -29,12 +32,14 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, MainStructure mainStructure)
+        public EnemyManager(Texture2D startTexture, MainStructure mainStructure, int screenWidth, int screenHeight)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
             this.mainStructure = mainStructure;
             this.activeEnemies = new List<Enemy>();
+            this.screenWidth = screenWidth;
+            this.screenHeight = screenHeight;
         }
         #endregion
 
@@ -45,8 +50,24 @@ namespace Siphon
             ++waveNumber;
             // Set the amount of time until the next wave
             //timeUntilNextWave = SOMETHING;
+            
             // Get coords for the next enemy to be spawned in
-            Vector2 enemyCoords = new Vector2(generator.Next(), generator.Next()); // need to add bounds
+            int xCoord = generator.Next(0, 101);
+            // 50% chance that the enemy will spawn on the right
+            if (xCoord > 50)
+            {
+                // make the enemy spawn on the right
+                xCoord = screenWidth - xCoord;
+            }
+
+            int yCoord = generator.Next(0, 101);
+            // 50% chance that the enemy will spawn on the bottom of the screen
+            if (xCoord > 50)
+            {
+                yCoord = screenWidth - yCoord;
+            }
+
+            Vector2 enemyCoords = new Vector2(xCoord, yCoord);
             // Spawn in 3 additional enemies per wave
             for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
             {

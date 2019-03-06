@@ -39,7 +39,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
 
             // Bullet manager
-            //bulletManager = new BulletManager();
+            // bulletManager = new BulletManager();
 
             // Enemy manager
             //enemyManager = new EnemyManager(, mainStructure);
