@@ -43,8 +43,8 @@ namespace Siphon
 
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
-            speed = distanceToStructure;
-            speed.Normalize();
+            this.speed = distanceToStructure;
+            this.speed.Normalize();
         }                             
         #endregion
 
@@ -85,10 +85,11 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            if (distanceToStructure.X > 0 || distanceToStructure.Y > 0)
+            if (!mainStructure.rectangle.Contains(this.rectangle))
             {
                 // Normalize the resultant vector: mainStructure.Position - this.Position;
                 // Update: distanceToStructure -= 
+                position += speed;
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else
