@@ -15,7 +15,6 @@ namespace Siphon
 	abstract class GameObject : IDisplayable
 	{
         #region Fields
-
         // MonoGame-relevant fields
         protected Vector2 position;
         protected Texture2D texture;

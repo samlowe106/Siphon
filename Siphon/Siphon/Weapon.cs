@@ -15,23 +15,21 @@ namespace Siphon
     abstract class Weapon : IDisplayable
     {
         #region Fields
-        Vector2 position;
-        Texture2D texture;
-        Rectangle rectangle;
-        BulletManager manager;
-        int damage;
-        float fireDelay; // delay (in seconds) between firing shots
-        bool active;
+        protected Vector2 position;
+        protected Texture2D texture;
+        protected Rectangle rectangle;
+        protected BulletManager manager;
+        protected int damage;
+        protected float fireDelay; // delay (in seconds) between firing shots
+        protected bool active;
         #endregion
 
         #region Constructor
-
         public Weapon(BulletManager manager)
         {
             this.manager = manager;
             active = true;
         }
-
         #endregion
 
         #region Methods
@@ -54,10 +52,9 @@ namespace Siphon
         }
 
         /// <summary>
-        /// Virtual update method to be called by the manager
+        /// Virtual update method
         /// </summary>
         public virtual void Update() { }
-
         #endregion
 
         #region Properties
