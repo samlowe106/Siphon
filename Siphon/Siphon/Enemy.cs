@@ -47,7 +47,6 @@ namespace Siphon
             //  where this enemy moves and how fast it moves there
             speed = structureDistanceVector;
             speed.Normalize();
-            
         }                             
         #endregion
 

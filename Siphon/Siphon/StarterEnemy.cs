@@ -14,19 +14,21 @@ namespace Siphon
             int screenWidth, int screenHeight, MainStructure mainStructure)
             : base(position, texture, screenWidth/20, screenWidth, screenHeight, mainStructure, 5f)
         {
+            // Set this enemy to do one damage per hit
+            this.damage = 1;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
             speed = structureDistanceVector;
             speed.Normalize();
-
         }
+
         #region Methods
         /// <summary>
         /// Performs a basic damage calculation
         /// </summary>
         /// <param name="damage"></param>
         /// <returns></returns>
-        public int TakeDamage(int damage)
+        public float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
             currentHealth = -(int)((float)damage * (100f - armorRating));
@@ -38,21 +40,6 @@ namespace Siphon
             }
             return currentHealth - damage;
         }
-
-        /// <summary>
-        /// Deals this object's damage to a specified target
-        /// </summary>
-        /// <param name="target">Damageable target</param>
-        public void DealDamage(IDamageable target)
-        {
-            // Deal damage to the specified enemy
-            if (this.active)
-            {
-                target.TakeDamage(this.damage);
-            }
-        }
-
-
 
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there

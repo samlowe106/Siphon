@@ -22,21 +22,21 @@ namespace Siphon
         {
             // The player's starting weapon will just be a pistol
             this.currentWeapon = new Pistol(manager);
-            
         }
 
-        //Player Movement Method that will be called in the update method
+        /// <summary>
+        /// Player Movement Method that will be called in the update method
+        /// </summary>
+        /// <param name="current">Current keyboard state to be tested</param>
         public void PlayerMovement(KeyboardState current)
         {
             if (current.IsKeyDown(Keys.W))
             {
                 position = new Vector2(position.X, position.Y - 3);
-
             }
             if (current.IsKeyDown(Keys.A))
             {
                 position = new Vector2(position.X - 3, position.Y);
-
             }
             if (current.IsKeyDown(Keys.S))
             {
@@ -45,14 +45,7 @@ namespace Siphon
             if (current.IsKeyDown(Keys.D))
             {
                 position = new Vector2(position.X + 3, position.Y);
-
             }
         }
-
-		
-
-	
-
-
 	}
 }
