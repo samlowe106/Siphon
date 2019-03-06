@@ -18,8 +18,8 @@ namespace Siphon
 
         // Position vector should be predetermined so the main structure always spawns in the center of the screen
 
-        public MainStructure(Vector2 position, Texture2D texture, int width, int height)
-            : base(position, texture, width, height)
+        public MainStructure(Vector2 position, Texture2D texture, int dimension)
+            : base(position, texture, dimension)
         {
             
         }

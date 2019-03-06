@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace Siphon
 {
     /// <summary>
-    /// Abstract class from which other enemies will inherit. Inherits from GameObject and implements IDamageable
+    /// Abstract class from which other enemies will inherit
     /// </summary>
 	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
@@ -25,15 +25,15 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int width, int height,
+        public Enemy(Vector2 position, Texture2D texture, int dimension,
             int screenWidth, int screenHeight, MainStructure mainStructure, float maxHealth)
-            : base(position, texture, width, height, screenWidth, screenHeight)
+            : base(position, texture, dimension, screenWidth, screenHeight)
         {
+            // Set this enemy to know where the main structure is
             this.mainStructure = mainStructure;
+            // Set armor rating and health health
             this.armorRating = 0f;
-
             this.maxHealth = maxHealth;
-
             this.currentHealth = maxHealth;
 
             // Set this enemy to face the main structure
