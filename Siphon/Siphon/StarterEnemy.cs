@@ -18,7 +18,7 @@ namespace Siphon
             //  where this enemy moves and how fast it moves there
             speed = structureDistanceVector;
             speed.Normalize();
-
+            speed *= 4;
         }
         #region Methods
         /// <summary>
@@ -26,32 +26,7 @@ namespace Siphon
         /// </summary>
         /// <param name="damage"></param>
         /// <returns></returns>
-        public int TakeDamage(int damage)
-        {
-            // Calculates % of damage that will still go through, and reduces current health by that amount
-            currentHealth = -(int)((float)damage * (100f - armorRating));
-            // If this object has health less than or equal to zero, mark it as dead
-            if (currentHealth <= 0)
-            {
-                active = false;
-                // trigger the on-death event
-            }
-            return (int)(currentHealth - damage);
-        }
-
-        /// <summary>
-        /// Deals this object's damage to a specified target
-        /// </summary>
-        /// <param name="target">Damageable target</param>
-        public void DealDamage(IDamageable target)
-        {
-            // Deal damage to the specified enemy
-            if (this.active)
-            {
-                target.TakeDamage(this.damage);
-            }
-        }
-
+        
 
 
         /// <summary>

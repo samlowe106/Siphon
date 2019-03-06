@@ -69,8 +69,16 @@ namespace Siphon
 
 		float IDamageable.TakeDamage(int damage)
 		{
-			throw new NotImplementedException();
-		}
+            // Calculates % of damage that will still go through, and reduces current health by that amount
+            currentHealth = -(int)((float)damage * (100f - armorRating));
+            // If this object has health less than or equal to zero, mark it as dead
+            if (currentHealth <= 0)
+            {
+                active = false;
+                // trigger the on-death event
+            }
+            return currentHealth - damage;
+        }
 		#endregion
 
 		#region Properties

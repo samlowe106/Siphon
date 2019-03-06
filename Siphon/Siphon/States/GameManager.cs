@@ -43,8 +43,8 @@ namespace Siphon
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
             //Enemy test
-            //StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, screenWidth, screenHeight, map.mainStructure);
-            //enemies.Add(enemy1);
+            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, screenWidth, screenHeight, map.mainStructure);
+            enemies.Add(enemy1);
 
 
 		}
