@@ -29,7 +29,7 @@ namespace Siphon
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
         public Bullet(Texture2D texture, int screenWidth, int screenHeight)
-            : base (new Vector2(0, 0), texture, 5, screenWidth, screenHeight)
+            : base (new Vector2(0, 0), texture, 5, new Vector2(6,6))
         {
         }
         #endregion

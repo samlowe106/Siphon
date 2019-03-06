@@ -20,14 +20,13 @@ namespace Siphon
         protected float currentHealth;
         protected float maxHealth;
         protected int damage;
-        protected double distanceToStructure;
-        protected Vector2 structureDistanceVector;
+        protected Vector2 distanceToStructure;
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int dimension,
-            int screenWidth, int screenHeight, MainStructure mainStructure, float maxHealth)
-            : base(position, texture, dimension, screenWidth, screenHeight)
+        public Enemy(Vector2 position, Texture2D texture, int dimensions,
+            Vector2 speed, MainStructure mainStructure, float maxHealth)
+            : base(position, texture, dimensions, speed)
         {
             // Set this enemy to know where the main structure is
             this.mainStructure = mainStructure;
@@ -39,16 +38,13 @@ namespace Siphon
             // Set this enemy to face the main structure
             this.SetAngle((int)mainStructure.Position.X, (int)mainStructure.Position.Y);
 
-            // Keep track of the distance from this enemy to the main structure as a vector
-            //  that way, we can decide where to move this enemy
-            this.structureDistanceVector = GetDistanceVector(mainStructure);
+            // Get the distance from this structure to the main one
+            distanceToStructure = this.GetDistanceVector(mainStructure);
 
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
-            speed = structureDistanceVector;
+            speed = distanceToStructure;
             speed.Normalize();
-            
-            
         }                             
         #endregion
 
@@ -61,7 +57,7 @@ namespace Siphon
         public float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
-            currentHealth = -(int)((float)damage * (100f - armorRating));
+            currentHealth =- (int)((float)damage * (100f - armorRating));
             // If this object has health less than or equal to zero, mark it as dead
             if (currentHealth <= 0)
             {
@@ -89,13 +85,10 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            position += speed;
-            if (distanceToStructure > 0)
+            if (distanceToStructure.X > 0 || distanceToStructure.Y > 0)
             {
                 // Normalize the resultant vector: mainStructure.Position - this.Position;
                 // Update: distanceToStructure -= 
-                position += speed;
-
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else

@@ -36,17 +36,15 @@ namespace Siphon
 		/// </summary>
 		/// <param name="position">The position of the GameObject's center</param>
 		/// <param name="texture">The GameObject's texture</param>
-		/// <param name="dimension">The width and height of this enemy</param>
-		/// <param name="screenWidth">The screen width</param>
-		/// <param name="screenHeight">The screen height</param>
-		public GameObject(Vector2 position, Texture2D texture, int dimension, int screenWidth, int screenHeight)
+		/// <param name="dimensions">The width and height of this enemy</param>
+		/// <param name="speed">How many pixels this object can move</param>
+		public GameObject(Vector2 position, Texture2D texture, int dimensions, Vector2 speed)
         {
-            // Set this object's speed to be 2% of the screen width and height
-            this.speed = new Vector2(screenWidth * 0.02f, screenHeight * 0.02f);
+            this.speed = speed;
             this.position = position;
             this.texture = texture;
-			this.width = dimension;
-			this.height = dimension;
+			this.width = dimensions;
+			this.height = dimensions;
             this.active = true;
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
