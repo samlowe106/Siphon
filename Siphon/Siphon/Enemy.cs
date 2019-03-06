@@ -85,7 +85,7 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            if (!mainStructure.rectangle.Contains(this.rectangle))
+            if (!(mainStructure.Rectangle.Contains(this.rectangle)))
             {
                 // Normalize the resultant vector: mainStructure.Position - this.Position;
                 // Update: distanceToStructure -= 

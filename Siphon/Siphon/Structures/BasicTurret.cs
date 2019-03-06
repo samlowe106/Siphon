@@ -121,7 +121,7 @@ namespace Siphon
 				case TurretState.idle:
 					//sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White);
 
-                    sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(), SpriteEffects.None, 1f);
+                    sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
 
                     //sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
                     break;
