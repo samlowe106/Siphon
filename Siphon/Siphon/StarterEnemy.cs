@@ -36,7 +36,7 @@ namespace Siphon
                 active = false;
                 // trigger the on-death event
             }
-            return currentHealth - damage;
+            return (int)(currentHealth - damage);
         }
 
         /// <summary>

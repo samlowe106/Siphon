@@ -37,14 +37,14 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
 
 			// player
-			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, screenWidth, screenHeight);
+			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, screenWidth, screenHeight, new BulletManager(bulletTexture, screenWidth, screenHeight));
 
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
             //Enemy test
-            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, 20, 20, screenWidth, screenHeight, map.mainStructure);
-            enemies.Add(enemy1);
+            //StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, screenWidth, screenHeight, map.mainStructure);
+            //enemies.Add(enemy1);
 
 
 		}

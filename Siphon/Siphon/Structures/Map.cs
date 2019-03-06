@@ -38,8 +38,8 @@ namespace Siphon
 
         private void Load()
         {
-            Load("..\\..\\..\\..\\Content\\allBases.level");
-            //Load("..\\..\\..\\..\\Content\\empty.level");
+            //Load("..\\..\\..\\..\\Content\\allBases.level");
+            Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)
@@ -58,9 +58,9 @@ namespace Siphon
 
             sideLength =(int)((screenHeight / height) * 0.8);
 
-            for (int r = height - 1; r >= 0; r--)
+            for (int r = 0; r < height; r++)
             {
-                for (int c = width - 1; c <= 0; c--)
+                for (int c = 0; c < width; c++)
                 {
                     switch (input.ReadInt32())
                     {
@@ -69,16 +69,17 @@ namespace Siphon
                             break;
                         case 1:
 							structures[r, c] = new BasicTurret(new Vector2(
-																(int)((screenWidth / 2) - (r - 4.5) * sideLength), 
-																(int)((screenHeight / 2) - (c - 4.5) * sideLength)), 
+																(int)((screenWidth / 2) - ((9 - r) - 4.5) * sideLength), 
+																(int)((screenHeight / 2) - ((9 - c) - 4.5) * sideLength)), 
                                                                 turretTexture, bulletTexture,
-                                                                sideLength, sideLength);
+                                                                sideLength);
 							break;
                         case 2:
-                            mainStructure = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4) * sideLength), 
-                                                                (int)((screenHeight / 2) - (c - 4) * sideLength)), 
+                            mainStructure = new MainStructure(new Vector2(
+																(int)((screenWidth / 2) - ((9 - r) - 5) * sideLength), 
+                                                                (int)((screenHeight / 2) - ((9 - c) - 5) * sideLength)), 
                                                                 mainStructureTexture, 
-                                                                sideLength * 2, sideLength * 2);
+                                                                sideLength * 2);
 							structures[r, c] = mainStructure;
 
 							break;

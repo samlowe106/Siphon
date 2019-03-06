@@ -35,8 +35,8 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, int width, int height)
-			: base(position, texture, width, height)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, int dimension)
+			: base(position, texture, dimension)
 		{
 			counter1 = 0;
 			drawCounter = 0f;

@@ -66,6 +66,11 @@ namespace Siphon
 		}
 
 		public virtual void Update(List<Enemy> enemies) { }
+
+		float IDamageable.TakeDamage(int damage)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 
 		#region Properties
@@ -101,6 +106,10 @@ namespace Siphon
                 return armorRating;
             }
         }
-        #endregion
-    }
+
+		float IDamageable.MaximumHealth => throw new NotImplementedException();
+
+		float IDamageable.CurrentHealth => throw new NotImplementedException();
+		#endregion
+	}
 }
