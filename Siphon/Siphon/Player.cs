@@ -16,11 +16,9 @@ namespace Siphon
 	{
         Weapon currentWeapon;
         
-        public Player(Vector2 position, Texture2D texture, int dimensions, BulletManager manager)
+        public Player(Vector2 position, Texture2D texture, int dimensions)
             : base(position, texture, dimensions, new Vector2(3, 3))
         {
-            // The player's starting weapon will just be a pistol
-            this.currentWeapon = new Pistol(manager);
         }
 
         /// <summary>
@@ -46,5 +44,23 @@ namespace Siphon
                 position = new Vector2(position.X + speed.X, position.Y);
             }
         }
-	}
+
+        #region Properties
+        /// <summary>
+        /// The weapon that this player object holds
+        /// </summary>
+        public Weapon CurrentWeapon
+        {
+            get
+            {
+                return currentWeapon;
+            }
+            set
+            {
+                currentWeapon = value;
+                currentWeapon.Holder = this;
+            }
+        }
+        #endregion
+    }
 }

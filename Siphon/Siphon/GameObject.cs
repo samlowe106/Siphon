@@ -25,9 +25,7 @@ namespace Siphon
         protected float angle;
         protected Vector2 origin;
         protected Vector2 speed;
-
-		// properties
-		public Rectangle rectangle { get { return (new Rectangle((int)(position.X - width/2), (int) (position.Y - width/2), width, height)); } }
+        protected Rectangle rectangle;
 		#endregion
 
 		#region Constructor
@@ -47,6 +45,7 @@ namespace Siphon
 			this.height = dimensions;
             this.active = true;
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - width / 2), width, height);
         }
         #endregion
 
@@ -59,7 +58,6 @@ namespace Siphon
         {
             if (this.active)
             {
-
                 sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
 
                 /*sp.Draw(texture,
@@ -70,9 +68,6 @@ namespace Siphon
                     origin,                    
                     SpriteEffects.None,
                     0); */
-                    
-               
-                
             }
         }
 
@@ -111,7 +106,16 @@ namespace Siphon
         #endregion
 
         #region Properties
-
+        /// <summary>
+        /// This object's rectangle
+        /// </summary>
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return rectangle;
+            }
+        }
 
         /// <summary>
         /// Whether this object should be drawn to the screen or not
