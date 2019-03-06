@@ -64,6 +64,8 @@ namespace Siphon
 		{
 			sp.Draw(texture, rectangle, Color.White);
 		}
+
+		public virtual void Update(List<Enemy> enemies) { }
 		#endregion
 
 		#region Properties

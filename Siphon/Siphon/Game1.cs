@@ -43,6 +43,8 @@ namespace Siphon
 		Texture2D startButtonTexture;
 		Texture2D backButtonTexture;
         Texture2D arrow;
+        Texture2D turret;
+        Texture2D bullet;
 
 		// sprite fonts 
 		SpriteFont Arial12;
@@ -76,13 +78,15 @@ namespace Siphon
 			startButtonTexture = Content.Load<Texture2D>("start");
 			backButtonTexture = Content.Load<Texture2D>("back");
 			arrow = Content.Load<Texture2D>("Arrow");
+			turret = Content.Load<Texture2D>("Turret");
+			bullet = Content.Load<Texture2D>("bullet");
 			Arial12 = Content.Load<SpriteFont>("Arial12");
 
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(arrow, backButtonTexture, screenWidth, screenHeight, state, Arial12);
+			gameManager = new GameManager(arrow, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12);
 			
             
             base.Initialize();

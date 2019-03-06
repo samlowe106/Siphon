@@ -27,14 +27,14 @@ namespace Siphon
         private List<Enemy> enemies= new List<Enemy>();
 
         // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
+		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
 		{
 			// base values
 			paused = false;
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture);
+            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
 
 			// player
 			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, screenWidth, screenHeight);
@@ -55,7 +55,7 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update();
+                map.Update(null); // put list of enemies in update
 
                 //Player Updates
 				player.PlayerMovement(kbState);
