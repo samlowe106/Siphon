@@ -21,8 +21,6 @@ namespace Siphon
         Random generator;
         bool stageClear;
         MainStructure mainStructure;
-        int screenWidth;
-        int screenHeight;
 
         double timeUnitilNextWave;
 
@@ -31,13 +29,12 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, int screenWidth, int screenHeight, MainStructure mainStructure)
+        public EnemyManager(Texture2D startTexture, MainStructure mainStructure)
         {
-            generator = new Random();
+            this.generator = new Random();
             this.startTexture = startTexture;
             this.mainStructure = mainStructure;
-            this.screenWidth = screenWidth;
-            this.screenHeight = screenHeight;
+            this.activeEnemies = new List<Enemy>();
         }
         #endregion
 
@@ -53,7 +50,7 @@ namespace Siphon
             // Spawn in 3 additional enemies per wave
             for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
             {
-                activeEnemies.Add(new StarterEnemy(enemyCoords, startTexture, screenWidth, screenHeight, mainStructure));
+                activeEnemies.Add(new StarterEnemy(enemyCoords, startTexture, mainStructure));
             }
         }
 

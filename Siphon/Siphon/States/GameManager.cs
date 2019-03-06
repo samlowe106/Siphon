@@ -25,6 +25,8 @@ namespace Siphon
 		private SpriteFont Arial12;
         private Map map;
         private List<Enemy> enemies= new List<Enemy>();
+        private BulletManager bulletManager;
+        private EnemyManager enemyManager;
 
         // constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
@@ -36,14 +38,20 @@ namespace Siphon
             // map
             map = new Map(screenWidth, screenHeight, backButtonTexture);
 
+            // Bullet manager
+            //bulletManager = new BulletManager();
+
+            // Enemy manager
+            //enemyManager = new EnemyManager(, mainStructure);
+
 			// player
-			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, screenWidth, screenHeight);
+			player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, bulletManager);
 
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
             //Enemy test
-            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, 20, 20, screenWidth, screenHeight, map.mainStructure);
+            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
             enemies.Add(enemy1);
 
 

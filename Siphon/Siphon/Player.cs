@@ -16,9 +16,8 @@ namespace Siphon
 	{
         Weapon currentWeapon;
         
-        public Player(Vector2 position, Texture2D texture, int dimension, int screenWidth,
-            int screenHeight, BulletManager manager)
-            : base(position, texture, dimension, screenWidth, screenHeight)
+        public Player(Vector2 position, Texture2D texture, int dimensions, BulletManager manager)
+            : base(position, texture, dimensions, new Vector2(3, 3))
         {
             // The player's starting weapon will just be a pistol
             this.currentWeapon = new Pistol(manager);
@@ -32,19 +31,19 @@ namespace Siphon
         {
             if (current.IsKeyDown(Keys.W))
             {
-                position = new Vector2(position.X, position.Y - 3);
+                position = new Vector2(position.X, position.Y - speed.Y);
             }
             if (current.IsKeyDown(Keys.A))
             {
-                position = new Vector2(position.X - 3, position.Y);
+                position = new Vector2(position.X - speed.X, position.Y);
             }
             if (current.IsKeyDown(Keys.S))
             {
-                position = new Vector2(position.X, position.Y + 3);
+                position = new Vector2(position.X, position.Y + speed.Y);
             }
             if (current.IsKeyDown(Keys.D))
             {
-                position = new Vector2(position.X + 3, position.Y);
+                position = new Vector2(position.X + speed.X, position.Y);
             }
         }
 	}
