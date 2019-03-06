@@ -56,7 +56,7 @@ namespace Siphon
         public void Update()
         {
             // Loop over each bullet, updating them
-            for (int i = 0; i < activeBullets.Count; ++i)
+            for (int i = activeBullets.Count - 1; i > -1; --i)
             {
                 activeBullets[i].Update();
                 // If the bullet isn't active (it's collided with something),

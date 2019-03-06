@@ -11,9 +11,11 @@ namespace Siphon
     /// </summary>
 	class Pistol : Weapon
 	{
-        public Pistol()
+        public Pistol(BulletManager manager)
+            : base(manager)
         {
-            
+            this.damage = 1;
+            this.fireDelay = 0.5f;
         }
 
         

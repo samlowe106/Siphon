@@ -19,18 +19,18 @@ namespace Siphon
         /// <summary>
         /// Maximum amount of health that this object can have
         /// </summary>
-        int MaximumHealth { get; }
+        float MaximumHealth { get; }
 
         /// <summary>
         /// Amount of health that this currently object has
         /// </summary>
-        int CurrentHealth { get; }
+        float CurrentHealth { get; }
 
         /// <summary>
         /// Function that causes this object to take damage
         /// </summary>
         /// <param name="damage">Amount of damage dealt</param>
         /// <returns>Amount of damage taken by this object after damage is calculated</returns>
-        int TakeDamage(int damage);
+        float TakeDamage(int damage);
 	}
 }

@@ -49,6 +49,11 @@ namespace Siphon
 
             int height = input.ReadInt32();
             int width = input.ReadInt32();
+            //set enemy health to input.ReadInt32()
+            //set enemy damage to input.ReadInt32()
+            //set turret health to input.ReadInt32()
+            //set enemy damage to input.ReadInt32()
+            //set main structure health to input.ReadInt32()
             structures = new Structure[height, width];
 
             sideLength =(int)((screenHeight / height) * 0.8);
