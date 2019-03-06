@@ -29,7 +29,7 @@ namespace Siphon
 
 		// draw variables
 		private TurretState turretState;
-		private int fireState;
+		private bool fireState;
 
 		#endregion
 
@@ -42,7 +42,7 @@ namespace Siphon
 			drawCounter = 0f;
 			target = null;
 			fireRate = 0.25f;
-			fireState = 1;
+			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
 
@@ -58,8 +58,9 @@ namespace Siphon
 
 		public override void Update(List<Enemy> enemies)
 		{
-			drawCounter += timer.TotalGameTime.Milliseconds;
-			fireRate += timer.TotalGameTime.Milliseconds;
+			
+			fireRate += timer.TotalGameTime.Milliseconds / 1000f;
+            counter1++;
 
 			if (counter1 > 10)
 			{
@@ -118,22 +119,27 @@ namespace Siphon
 			switch (turretState)
 			{
 				case TurretState.idle:
-					sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White);
-					break;
+					//sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White);
+
+                    sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(), SpriteEffects.None, 1f);
+
+                    //sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+                    break;
 				case TurretState.firing:
-					sp.Draw(texture, rectangle, new Rectangle(fireState * 32, 0, 32, 32), Color.White);
+					//sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
 
-					
+                    drawCounter += (1/60f);
 
-					if (drawCounter >= 0.25)
-					{
-						drawCounter -= 0.25f;
-						if (fireState == 1)
-							fireState = 2;
-						else
-							fireState = 1;
-					}
+                    if (drawCounter >= .125f)
+                    {
+                        drawCounter = 0;
+                        fireState = !fireState;
+                    }
 
+                    if (fireState)
+                        sp.Draw(texture, rectangle, new Rectangle(64, 0, 32, 32), Color.White);
+                    else
+                        sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
 					break;
 			}
 			

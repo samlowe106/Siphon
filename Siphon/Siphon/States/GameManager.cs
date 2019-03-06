@@ -63,7 +63,7 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(null); // put list of enemies in update
+                map.Update(enemies); // put list of enemies in update
 
                 //Player Updates
 				player.PlayerMovement(kbState);

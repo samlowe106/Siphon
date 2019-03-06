@@ -20,6 +20,8 @@ namespace Siphon
 
 		public MainStructure mainStructure;
 
+        public Structure[,] Structures { get { return structures; } }
+
         // textures
         private Texture2D mainStructureTexture;
         private Texture2D turretTexture;
@@ -39,7 +41,7 @@ namespace Siphon
         private void Load()
         {
             //Load("..\\..\\..\\..\\Content\\allBases.level");
-            Load("..\\..\\..\\..\\Content\\empty.level");
+            Load("..\\..\\..\\..\\Content\\someTurrets.level");
         }
 
         private void Load(string filePath)
@@ -69,8 +71,8 @@ namespace Siphon
                             break;
                         case 1:
 							structures[r, c] = new BasicTurret(new Vector2(
-																(int)((screenWidth / 2) - ((9 - r) - 4.5) * sideLength), 
-																(int)((screenHeight / 2) - ((9 - c) - 4.5) * sideLength)), 
+																(int)((screenWidth / 2) + ((9 - r) - 4.5) * sideLength), 
+																(int)((screenHeight / 2) + ((9 - c) - 4.5) * sideLength)), 
                                                                 turretTexture, bulletTexture,
                                                                 sideLength);
 							break;
@@ -105,7 +107,5 @@ namespace Siphon
                     structure.Draw(sp);
             }
         }
-
-		
     }
 }

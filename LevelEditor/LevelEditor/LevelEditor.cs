@@ -189,9 +189,9 @@ namespace LevelEditor
 
 				output.Write(height);
 				output.Write(width);
-                output.Write(enemyHealth);
-                output.Write(enemyDamage);
-                output.Write(batteryHealth);
+                //output.Write(enemyHealth);
+                //output.Write(enemyDamage);
+                //output.Write(batteryHealth);
 
 				for (int r = 0; r < height; r++)
 				{

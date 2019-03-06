@@ -87,7 +87,7 @@
             this.widthText.Name = "widthText";
             this.widthText.Size = new System.Drawing.Size(123, 20);
             this.widthText.TabIndex = 4;
-            this.widthText.TextChanged += new System.EventHandler(this.widthText_TextChanged);
+            //this.widthText.TextChanged += new System.EventHandler(this.widthText_TextChanged);
             // 
             // label2
             // 

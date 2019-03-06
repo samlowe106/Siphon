@@ -66,7 +66,7 @@ namespace Siphon
 		public override void Draw(SpriteBatch sp)
 		{
 			sp.Draw(texture, rectangle, Color.White);
-		}
+        }
 
 		public virtual void Update(List<Enemy> enemies) { }
 
