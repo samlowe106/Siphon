@@ -22,20 +22,24 @@ namespace Siphon
 
         // textures
         private Texture2D mainStructureTexture;
+        private Texture2D turretTexture;
+        private Texture2D bulletTexture;
 
-        public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture)
+        public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.mainStructureTexture = mainStructureTexture;
+			this.turretTexture = turretTexture;
+			this.bulletTexture = bulletTexture;
 
             Load();
         }
 
         private void Load()
         {
-            Load("..\\..\\..\\..\\Content\\allBases.level");
-            //Load("..\\..\\..\\..\\Content\\empty.level");
+            //Load("..\\..\\..\\..\\Content\\allBases.level");
+            Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)
@@ -54,9 +58,9 @@ namespace Siphon
 
             sideLength =(int)((screenHeight / height) * 0.8);
 
-            for (int r = height - 1; r >= 0; r--)
+            for (int r = 0; r < height; r++)
             {
-                for (int c = width - 1; c <= 0; c--)
+                for (int c = 0; c < width; c++)
                 {
                     switch (input.ReadInt32())
                     {
@@ -64,15 +68,17 @@ namespace Siphon
                             structures[r, c] = null;
                             break;
                         case 1:
-							structures[r, c] = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4.5) * sideLength), 
-							                                    (int)((screenHeight / 2) - (c - 4.5) * sideLength)), 
-                                                                mainStructureTexture, 
+							structures[r, c] = new BasicTurret(new Vector2(
+																(int)((screenWidth / 2) - ((9 - r) - 4.5) * sideLength), 
+																(int)((screenHeight / 2) - ((9 - c) - 4.5) * sideLength)), 
+                                                                turretTexture, bulletTexture,
                                                                 sideLength);
 							break;
                         case 2:
-                            mainStructure = new MainStructure(new Vector2((int)((screenWidth / 2) - (r - 4) * sideLength), 
-                                                                (int)((screenHeight / 2) - (c - 4) * sideLength)), 
-                                                                mainStructureTexture,
+                            mainStructure = new MainStructure(new Vector2(
+																(int)((screenWidth / 2) - ((9 - r) - 5) * sideLength), 
+                                                                (int)((screenHeight / 2) - ((9 - c) - 5) * sideLength)), 
+                                                                mainStructureTexture, 
                                                                 sideLength * 2);
 							structures[r, c] = mainStructure;
 
@@ -82,12 +88,12 @@ namespace Siphon
             }
         }
 
-        public void Update()
+        public void Update(List<Enemy> enemies)
         {
             foreach (Structure structure in structures)
             {
                 if (structure != null)
-                    structure.Update();
+                    structure.Update(enemies);
             }
         }
 
