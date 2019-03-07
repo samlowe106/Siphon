@@ -17,6 +17,7 @@ namespace Siphon
         public Pistol(Texture2D texture, Player holder, BulletManager manager)
             : base(texture, holder, manager)
         {
+            this.fireType = FireType.SemiAutomatic;
             this.damage = 1;
             this.fireDelay = 0.5f;
         }

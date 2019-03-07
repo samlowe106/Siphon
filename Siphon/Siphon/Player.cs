@@ -21,6 +21,19 @@ namespace Siphon
         {
         }
 
+        public void Update(KeyboardState kbState, MouseState currentMouse, MouseState previousMouse)
+        {
+            PlayerMovement(kbState);
+            
+            // If the player is currently left clicking, shoot the gun
+            if (currentMouse.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
+            {
+                CurrentWeapon.Shoot(currentMouse, previousMouse);
+            }
+
+            base.Update();
+        }
+
         /// <summary>
         /// Player Movement Method that will be called in the update method
         /// </summary>

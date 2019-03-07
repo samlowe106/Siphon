@@ -10,6 +10,15 @@ using Microsoft.Xna.Framework.Input;
 namespace Siphon
 {
     /// <summary>
+    /// Enumeration that determines if a gun will fire if the mouse button is held down or not
+    /// </summary>
+    enum FireType
+    {
+        Automatic,
+        SemiAutomatic
+    }
+
+    /// <summary>
     /// Abstract weapon class from which other weapons will inherit
     /// </summary>
     abstract class Weapon : GameObject, IDisplayable
@@ -19,6 +28,8 @@ namespace Siphon
         protected int damage;
         protected float fireDelay; // delay (in seconds) between firing shots
         protected Player holder;
+        protected FireType fireType;
+        // time when the gun was most recently fired
         #endregion
 
         #region Constructor
@@ -32,12 +43,36 @@ namespace Siphon
 
         #region Methods
         /// <summary>
-        /// Method that spawns a bullet
+        /// Method that spawns a bullet. Semi-automatic weapons
+        /// need to check against the previous state to determine
+        /// if they should shoot or not
         /// </summary>
-        public void Shoot()
+        public void Shoot(MouseState currentMouse, MouseState previousMouse)
         {
-            // TODO
-            //manager.SpawnBullet(, damage, );
+            // Only shoot if the gun's fire rate permits shooting
+            // if (currentTime - lastTimeShot > fireRate)
+            // {
+                // Change the shooting logic if this gun is automatic or semiautomatic
+                switch (fireType)
+                {
+                    // Automatic guns can fire if held down
+                    case FireType.Automatic:
+                        if (currentMouse.LeftButton == ButtonState.Pressed)
+                        {
+                            //manager.SpawnBullet(, damage, );
+                        }
+                        break;
+
+                    // Semi-auto guns won't fire if held down
+                    case FireType.SemiAutomatic:
+                        if (currentMouse.LeftButton == ButtonState.Pressed &&
+                            previousMouse.LeftButton == ButtonState.Released)
+                        {
+                            //manager.SpawnBullet(, damage, );
+                        }
+                        break;
+                }
+            // }
         }
 
         public override void Update()
