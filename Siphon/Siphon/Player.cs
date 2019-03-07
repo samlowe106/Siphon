@@ -21,14 +21,20 @@ namespace Siphon
         {
         }
 
-        public void Update(KeyboardState kbState, MouseState currentMouse, MouseState previousMouse)
+        /// <summary>
+        /// Runs player movement function and checks to see if gun should be fired
+        /// </summary>
+        /// <param name="kbState">Current keyboard state to be tested</param>
+        /// <param name="currentMouseState">Current mouse state to be tested</param>
+        /// <param name="previousMouseState">Previous mouse state to be tested</param>
+        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
         {
             PlayerMovement(kbState);
             
             // If the player is currently left clicking, shoot the gun
-            if (currentMouse.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
+            if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
-                CurrentWeapon.Shoot(currentMouse, previousMouse);
+                CurrentWeapon.PullTrigger(previousMouseState);
             }
 
             base.Update();

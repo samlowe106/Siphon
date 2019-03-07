@@ -21,5 +21,11 @@ namespace Siphon
             this.damage = 1;
             this.fireDelay = 0.5f;
         }
-	}
+
+        protected override void Shoot()
+        {
+            //manager.SpawnBullet(, damage, );
+            base.Shoot();
+        }
+    }
 }
