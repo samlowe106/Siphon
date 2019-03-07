@@ -20,6 +20,8 @@ namespace Siphon
             this.speed *= 2; //value for starter Enemy
         }
 
+       
+
         #region Methods
         #endregion
     }

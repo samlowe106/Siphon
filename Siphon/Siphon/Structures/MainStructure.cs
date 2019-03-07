@@ -21,7 +21,7 @@ namespace Siphon
         public MainStructure(Vector2 position, Texture2D texture, int dimension)
             : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
         {
-            
+            this.maxHealth = 2;
         }
         #endregion
 

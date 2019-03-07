@@ -54,6 +54,7 @@ namespace Siphon
             if (currentHealth <= 0)
             {
                 active = false;
+                
                 // trigger the on-death event
             }
             return currentHealth - damage;
@@ -65,7 +66,14 @@ namespace Siphon
         /// <param name="sp">The SpriteBatch that will draw this object</param>
 		public override void Draw(SpriteBatch sp)
 		{
-			sp.Draw(texture, rectangle, Color.White);
+            if(active )
+            {
+                sp.Draw(texture, rectangle, Color.White);
+            }
+            else
+            {
+
+            }
         }
 
 		public virtual void Update(List<Enemy> enemies) { }
