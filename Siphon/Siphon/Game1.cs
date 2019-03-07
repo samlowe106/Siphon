@@ -30,6 +30,7 @@ namespace Siphon
 		KeyboardState kbState;
 		KeyboardState lastKbState;
 		MouseState mState;
+        MouseState lastMState;
 
 		// states
 		MenuManager menu;
@@ -139,7 +140,7 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, lastKbState, mState);
+					gameManager.Update(kbState, lastKbState, mState, lastMState);
                     break;
                 case gameState.Options:
                     break;
@@ -148,6 +149,7 @@ namespace Siphon
             base.Update(gameTime);
 
 			lastKbState = kbState;
+            lastMState = mState;
         }
 
         /// <summary>

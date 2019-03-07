@@ -29,14 +29,15 @@ namespace Siphon
         /// <param name="previousMouseState">Previous mouse state to be tested</param>
         public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
         {
+            // Move
             PlayerMovement(kbState);
-            
-            // If the player is currently left clicking, shoot the gun
+            // Set angle
+            SetAngle(currentMouseState.X, currentMouseState.Y);
+            // Shoot (if left mouse button is down)
             if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
                 CurrentWeapon.PullTrigger(currentMouseState, previousMouseState);
             }
-
             base.Update();
         }
 

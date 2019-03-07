@@ -60,7 +60,8 @@ namespace Siphon
 		}
 
         // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState, MouseState mouse)
+		public void Update(KeyboardState kbState, KeyboardState lastKbState,
+            MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
 			if (!paused)
@@ -68,8 +69,8 @@ namespace Siphon
                 map.Update(enemies); // put list of enemies in update
 
                 //Player Updates
-				player.PlayerMovement(kbState);
-                player.SetAngle(mouse.X, mouse.Y);
+                player.Update(kbState, currentMouseState, previousMouseState);
+                
 
                 //Enemey update
                 foreach(Enemy e in enemies)
@@ -91,7 +92,7 @@ namespace Siphon
 			}
 
 			// always runs
-			backButton.Update(mouse);
+			backButton.Update(currentMouseState);
 		}
 
 		public void Draw(SpriteBatch sp)
