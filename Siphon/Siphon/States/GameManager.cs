@@ -54,7 +54,7 @@ namespace Siphon
             //Enemy Textures
             this.plugEnemyModel = plugEnemyModel;
             //Enemy test
-            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), plugEnemyModel, map.mainStructure);
+            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
             enemies.Add(enemy1);
 
 
@@ -71,6 +71,7 @@ namespace Siphon
                 //Player Updates
 				player.PlayerMovement(kbState);
                 player.SetAngle(mouse.X, mouse.Y);
+                
 
                 //Enemey update
                 foreach(Enemy e in enemies)

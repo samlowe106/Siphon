@@ -114,6 +114,7 @@ namespace Siphon
         {
             get
             {
+                
                 return rectangle;
             }
         }

@@ -30,7 +30,7 @@ namespace Siphon
         public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
         {
             PlayerMovement(kbState);
-            
+            base.SetAngle(currentMouseState.X, currentMouseState.Y);
             // If the player is currently left clicking, shoot the gun
             if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
@@ -62,6 +62,8 @@ namespace Siphon
             {
                 position = new Vector2(position.X + speed.X, position.Y);
             }
+            this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
+
         }
 
         #region Properties
