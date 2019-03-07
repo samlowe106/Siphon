@@ -29,7 +29,9 @@ namespace Siphon
         private EnemyManager enemyManager;
 
         // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
+		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+            Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
+            SpriteFont Arial12)
 		{
 			// base values
 			paused = false;
