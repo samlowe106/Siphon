@@ -18,6 +18,7 @@ namespace Siphon
 	{
         #region Fields
         int damage;
+        Vector2 trajectory;
         #endregion
 
         #region Constructor
@@ -28,13 +29,25 @@ namespace Siphon
         /// <param name="texture"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        public Bullet(Texture2D texture, int screenWidth, int screenHeight)
+        public Bullet(Texture2D texture)
             : base (new Vector2(0, 0), texture, 5, new Vector2(6,6))
         {
+            this.active = false;
         }
         #endregion
 
         #region Methods
+        public void Activate(Vector2 start, Vector2 destination, float angle, int damage)
+        {
+            this.active = true;
+            this.position = start;
+            // Get the vector from this bullet's origin to the destination and normalize it
+            trajectory = this.GetDistanceVector(destination);
+            trajectory.Normalize();
+            this.angle = angle;
+            this.damage = damage;
+        }
+
         /// <summary>
         /// Deals this bullet's damage to a specified target
         /// </summary>
@@ -48,6 +61,16 @@ namespace Siphon
             }
             // Deactivate this bullet
             this.active = false;
+        }
+
+        /// <summary>
+        /// Simply moves this bullet across the screen.
+        /// Enemy collision and out-of-bounds must be checked in the bullet manager
+        /// </summary>
+        public override void Update()
+        {
+            position += speed;
+            base.Update();
         }
         #endregion
 
@@ -64,6 +87,21 @@ namespace Siphon
             set
             {
                 damage = value;
+            }
+        }
+
+        /// <summary>
+        /// Getter and setter for if this bullet is active
+        /// </summary>
+        new public bool Active
+        {
+            get
+            {
+                return active;
+            }
+            set
+            {
+                active = value;
             }
         }
         #endregion

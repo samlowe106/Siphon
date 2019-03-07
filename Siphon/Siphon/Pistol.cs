@@ -22,10 +22,12 @@ namespace Siphon
             this.fireDelay = 0.5f;
         }
 
-        protected override void Shoot()
+        protected override void Shoot(MouseState currentMouseState)
         {
-            //manager.SpawnBullet(, damage, );
-            base.Shoot();
+            manager.SpawnBullet(this.Position,
+                new Vector2(currentMouseState.Position.X, currentMouseState.Position.Y),
+                this.angle, this.damage);
+            base.Shoot(currentMouseState);
         }
     }
 }

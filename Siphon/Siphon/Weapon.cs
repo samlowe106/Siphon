@@ -47,7 +47,7 @@ namespace Siphon
         /// need to check against the previous state to determine
         /// if they should shoot or not
         /// </summary>
-        public void PullTrigger(MouseState previousMouseState)
+        public void PullTrigger(MouseState currentMouseState, MouseState previousMouseState)
         {
             // Only shoot if the gun's fire rate permits shooting
             // if (currentTime - lastTimeShot > fireRate)
@@ -57,14 +57,14 @@ namespace Siphon
                 {
                     // Automatic guns can fire if held down
                     case FireType.Automatic:
-                        this.Shoot();
+                        this.Shoot(currentMouseState);
                         break;
 
                     // Semi-auto guns won't fire if held down
                     case FireType.SemiAutomatic:
                         if (previousMouseState.LeftButton == ButtonState.Released)
                         {
-                            this.Shoot();
+                            this.Shoot(currentMouseState);
                         }
                         break;
                 }
@@ -75,7 +75,7 @@ namespace Siphon
         /// Virtual update method for shooting a weapon.
         /// Exists so weapons can fire different kinds of projectiles
         /// </summary>
-        protected virtual void Shoot() { }
+        protected virtual void Shoot(MouseState currentMouseState) { }
 
         public override void Update()
         {

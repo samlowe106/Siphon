@@ -50,7 +50,7 @@ namespace Siphon
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
 			{
-				bullets.Enqueue(new Bullet(bulletTexture, width * 10, height * 10));
+				bullets.Enqueue(new Bullet(bulletTexture));
 			}
 		}
 		#endregion

@@ -21,12 +21,9 @@ namespace Siphon
         Random generator;
         bool stageClear;
         MainStructure mainStructure;
-
         int screenWidth;
         int screenHeight;
-
         double timeUnitilNextWave;
-
         // Starter enemy's texture
         Texture2D startTexture;
         #endregion
@@ -104,6 +101,25 @@ namespace Siphon
             {
                 enemy.Draw(sp);
             }
+        }
+
+        /// <summary>
+        /// Checks a bullet against ALL active enemies
+        /// </summary>
+        /// <param name="b">Bullet to check</param>
+        /// <returns>An enemy that the bullet is collding with, null if the bullet doesn't collide with anything</returns>
+        public Enemy CheckCollision(Bullet b)
+        {
+            foreach (Enemy e in activeEnemies)
+            {
+                // If the enemy's hitbox overlaps with the bullet's, return true
+                if (e.Rectangle.Intersects(b.Rectangle))
+                {
+                    return e;
+                }
+            }
+            // If the bullet doesn't intersect with any rectangles, return false
+            return null;
         }
         #endregion
 

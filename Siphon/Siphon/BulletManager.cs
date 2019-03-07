@@ -19,18 +19,22 @@ namespace Siphon
         Queue<Bullet> inactiveBullets;
         List<Bullet> activeBullets;
         Texture2D bulletTexture;
+        EnemyManager enemyManager;
+        Rectangle screen;
         #endregion
 
         #region Constructor
-        public BulletManager(Texture2D bulletTexture, int screenWidth, int screenHeight)
+        public BulletManager(Texture2D bulletTexture, int screenWidth, int screenHeight, EnemyManager enemyManager)
         {
             this.bulletTexture = bulletTexture;
+            this.enemyManager = enemyManager;
+            this.screen = new Rectangle(0, 0, screenWidth, screenHeight);
             // Create a new queue
             inactiveBullets = new Queue<Bullet>(NUM_BULLETS);
             // Populate the queue with bullets
             for (int i = 0; i < NUM_BULLETS; ++i)
             {
-                inactiveBullets.Enqueue(new Bullet(bulletTexture, screenWidth, screenHeight));
+                inactiveBullets.Enqueue(new Bullet(bulletTexture));
             }
         }
         #endregion
@@ -42,12 +46,10 @@ namespace Siphon
         /// <param name="position"></param>
         /// <param name="damage"></param>
         /// <param name="angle"></param>
-        public void SpawnBullet(Vector2 position, int damage, float angle)
+        public void SpawnBullet(Vector2 position, Vector2 destination, float angle, int damage)
         {
             Bullet newBullet = inactiveBullets.Dequeue();
-            newBullet.Damage = damage;
-            newBullet.Position = position;
-            newBullet.Angle = angle;
+            newBullet.Activate(position, destination, angle, damage);
         }
 
         /// <summary>
@@ -59,6 +61,19 @@ namespace Siphon
             for (int i = activeBullets.Count - 1; i > -1; --i)
             {
                 activeBullets[i].Update();
+                // Check collision with enemies
+                // -- This code should be refactored/simplified at some point --
+                Enemy enemyHit = enemyManager.CheckCollision(activeBullets[i]);
+                if (enemyHit != null)
+                {
+                    activeBullets[i].DealDamage(enemyHit);
+                }
+                // Check if the bullet is out of bounds
+                else if (!screen.Contains(activeBullets[i].Rectangle))
+                {
+                    activeBullets[i].Active = false;
+                }
+
                 // If the bullet isn't active (it's collided with something),
                 //  remove it from this list and requeue it
                 if (!activeBullets[i].Active)
