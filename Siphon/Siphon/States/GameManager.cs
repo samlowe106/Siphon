@@ -26,10 +26,9 @@ namespace Siphon
         private Map map;
         private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
-        private EnemyManager enemyManager;
-
+        private Texture2D plugEnemyModel;
         // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12, Texture2D plugEnemyModel)
 		{
 			// base values
 			paused = false;
@@ -52,8 +51,10 @@ namespace Siphon
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
+            //Enemy Textures
+            this.plugEnemyModel = plugEnemyModel;
             //Enemy test
-            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
+            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), plugEnemyModel, map.mainStructure);
             enemies.Add(enemy1);
 
 

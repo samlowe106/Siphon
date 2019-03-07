@@ -21,7 +21,7 @@ namespace Siphon
         Random generator;
         bool stageClear;
         MainStructure mainStructure;
-
+        Texture2D plugEnemyModel;
         int screenWidth;
         int screenHeight;
 
@@ -32,7 +32,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, MainStructure mainStructure, int screenWidth, int screenHeight)
+        public EnemyManager(Texture2D startTexture, MainStructure mainStructure, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
