@@ -87,8 +87,6 @@ namespace Siphon
         {
             if (!(mainStructure.Rectangle.Contains(this.rectangle)))
             {
-                // Normalize the resultant vector: mainStructure.Position - this.Position;
-                // Update: distanceToStructure -= 
                 position += speed;
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
