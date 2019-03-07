@@ -34,7 +34,7 @@ namespace Siphon
             // If the player is currently left clicking, shoot the gun
             if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
-                CurrentWeapon.PullTrigger(previousMouseState);
+                CurrentWeapon.PullTrigger(currentMouseState, previousMouseState);
             }
 
             base.Update();

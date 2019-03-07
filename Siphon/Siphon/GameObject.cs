@@ -91,6 +91,13 @@ namespace Siphon
             return obj.position - this.position;
         }
 
+        /// <param name="objPosition">Vector to compare this object's distance to</param>
+        /// <returns>A vector representing the distance from this object to the specified GameObject</returns>
+        public Vector2 GetDistanceVector(Vector2 objPosition)
+        {
+            return objPosition - this.position;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -159,7 +166,6 @@ namespace Siphon
                 angle = value;
             }
         }
-
         #endregion
     }
 }
