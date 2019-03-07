@@ -40,7 +40,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight);
+            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -54,7 +54,6 @@ namespace Siphon
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
             //Enemy Textures
-            this.plugEnemyModel = plugEnemyModel;
             //Enemy test
             StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
             enemies.Add(enemy1);

@@ -91,7 +91,7 @@ namespace Siphon
 			state = new Stack<gameState>();
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12, plugEnemyModel);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12);
             
             base.Initialize();
         }
