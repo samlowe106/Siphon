@@ -43,8 +43,9 @@ namespace Siphon
 			target = null;
 			fireRate = 0.25f;
 			fireState = true;
-			turretState = TurretState.idle;
+			turretState = TurretState.firing;
 			timer = new GameTime();
+            origin = new Vector2(16, 16);
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
@@ -58,8 +59,8 @@ namespace Siphon
 
 		public override void Update(List<Enemy> enemies)
 		{
-			
-			fireRate += timer.TotalGameTime.Milliseconds / 1000f;
+            drawCounter += (1 / 60f);
+            fireRate += (1 / 60f);
             counter1++;
 
 			if (counter1 > 10)
@@ -119,16 +120,13 @@ namespace Siphon
 			switch (turretState)
 			{
 				case TurretState.idle:
-					//sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White);
-
                     sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
-
-                    //sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
                     break;
+
 				case TurretState.firing:
 					//sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
 
-                    drawCounter += (1/60f);
+                    
 
                     if (drawCounter >= .125f)
                     {
@@ -137,10 +135,10 @@ namespace Siphon
                     }
 
                     if (fireState)
-                        sp.Draw(texture, rectangle, new Rectangle(64, 0, 32, 32), Color.White);
+                        sp.Draw(texture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), new Rectangle(64, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
                     else
-                        sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
-					break;
+                        sp.Draw(texture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
+                    break;
 			}
 			
 		}
