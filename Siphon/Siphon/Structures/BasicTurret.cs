@@ -150,7 +150,7 @@ namespace Siphon
                     }
 
                     if (fireState)
-                        sp.Draw(texture, 
+                        sp.Draw(texture,
                                 new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
                                 new Rectangle(64, 0, 32, 32), 
                                 Color.White, 
