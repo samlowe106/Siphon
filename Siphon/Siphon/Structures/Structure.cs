@@ -46,7 +46,7 @@ namespace Siphon
         /// </summary>
         /// <param name="damage"></param>
         /// <returns></returns>
-        public float TakeDamage(int damage)
+        public virtual float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
             currentHealth =-(int)((float)damage * (100f - armorRating));

@@ -90,8 +90,9 @@ namespace Siphon
 
 			// states
 			state = new Stack<gameState>();
+			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
-			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
+			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
 			gameManager = new GameManager(playerModel, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12);
             
             base.Initialize();
@@ -143,6 +144,9 @@ namespace Siphon
                     break;
                 case gameState.Options:
                     break;
+                case gameState.Back:
+                    this.Exit();
+                    break;
             }
 
             base.Update(gameTime);
@@ -173,6 +177,8 @@ namespace Siphon
 					gameManager.Draw(spriteBatch);
                     break;
                 case gameState.Options:
+                    break;
+                default:
                     break;
             }
 

@@ -17,9 +17,10 @@ namespace Siphon
         private int sideLength;
         private int screenWidth;
         private int screenHeight;
+        private Stack<gameState> stack;
 
-		public MainStructure mainStructure;
 
+        public MainStructure mainStructure;
         public Structure[,] Structures { get { return structures; } }
 
         // textures
@@ -27,21 +28,22 @@ namespace Siphon
         private Texture2D turretTexture;
         private Texture2D bulletTexture;
 
-        public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture)
+        public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture, Stack<gameState> stack)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.mainStructureTexture = mainStructureTexture;
 			this.turretTexture = turretTexture;
 			this.bulletTexture = bulletTexture;
+            this.stack = stack;
 
             Load();
         }
 
         private void Load()
         {
-            //Load("..\\..\\..\\..\\Content\\allBases.level");
-            Load("..\\..\\..\\..\\Content\\someTurrets.level");
+            //Load("..\\..\\..\\..\\Content\\someTurrets.level");
+            Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)
@@ -96,6 +98,12 @@ namespace Siphon
             {
                 if (structure != null)
                     structure.Update(enemies);
+            }
+
+            if (!mainStructure.Active)
+            {
+                stack.Pop();
+                Load();
             }
         }
 

@@ -14,9 +14,17 @@ namespace Siphon
     /// </summary>
     class MainStructure : Structure
     {
+        #region Fields
+
+        private Stack<gameState> states;
+
+        #endregion
+
+
         #region Constructor
 
         // Position vector should be predetermined so the main structure always spawns in the center of the screen
+
 
         public MainStructure(Vector2 position, Texture2D texture, int dimension)
             : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
@@ -27,11 +35,11 @@ namespace Siphon
 
         // This object's OnDeath event should trigger something to end the game
 
-		#region Methods
+        #region Methods
 
+        
 
-
-		#endregion
+        #endregion
 
     }
 }

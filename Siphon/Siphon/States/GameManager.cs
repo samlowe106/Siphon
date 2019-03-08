@@ -37,7 +37,7 @@ namespace Siphon
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
+            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, stack);
 
             // Enemy manager
             EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
