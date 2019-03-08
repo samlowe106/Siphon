@@ -42,7 +42,7 @@ namespace Siphon
 
         private void Load()
         {
-            Load("..\\..\\..\\..\\Content\\someTurrets.level");
+            Load("..\\..\\..\\..\\Content\\demo.level");
             //Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
@@ -73,15 +73,15 @@ namespace Siphon
                             break;
                         case 1:
 							structures[r, c] = new BasicTurret(new Vector2(
-																(int)((screenWidth / 2) + ((9 - r) - 4.5) * sideLength), 
-																(int)((screenHeight / 2) + ((9 - c) - 4.5) * sideLength)), 
+																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
+																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture,
                                                                 sideLength);
 							break;
                         case 2:
                             mainStructure = new MainStructure(new Vector2(
-																(int)((screenWidth / 2) - ((9 - r) - 5) * sideLength), 
-                                                                (int)((screenHeight / 2) - ((9 - c) - 5) * sideLength)), 
+																(int)((screenWidth / 2) - (4 - c) * sideLength), 
+                                                                (int)((screenHeight / 2) - (4 - r) * sideLength)), 
                                                                 mainStructureTexture, 
                                                                 sideLength * 2);
 							structures[r, c] = mainStructure;

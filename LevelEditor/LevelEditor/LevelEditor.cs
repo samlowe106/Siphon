@@ -35,12 +35,12 @@ namespace LevelEditor
 
             pairs = new Dictionary<Color, int>();
             pairs.Add(Color.Green, 0);
-            pairs.Add(Color.Blue, 1);
+            pairs.Add(Color.Silver, 1);
             pairs.Add(Color.Red, 2);
 
             reversePairs = new Dictionary<int, Color>();
             reversePairs.Add(0, Color.Green);
-            reversePairs.Add(1, Color.Blue);
+            reversePairs.Add(1, Color.Silver);
             reversePairs.Add(2, Color.Red);
 
             title = "";

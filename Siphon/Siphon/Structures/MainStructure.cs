@@ -14,13 +14,7 @@ namespace Siphon
     /// </summary>
     class MainStructure : Structure
     {
-        #region Fields
-
-        private Stack<gameState> states;
-
-        #endregion
-
-
+        
         #region Constructor
 
         // Position vector should be predetermined so the main structure always spawns in the center of the screen

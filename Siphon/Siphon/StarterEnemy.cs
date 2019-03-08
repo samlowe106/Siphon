@@ -11,7 +11,7 @@ namespace Siphon
     class StarterEnemy : Enemy
     {
         public StarterEnemy(Vector2 position, Texture2D texture, MainStructure mainStructure)
-            : base(position, texture, 32, new Vector2(1 , 1), mainStructure, 5f)
+            : base(position, texture, 32, new Vector2(1 , 1), mainStructure, 4f)
         {
             // Set this enemy to do one damage per hit
             this.damage = 1;

@@ -55,8 +55,14 @@ namespace Siphon
 
             //Enemy Textures
             //Enemy test
-            StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
-            enemies.Add(enemy1);
+            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
+
+
 		}
 
         // methods
@@ -66,7 +72,7 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(enemies); // put list of enemies in update
+                map.Update(enemies); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);

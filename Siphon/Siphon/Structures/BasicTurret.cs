@@ -117,7 +117,7 @@ namespace Siphon
 			Vector2 dist1 = position - e1.Position;
 			Vector2 dist2 = position - e2.Position;
 
-			if (dist1.LengthSquared() > dist2.LengthSquared())
+			if (dist1.LengthSquared() < dist2.LengthSquared())
 			{
 				return e1;
 			}

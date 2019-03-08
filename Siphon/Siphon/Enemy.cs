@@ -57,7 +57,7 @@ namespace Siphon
         public float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
-            currentHealth =- (int)((float)damage * (100f - armorRating));
+            currentHealth -= damage;
             // If this object has health less than or equal to zero, mark it as dead
             if (currentHealth <= 0)
             {
