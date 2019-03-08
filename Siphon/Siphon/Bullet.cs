@@ -16,12 +16,36 @@ namespace Siphon
     /// </summary>
 	class Bullet : GameObject, IDealDamage
 	{
+        #region Fields
         int damage;
+        Vector2 trajectory;
+        #endregion
 
-        public Bullet(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
-            : base (position, texture, x, y, width, height, screen)
+        #region Constructor
+        /// <summary>
+        /// A 5x5 pixel bullet that deals damage to any enemies that it collides with
+        /// Spawns at 0,0 and is inactive until shot by a gun
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
+        public Bullet(Texture2D texture)
+            : base (new Vector2(0, 0), texture, 5, new Vector2(6,6))
         {
+            this.active = false;
+        }
+        #endregion
 
+        #region Methods
+        public void Activate(Vector2 start, Vector2 destination, float angle, int damage)
+        {
+            this.active = true;
+            this.position = start;
+            // Get the vector from this bullet's origin to the destination and normalize it
+            trajectory = this.GetDistanceVector(destination);
+            trajectory.Normalize();
+            this.angle = angle;
+            this.damage = damage;
         }
 
         /// <summary>
@@ -40,6 +64,18 @@ namespace Siphon
         }
 
         /// <summary>
+        /// Simply moves this bullet across the screen.
+        /// Enemy collision and out-of-bounds must be checked in the bullet manager
+        /// </summary>
+        public override void Update()
+        {
+            position += speed;
+            base.Update();
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
         /// Amount of damage this bullet deals
         /// </summary>
         public int Damage
@@ -48,6 +84,26 @@ namespace Siphon
             {
                 return damage;
             }
+            set
+            {
+                damage = value;
+            }
         }
+
+        /// <summary>
+        /// Getter and setter for if this bullet is active
+        /// </summary>
+        new public bool Active
+        {
+            get
+            {
+                return active;
+            }
+            set
+            {
+                active = value;
+            }
+        }
+        #endregion
     }
 }

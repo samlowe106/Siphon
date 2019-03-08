@@ -15,40 +15,38 @@ namespace Siphon
 	abstract class GameObject : IDisplayable
 	{
         #region Fields
-
         // MonoGame-relevant fields
         protected Vector2 position;
         protected Texture2D texture;
-        protected Rectangle rectangle;
         protected Vector2 direction;
+		protected int width;
+		protected int height;
         protected bool active;
         protected float angle;
         protected Vector2 origin;
         protected Vector2 speed;
-        #endregion
+        protected Rectangle rectangle;
+		#endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Basic constructor, with parameters only necessary for MonoGame
-        /// </summary>
-        /// <param name="position">The GameObject's position</param>
-        /// <param name="texture">The GameObject's texture</param>
-        /// <param name="x">The upper top-left x coordinate of the GameObject's position</param>
-        /// <param name="y">The upper top-left y coordinate of the GameObject's position</param>
-        /// <param name="width">The width of this GameObject</param>
-        /// <param name="height">The height of this GameObject</param>
-        public GameObject(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
+		#region Constructor
+		/// <summary>
+		/// Basic constructor, with parameters only necessary for MonoGame
+		/// </summary>
+		/// <param name="position">The position of the GameObject's center</param>
+		/// <param name="texture">The GameObject's texture</param>
+		/// <param name="dimensions">The width and height of this enemy</param>
+		/// <param name="speed">How many pixels this object can move</param>
+		public GameObject(Vector2 position, Texture2D texture, int dimensions, Vector2 speed)
         {
-            // Set this object's speed to be 2% of the screen width and height
-            this.speed = new Vector2(screen.Width * 0.02f, screen.Height * 0.02f);
+            this.speed = speed;
             this.position = position;
             this.texture = texture;
-            this.rectangle = new Rectangle(x, y, width, height);
+			this.width = dimensions;
+			this.height = dimensions;
             this.active = true;
             this.origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - width / 2), width, height);
         }
-
         #endregion
 
         #region Methods
@@ -56,23 +54,21 @@ namespace Siphon
         /// Draws this GameObject's texture (if this object is active)
         /// </summary>
         /// <param name="sp">The current spritebatch</param>
-        public void Draw(SpriteBatch sp)
+        public virtual void Draw(SpriteBatch sp)
         {
             if (this.active)
             {
-                //Draws Player
-                sp.Draw(texture,
-                    position,
+                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+
+                 
+                /*sp.Draw(texture,
+                    rectangle,
                     null,
                     Color.White,
-                    angle,
-                    origin,
-                    1f,
+                    (float)(angle),
+                    origin,                    
                     SpriteEffects.None,
-                    1f);
-                
-               
-                
+                    0); */
             }
         }
 
@@ -87,6 +83,29 @@ namespace Siphon
         {
             return Math.Sqrt(Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
         }
+        /// <summary>
+        /// Gets the distance between two objcts squared
+        /// </summary>
+        /// <param name="obj">The other object</param>
+        /// <returns>The distance to the other object squared</returns>
+        public double GetDistanceSquared(GameObject obj)
+        {
+            return (Math.Pow(obj.position.X - this.position.X, 2) + Math.Pow(obj.position.Y - this.position.Y, 2));
+        }
+
+        /// <param name="obj">Object to compare this object's distance to</param>
+        /// <returns>A vector representing the distance from this object to the specified GameObject</returns>
+        public Vector2 GetDistanceVector(GameObject obj)
+        {
+            return obj.position - this.position;
+        }
+
+        /// <param name="objPosition">Vector to compare this object's distance to</param>
+        /// <returns>A vector representing the distance from this object to the specified GameObject</returns>
+        public Vector2 GetDistanceVector(Vector2 objPosition)
+        {
+            return objPosition - this.position;
+        }
 
         /// <summary>
         /// 
@@ -98,13 +117,23 @@ namespace Siphon
             direction.X = objX - this.Position.X;
             direction.Y = objY - this.Position.Y;
 
-            angle = (float)(Math.Atan2(direction.Y, direction.X) + Math.PI / 2);
+            angle = (float)Math.Atan2(direction.Y, direction.X);
             return angle;
         }
         #endregion
 
         #region Properties
-
+        /// <summary>
+        /// This object's rectangle
+        /// </summary>
+        public Rectangle Rectangle
+        {
+            get
+            {
+                
+                return rectangle;
+            }
+        }
 
         /// <summary>
         /// Whether this object should be drawn to the screen or not
@@ -126,8 +155,26 @@ namespace Siphon
             {
                 return position;
             }
+            set
+            {
+                position = value;
+            }
         }
 
+        /// <summary>
+        /// Floating point number representing the angle that this object is facing
+        /// </summary>
+        public float Angle
+        {
+            get
+            {
+                return angle;
+            }
+            set
+            {
+                angle = value;
+            }
+        }
         #endregion
     }
 }

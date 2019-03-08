@@ -26,27 +26,33 @@ namespace Siphon
         SpriteBatch spriteBatch;
         Stack<gameState> state;
 
-        // inputs
-        KeyboardState kbState;
-        KeyboardState lastKbState;
-        MouseState mState;
+		// inputs
+		KeyboardState kbState;
+		KeyboardState lastKbState;
+		MouseState mState;
+        MouseState lastMState;
 
-        // states
-        MenuManager menu;
-        GameManager gameManager;
+		// states
+		MenuManager menu;
+		GameManager gameManager;
 
-        // screen data
-        int screenWidth;
-        int screenHeight;
+		// screen data
+		int screenWidth;
+		int screenHeight;
 
-        // textures
-        Texture2D startButtonTexture;
-        Texture2D backButtonTexture;
+		// textures
+		Texture2D startButtonTexture;
+		Texture2D backButtonTexture;
         Texture2D arrow;
+        Texture2D turret;
+        Texture2D bullet;
+        Texture2D playerModel;
+        Texture2D plugEnemyModel;
+
 
         // sprite fonts 
         SpriteFont Arial12;
-
+		
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -66,26 +72,29 @@ namespace Siphon
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             //graphics.IsFullScreen = true; This line toggles if its full screen or not.
             graphics.ApplyChanges();
-            IsMouseVisible = true;
+			IsMouseVisible = true;
 
-            // screen elements
-            screenHeight = GraphicsDevice.Viewport.Height;
-            screenWidth = GraphicsDevice.Viewport.Width;
+			// screen elements
+			screenHeight = GraphicsDevice.Viewport.Height;
+			screenWidth = GraphicsDevice.Viewport.Width;
+			
+			// load menu content
+			startButtonTexture = Content.Load<Texture2D>("start");
+			backButtonTexture = Content.Load<Texture2D>("back");
+			arrow = Content.Load<Texture2D>("Arrow"); //Test Player Model
+            playerModel = Content.Load<Texture2D>("Player"); //Player Model
+			turret = Content.Load<Texture2D>("Turret");
+			bullet = Content.Load<Texture2D>("bullet");
+			Arial12 = Content.Load<SpriteFont>("Arial12");
+            plugEnemyModel = Content.Load<Texture2D>("Plug Enemy");
 
-            // load menu content
-            startButtonTexture = Content.Load<Texture2D>("start");
-            backButtonTexture = Content.Load<Texture2D>("back");
-            arrow = Content.Load<Texture2D>("Arrow");
-            Arial12 = Content.Load<SpriteFont>("Arial12");
-
-
-            // states
-            state = new Stack<gameState>();
-            state.Push(gameState.Menu);
-            menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
-            gameManager = new GameManager(arrow, backButtonTexture, screenWidth, screenHeight, state, Arial12, graphics);
-
-
+			// states
+			state = new Stack<gameState>();
+			state.Push(gameState.Back);
+			state.Push(gameState.Menu);
+			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12);
+            
             base.Initialize();
         }
 
@@ -99,7 +108,7 @@ namespace Siphon
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
+            
         }
 
         /// <summary>
@@ -119,27 +128,31 @@ namespace Siphon
         protected override void Update(GameTime gameTime)
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //Exit();
+                //Exit();
 
-            // TODO: Add your update logic here
-            mState = Mouse.GetState();
-            kbState = Keyboard.GetState();
+			// TODO: Add your update logic here
+			mState = Mouse.GetState();
+			kbState = Keyboard.GetState();
 
             switch (state.Peek())
             {
                 case gameState.Menu:
-                    menu.Update(mState);
+					menu.Update(mState);
                     break;
                 case gameState.Game:
-                    gameManager.Update(kbState, lastKbState, mState);
+					gameManager.Update(kbState, lastKbState, mState, lastMState);
                     break;
                 case gameState.Options:
+                    break;
+                case gameState.Back:
+                    this.Exit();
                     break;
             }
 
             base.Update(gameTime);
 
-            lastKbState = kbState;
+			lastKbState = kbState;
+            lastMState = mState;
         }
 
         /// <summary>
@@ -158,12 +171,14 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-                    menu.Draw(spriteBatch);
+					menu.Draw(spriteBatch);
                     break;
                 case gameState.Game:
-                    gameManager.Draw(spriteBatch);
+					gameManager.Draw(spriteBatch);
                     break;
                 case gameState.Options:
+                    break;
+                default:
                     break;
             }
 
@@ -171,7 +186,5 @@ namespace Siphon
 
             base.Draw(gameTime);
         }
-        
-
     }
 }

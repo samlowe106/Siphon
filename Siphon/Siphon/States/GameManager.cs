@@ -23,36 +23,68 @@ namespace Siphon
 		private Button backButton;
 		private bool paused;
 		private SpriteFont Arial12;
-        private GraphicsDeviceManager graphics;
-
-        // map
-        private mapData[][] map;
-
+        private Map map;
+        private List<Enemy> enemies= new List<Enemy>();
+        private BulletManager bulletManager;
+        private Texture2D plugEnemyModel;
         // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12, GraphicsDeviceManager graphics)
+		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+            Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
+            SpriteFont Arial12)
 		{
 			// base values
 			paused = false;
 			this.Arial12 = Arial12;
-            this.graphics = graphics;
 
-            //Player
-            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30, 30, 30, 30, graphics.GraphicsDevice.DisplayMode);
-            
-            // button
-            backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
+            // map
+            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, stack);
+
+            // Enemy manager
+            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
+
+            // Bullet manager
+            bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
+
+            // player
+            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30);
+            // Player's pistol
+            //player.CurrentWeapon = new Pistol(pistolTexture, player, bulletManager);
+
+			// button
+			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
+
+            //Enemy Textures
+            //Enemy test
+            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
+
+
 		}
 
         // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState, MouseState mouse)
+		public void Update(KeyboardState kbState, KeyboardState lastKbState,
+            MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
 			if (!paused)
 			{
-                //Player
-				player.PlayerMovement(kbState);
-                player.SetAngle(mouse.X, mouse.Y);
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                map.Update(enemies); 
+
+                //Player Updates
+                player.Update(kbState, currentMouseState, previousMouseState);
+                
+
+                //Enemey update
+                foreach(Enemy e in enemies)
+                {
+                    e.Update();
+                }
+
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
 
@@ -66,16 +98,24 @@ namespace Siphon
 			}
 
 			// always runs
-			backButton.Update(mouse);
+			backButton.Update(currentMouseState);
 		}
 
 		public void Draw(SpriteBatch sp)
 		{
+			map.Draw(sp);
 			player.Draw(sp);
 			backButton.Draw(sp);
+            
+            
+			//Enemeies Draw
+            foreach (Enemy e in enemies)
+            {
+				e.Draw(sp);
+            }
 
-			// draws when paused
-			if (paused)
+            //draws when paused
+            if (paused)
 			{
 				// TODO pause menu
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);

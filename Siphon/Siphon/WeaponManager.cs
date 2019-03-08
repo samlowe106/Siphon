@@ -24,7 +24,7 @@ namespace Siphon
 		// methods
 		public void Shoot()
 		{
-			weapons[activeWeapon].Shoot();
+			//weapons[activeWeapon].Shoot();
 		}
 
 		public void Update(KeyboardState kbState)

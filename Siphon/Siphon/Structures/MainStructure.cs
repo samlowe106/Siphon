@@ -14,18 +14,26 @@ namespace Siphon
     /// </summary>
     class MainStructure : Structure
     {
+        
         #region Constructor
 
-        // x and y values should be predetermined so the main structure always spawns in the same place
+        // Position vector should be predetermined so the main structure always spawns in the center of the screen
 
-        public MainStructure(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
-            : base(position, texture, x, y, width, height, screen)
+
+        public MainStructure(Vector2 position, Texture2D texture, int dimension)
+            : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
         {
-            
+            this.maxHealth = 2;
         }
         #endregion
 
         // This object's OnDeath event should trigger something to end the game
+
+        #region Methods
+
+        
+
+        #endregion
 
     }
 }

@@ -19,6 +19,11 @@ namespace LevelEditor
 		private bool isClicking;
 		private int height;
 		private int width;
+        private int enemyHealth;
+        private int enemyDamage;
+        private int turretHealth;
+        private int turretDamage;
+        private int batteryHealth;
 		private string title;
         private Dictionary<Color, int> pairs;
         private Dictionary<int, Color> reversePairs;
@@ -30,12 +35,12 @@ namespace LevelEditor
 
             pairs = new Dictionary<Color, int>();
             pairs.Add(Color.Green, 0);
-            pairs.Add(Color.Blue, 1);
+            pairs.Add(Color.Silver, 1);
             pairs.Add(Color.Red, 2);
 
             reversePairs = new Dictionary<int, Color>();
             reversePairs.Add(0, Color.Green);
-            reversePairs.Add(1, Color.Blue);
+            reversePairs.Add(1, Color.Silver);
             reversePairs.Add(2, Color.Red);
 
             title = "";
@@ -85,6 +90,8 @@ namespace LevelEditor
 		{
 			Stream inStream = File.OpenRead(filePath);
 			BinaryReader input = new BinaryReader(inStream);
+
+            Console.WriteLine(filePath);
 
 			height = input.ReadInt32();
 			width = input.ReadInt32();
@@ -182,6 +189,9 @@ namespace LevelEditor
 
 				output.Write(height);
 				output.Write(width);
+                //output.Write(enemyHealth);
+                //output.Write(enemyDamage);
+                //output.Write(batteryHealth);
 
 				for (int r = 0; r < height; r++)
 				{
@@ -219,5 +229,30 @@ namespace LevelEditor
         private void redButton_Click(object sender, EventArgs e) { selected = Color.Red; sample.BackColor = selected; }
         private void blueButton_Click(object sender, EventArgs e) { selected = Color.Blue; sample.BackColor = selected; }
         private void blackButton_Click(object sender, EventArgs e) { selected = Color.Black; sample.BackColor = selected; }
-	}
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            enemyHealth = (int)numericUpDown1.Value;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            enemyDamage = (int)numericUpDown2.Value;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            turretHealth = (int)numericUpDown3.Value;
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            turretDamage = (int)numericUpDown4.Value;
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            batteryHealth = (int)numericUpDown5.Value;
+        }
+    }
 }

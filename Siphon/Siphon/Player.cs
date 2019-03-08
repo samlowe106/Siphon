@@ -16,40 +16,73 @@ namespace Siphon
 	{
         Weapon currentWeapon;
         
-        public Player(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
-            : base(position, texture, x, y, width, height, screen)
+        public Player(Vector2 position, Texture2D texture, int dimensions)
+            : base(position, texture, dimensions, new Vector2(3, 3))
         {
-
-            
         }
 
-        //Player Movement Method that will be called in the update method
+        /// <summary>
+        /// Runs player movement function and checks to see if gun should be fired
+        /// </summary>
+        /// <param name="kbState">Current keyboard state to be tested</param>
+        /// <param name="currentMouseState">Current mouse state to be tested</param>
+        /// <param name="previousMouseState">Previous mouse state to be tested</param>
+        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
+        {
+            // Move
+            PlayerMovement(kbState);
+            // Set angle
+            SetAngle(currentMouseState.X, currentMouseState.Y);
+            // Shoot (if left mouse button is down)
+            if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
+            {
+                CurrentWeapon.PullTrigger(currentMouseState, previousMouseState);
+            }
+            base.Update();
+        }
+
+        /// <summary>
+        /// Player Movement Method that will be called in the update method
+        /// </summary>
+        /// <param name="current">Current keyboard state to be tested</param>
         public void PlayerMovement(KeyboardState current)
         {
             if (current.IsKeyDown(Keys.W))
             {
-                position = new Vector2(position.X, position.Y - 3);
-
+                position = new Vector2(position.X, position.Y - speed.Y);
             }
             if (current.IsKeyDown(Keys.A))
             {
-                position = new Vector2(position.X - 3, position.Y);
-
+                position = new Vector2(position.X - speed.X, position.Y);
             }
             if (current.IsKeyDown(Keys.S))
             {
-                position = new Vector2(position.X, position.Y + 3);
+                position = new Vector2(position.X, position.Y + speed.Y);
             }
             if (current.IsKeyDown(Keys.D))
             {
-                position = new Vector2(position.X + 3, position.Y);
-
+                position = new Vector2(position.X + speed.X, position.Y);
             }
+            this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
+
         }
 
-        
-
-
-        
-	}
+        #region Properties
+        /// <summary>
+        /// The weapon that this player object holds
+        /// </summary>
+        public Weapon CurrentWeapon
+        {
+            get
+            {
+                return currentWeapon;
+            }
+            set
+            {
+                currentWeapon = value;
+                currentWeapon.Holder = this;
+            }
+        }
+        #endregion
+    }
 }

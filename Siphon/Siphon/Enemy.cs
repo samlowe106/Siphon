@@ -10,34 +10,41 @@ using Microsoft.Xna.Framework.Input;
 namespace Siphon
 {
     /// <summary>
-    /// Abstract class from which other enemies will inherit. Inherits from GameObject and implements IDamageable
+    /// Abstract class from which other enemies will inherit
     /// </summary>
 	abstract class Enemy : GameObject, IDamageable, IDealDamage
 	{
         #region Fields
-        MainStructure mainStructure;
+        protected MainStructure mainStructure;
         protected float armorRating;
-        protected int currentHealth;
-        protected int maxHealth;
+        protected float currentHealth;
+        protected float maxHealth;
         protected int damage;
-        double distanceToStructure;
+        protected Vector2 distanceToStructure;
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int x, int y, int width, int height,
-            DisplayMode screen, MainStructure mainStructure)
-            : base(position, texture, x, y, width, height, screen)
+        public Enemy(Vector2 position, Texture2D texture, int dimensions,
+            Vector2 speed, MainStructure mainStructure, float maxHealth)
+            : base(position, texture, dimensions, speed)
         {
-            this.armorRating = 0f; // we may decide to change this default value later
-            // TODO: initialize maxHealth to a default value
-            this.currentHealth = this.maxHealth;
+            // Set this enemy to know where the main structure is
+            this.mainStructure = mainStructure;
+            // Set armor rating and health health
+            this.armorRating = 0f;
+            this.maxHealth = maxHealth;
+            this.currentHealth = maxHealth;
 
             // Set this enemy to face the main structure
             this.SetAngle((int)mainStructure.Position.X, (int)mainStructure.Position.Y);
 
-            // Keep track of the distance from this enemy to the main structure
-            //  that way, we only need to call GetDistance once
-            this.distanceToStructure = GetDistance(mainStructure);
+            // Get the distance from this structure to the main one
+            distanceToStructure = this.GetDistanceVector(mainStructure);
+
+            // Combine structure distance vector with speed in some way so we can decide
+            //  where this enemy moves and how fast it moves there
+            this.speed = distanceToStructure;
+            this.speed.Normalize();
         }                             
         #endregion
 
@@ -47,10 +54,10 @@ namespace Siphon
         /// </summary>
         /// <param name="damage"></param>
         /// <returns></returns>
-        public int TakeDamage(int damage)
+        public float TakeDamage(int damage)
         {
             // Calculates % of damage that will still go through, and reduces current health by that amount
-            currentHealth = -(int)((float)damage * (100f - armorRating));
+            currentHealth -= damage;
             // If this object has health less than or equal to zero, mark it as dead
             if (currentHealth <= 0)
             {
@@ -78,17 +85,16 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            if (distanceToStructure > 0)
+            this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
+            if (!(mainStructure.Rectangle.Contains(this.rectangle)))
             {
-                // Move this enemy closer to the main structure
-                // Update distanceToStructure
+                position += speed;
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else
             {
                 this.DealDamage(mainStructure);
             }
-
             base.Update();
         }
         #endregion
@@ -97,7 +103,7 @@ namespace Siphon
         /// <summary>
         /// Amount of health that this object currently has
         /// </summary>
-        public int CurrentHealth
+        public float CurrentHealth
         {
             get
             {
@@ -108,7 +114,7 @@ namespace Siphon
         /// <summary>
         /// Maximum amount of health this object can have
         /// </summary>
-        public int MaximumHealth
+        public float MaximumHealth
         {
             get
             {
