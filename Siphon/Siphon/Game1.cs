@@ -30,6 +30,7 @@ namespace Siphon
 		KeyboardState kbState;
 		KeyboardState lastKbState;
 		MouseState mState;
+        MouseState lastMState;
 
 		// states
 		MenuManager menu;
@@ -92,7 +93,6 @@ namespace Siphon
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, state, screenWidth, screenHeight);
 			gameManager = new GameManager(playerModel, backButtonTexture, turret, bullet, screenWidth, screenHeight, state, Arial12);
-			
             
             base.Initialize();
         }
@@ -139,7 +139,7 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, lastKbState, mState);
+					gameManager.Update(kbState, lastKbState, mState, lastMState);
                     break;
                 case gameState.Options:
                     break;
@@ -148,6 +148,7 @@ namespace Siphon
             base.Update(gameTime);
 
 			lastKbState = kbState;
+            lastMState = mState;
         }
 
         /// <summary>

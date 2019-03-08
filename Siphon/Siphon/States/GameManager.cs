@@ -26,8 +26,7 @@ namespace Siphon
         private Map map;
         private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
-        private EnemyManager enemyManager;
-
+        private Texture2D plugEnemyModel;
         // constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
             Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
@@ -41,7 +40,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight);
+            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -54,13 +53,15 @@ namespace Siphon
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
+            //Enemy Textures
             //Enemy test
             StarterEnemy enemy1 = new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure);
             enemies.Add(enemy1);
 		}
 
         // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState, MouseState mouse)
+		public void Update(KeyboardState kbState, KeyboardState lastKbState,
+            MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
 			if (!paused)
@@ -68,8 +69,8 @@ namespace Siphon
                 map.Update(enemies); // put list of enemies in update
 
                 //Player Updates
-				player.PlayerMovement(kbState);
-                player.SetAngle(mouse.X, mouse.Y);
+                player.Update(kbState, currentMouseState, previousMouseState);
+                
 
                 //Enemey update
                 foreach(Enemy e in enemies)
@@ -91,7 +92,7 @@ namespace Siphon
 			}
 
 			// always runs
-			backButton.Update(mouse);
+			backButton.Update(currentMouseState);
 		}
 
 		public void Draw(SpriteBatch sp)
