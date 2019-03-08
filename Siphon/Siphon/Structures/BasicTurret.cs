@@ -43,7 +43,7 @@ namespace Siphon
 			target = null;
 			fireRate = 0.25f;
 			fireState = true;
-			turretState = TurretState.firing;
+			turretState = TurretState.idle;
 			timer = new GameTime();
             origin = new Vector2(16, 16);
 
@@ -70,19 +70,25 @@ namespace Siphon
 				pickTarget(enemies);
 			}
 
-			if (target != null)
-			{
-				SetAngle((int)target.Position.X, (int)target.Position.Y);
+            if (target != null && target.Active)
+            {
+                SetAngle((int)target.Position.X, (int)target.Position.Y);
 
-				if (fireRate >= 0.25)
-				{
-					fireRate = 0;
-					//Bullet b = bullets.Dequeue();
-					//Shoot(target, b);
-					//bullets.Enqueue(b);
-				}
+                if (fireRate >= 0.25f)
+                {
+                    fireRate = 0;
 
-			}
+                    target.TakeDamage(1);
+
+                    //Bullet b = bullets.Dequeue();
+                    //Shoot(target, b);
+                    //bullets.Enqueue(b);
+                }
+
+                turretState = TurretState.firing;
+            }
+            else
+                turretState = TurretState.idle;
 		}
 
 		private void pickTarget(List<Enemy> enemies)
@@ -98,7 +104,11 @@ namespace Siphon
 				{
 					temp = getCloser(temp, e);
 				}
-				target = temp;
+
+                if (GetDistanceSquared(temp) <= (width * width * 9))
+                    target = temp;
+                else
+                    target = null;
 			}
 		}
 
@@ -120,7 +130,12 @@ namespace Siphon
 			switch (turretState)
 			{
 				case TurretState.idle:
-                    sp.Draw(texture, rectangle, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
+                    sp.Draw(texture, 
+                            new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
+                            new Rectangle(0, 0, 32, 32), 
+                            Color.White, 
+                            (float)(angle + (Math.PI / 2)), 
+                            origin, SpriteEffects.None, 1f);
                     break;
 
 				case TurretState.firing:
@@ -128,16 +143,26 @@ namespace Siphon
 
                     
 
-                    if (drawCounter >= .125f)
+                    if (drawCounter >= .25f)
                     {
                         drawCounter = 0;
                         fireState = !fireState;
                     }
 
                     if (fireState)
-                        sp.Draw(texture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), new Rectangle(64, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
+                        sp.Draw(texture, 
+                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
+                                new Rectangle(64, 0, 32, 32), 
+                                Color.White, 
+                                (float)(angle + (Math.PI / 2)), 
+                                origin, SpriteEffects.None, 1f);
                     else
-                        sp.Draw(texture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), origin, SpriteEffects.None, 1f);
+                        sp.Draw(texture, 
+                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
+                                new Rectangle(32, 0, 32, 32), 
+                                Color.White, 
+                                (float)(angle + (Math.PI / 2)), 
+                                origin, SpriteEffects.None, 1f);
                     break;
 			}
 			
