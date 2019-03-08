@@ -29,8 +29,6 @@
 		private void InitializeComponent()
 		{
             this.colors = new System.Windows.Forms.GroupBox();
-            this.blackButton = new System.Windows.Forms.Button();
-            this.blueButton = new System.Windows.Forms.Button();
             this.redButton = new System.Windows.Forms.Button();
             this.brownButton = new System.Windows.Forms.Button();
             this.greyButton = new System.Windows.Forms.Button();
@@ -52,6 +50,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.colors.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sample)).BeginInit();
@@ -63,44 +70,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // colors
             // 
-            this.colors.Controls.Add(this.blackButton);
-            this.colors.Controls.Add(this.blueButton);
             this.colors.Controls.Add(this.redButton);
             this.colors.Controls.Add(this.brownButton);
             this.colors.Controls.Add(this.greyButton);
             this.colors.Controls.Add(this.greenButton);
             this.colors.Location = new System.Drawing.Point(12, 12);
             this.colors.Name = "colors";
-            this.colors.Size = new System.Drawing.Size(85, 131);
+            this.colors.Size = new System.Drawing.Size(85, 98);
             this.colors.TabIndex = 0;
             this.colors.TabStop = false;
             this.colors.Text = "The Selector";
-            // 
-            // blackButton
-            // 
-            this.blackButton.BackColor = System.Drawing.Color.Black;
-            this.blackButton.Location = new System.Drawing.Point(45, 95);
-            this.blackButton.Name = "blackButton";
-            this.blackButton.Size = new System.Drawing.Size(30, 30);
-            this.blackButton.TabIndex = 5;
-            this.blackButton.Text = " ";
-            this.blackButton.UseVisualStyleBackColor = false;
-            this.blackButton.Click += new System.EventHandler(this.blackButton_Click);
-            // 
-            // blueButton
-            // 
-            this.blueButton.BackColor = System.Drawing.Color.Aqua;
-            this.blueButton.Location = new System.Drawing.Point(9, 95);
-            this.blueButton.Name = "blueButton";
-            this.blueButton.Size = new System.Drawing.Size(30, 30);
-            this.blueButton.TabIndex = 4;
-            this.blueButton.Text = " ";
-            this.blueButton.UseVisualStyleBackColor = false;
-            this.blueButton.Click += new System.EventHandler(this.blueButton_Click);
             // 
             // redButton
             // 
@@ -308,11 +292,105 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stat Modification";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.button4);
+            this.groupBox3.Controls.Add(this.button5);
+            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Location = new System.Drawing.Point(513, 170);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(234, 100);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Key";
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Red;
+            this.button3.Location = new System.Drawing.Point(110, 59);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(30, 30);
+            this.button3.TabIndex = 3;
+            this.button3.Text = " ";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Brown;
+            this.button4.Location = new System.Drawing.Point(9, 59);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(30, 30);
+            this.button4.TabIndex = 2;
+            this.button4.Text = " ";
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Silver;
+            this.button5.Location = new System.Drawing.Point(110, 23);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(30, 30);
+            this.button5.TabIndex = 1;
+            this.button5.Text = " ";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Lime;
+            this.button6.Location = new System.Drawing.Point(9, 23);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(30, 30);
+            this.button6.TabIndex = 0;
+            this.button6.Text = " ";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(43, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Player Start";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(146, 32);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Turret Start";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(43, 68);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Battery Start";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(146, 68);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Enemy Spawn";
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 424);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Map);
             this.Controls.Add(this.loadButton);
@@ -334,6 +412,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -341,8 +421,6 @@
 		#endregion
 
 		private System.Windows.Forms.GroupBox colors;
-		private System.Windows.Forms.Button blackButton;
-		private System.Windows.Forms.Button blueButton;
 		private System.Windows.Forms.Button redButton;
 		private System.Windows.Forms.Button brownButton;
 		private System.Windows.Forms.Button greyButton;
@@ -364,5 +442,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
