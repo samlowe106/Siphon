@@ -18,8 +18,8 @@ namespace Siphon
 
         // x and y values should be predetermined so the main structure always spawns in the same place
 
-        public MainStructure(Vector2 position, Texture2D texture, int x, int y, int width, int height)
-            : base(position, texture, x, y, width, height)
+        public MainStructure(Vector2 position, Texture2D texture, int x, int y, int width, int height, DisplayMode screen)
+            : base(position, texture, x, y, width, height, screen)
         {
             
         }
