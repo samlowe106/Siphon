@@ -21,6 +21,7 @@ namespace Siphon
 		// fields
 		private Player player;
 		private Button backButton;
+        private int waveCount = 1;
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
@@ -79,9 +80,18 @@ namespace Siphon
                 
 
                 //Enemey update
-                foreach(Enemy e in enemies)
+                for(int i = 0; i < enemies.Count; i++)
                 {
-                    e.Update();
+                    if(enemies[i].Active == false)
+                    {
+                        enemies.RemoveAt(i);
+                        i--;
+                    }
+                    else
+                    {
+                        enemies[i].Update();
+
+                    }
                 }
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
