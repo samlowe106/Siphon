@@ -11,11 +11,19 @@ namespace Siphon
 {
 	class EmptyTile : Structure
 	{
-		public bool clear;
-		public bool hover;
+		private bool clear;
+		private bool hover;
+		private int rows;
+		private int cols;
+		private Map map;
 
-		public EmptyTile(Vector2 position, Texture2D texture, int dimensions, bool clear) : base(position, texture, dimensions)
+		public EmptyTile(Vector2 position, Texture2D texture, 
+			Map map, int rows, int cols, int dimensions, bool clear) : 
+			base(position, texture, dimensions)
 		{
+			this.rows = rows;
+			this.cols = cols;
+			this.map = map;
 			this.clear = clear;
 			hover = false;
 		}
@@ -26,14 +34,23 @@ namespace Siphon
 			if (rectangle.Contains(mouse.Position))
 			{
 				hover = true;
+				if (mouse.LeftButton == ButtonState.Pressed)
+				{
+					map.placeTurret(rows, cols);
+				}
 			}
-			hover = false;
+			else
+				hover = false;
+
+			
 		}
 
 		public override void Draw(SpriteBatch sp)
 		{
-
-			base.Draw(sp);
+			if (hover)
+				sp.Draw(texture, rectangle, Color.Gray);
+			else
+				base.Draw(sp);
 		}
 	}
 }
