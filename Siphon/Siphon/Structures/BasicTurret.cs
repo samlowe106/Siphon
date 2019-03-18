@@ -24,6 +24,7 @@ namespace Siphon
 		private float drawCounter;
 		private float fireRate;
 		private GameTime timer;
+		private Texture2D groundTexture;
 
 		private Queue<Bullet> bullets;
 
@@ -35,7 +36,7 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, int dimension)
 			: base(position, texture, dimension)
 		{
 			counter1 = 0;
@@ -46,6 +47,7 @@ namespace Siphon
 			turretState = TurretState.idle;
 			timer = new GameTime();
             origin = new Vector2(16, 16);
+			this.groundTexture = groundTexture;
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
@@ -127,43 +129,48 @@ namespace Siphon
 
 		public override void Draw(SpriteBatch sp)
 		{
+			sp.Draw(groundTexture, rectangle, Color.White);
+
 			switch (turretState)
 			{
 				case TurretState.idle:
-                    sp.Draw(texture, 
-                            new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                            new Rectangle(0, 0, 32, 32), 
-                            Color.White, 
-                            (float)(angle + (Math.PI / 2)), 
-                            origin, SpriteEffects.None, 1f);
-                    break;
+					sp.Draw(texture,
+							new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+							new Rectangle(0, 0, 32, 32),
+							Color.White,
+							(float)(angle + (Math.PI / 2)),
+							origin, SpriteEffects.None, 1f);
+					break;
 
 				case TurretState.firing:
 					//sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
 
-                    
+					if (drawCounter >= .25f)
+					{
+						drawCounter = 0;
+						fireState = !fireState;
+					}
 
-                    if (drawCounter >= .25f)
-                    {
-                        drawCounter = 0;
-                        fireState = !fireState;
-                    }
+					if (fireState)
+					{
+						sp.Draw(texture,
+								new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+								new Rectangle(64, 0, 32, 32),
+								Color.White,
+								(float)(angle + (Math.PI / 2)),
+								origin, SpriteEffects.None, 1f);
+					}
+					else
+					{
+						sp.Draw(texture,
+								new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+								new Rectangle(32, 0, 32, 32),
+								Color.White,
+								(float)(angle + (Math.PI / 2)),
+								origin, SpriteEffects.None, 1f);
+					}
 
-                    if (fireState)
-                        sp.Draw(texture,
-                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                                new Rectangle(64, 0, 32, 32), 
-                                Color.White, 
-                                (float)(angle + (Math.PI / 2)), 
-                                origin, SpriteEffects.None, 1f);
-                    else
-                        sp.Draw(texture, 
-                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                                new Rectangle(32, 0, 32, 32), 
-                                Color.White, 
-                                (float)(angle + (Math.PI / 2)), 
-                                origin, SpriteEffects.None, 1f);
-                    break;
+					break;
 			}
 			
 		}

@@ -86,7 +86,7 @@ namespace Siphon
         public override void Update()
         {
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
-            if (!(mainStructure.Rectangle.Contains(this.rectangle)))
+            if (!(mainStructure.Rectangle.Intersects(this.rectangle)))
             {
                 position += speed;
             }
