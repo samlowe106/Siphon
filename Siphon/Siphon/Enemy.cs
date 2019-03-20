@@ -21,13 +21,15 @@ namespace Siphon
         protected float maxHealth;
         protected int damage;
         protected Vector2 distanceToStructure;
+        protected List<Structure> structures;
         #endregion
 
         #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int dimensions,
-            Vector2 speed, MainStructure mainStructure, float maxHealth)
+            Vector2 speed, MainStructure mainStructure, float maxHealth, List<Structure> structures)
             : base(position, texture, dimensions, speed)
         {
+            
             // Set this enemy to know where the main structure is
             this.mainStructure = mainStructure;
             // Set armor rating and health health
@@ -40,7 +42,8 @@ namespace Siphon
 
             // Get the distance from this structure to the main one
             distanceToStructure = this.GetDistanceVector(mainStructure);
-
+            //Array For structures set
+            this.structures = structures;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
             this.speed = distanceToStructure;
@@ -80,20 +83,38 @@ namespace Siphon
             }
         }
 
+        private Structure CheckTurretIntersect()
+        {
+            foreach (Structure s in structures)
+            {
+                
+                if (s!= null && s.Rectangle.Intersects(this.rectangle))
+                {
+                    return s;
+                }
+
+            }
+            return mainStructure;
+
+        }
+
+
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
         public override void Update()
         {
+            Structure structureIntersect = CheckTurretIntersect();
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
-            if (!(mainStructure.Rectangle.Intersects(this.rectangle)))
+            if (!(structureIntersect.Rectangle.Intersects(this.rectangle)))
             {
+                
                 position += speed;
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
             else
             {
-                this.DealDamage(mainStructure);
+                this.DealDamage(structureIntersect);
             }
             base.Update();
         }

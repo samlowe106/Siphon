@@ -18,8 +18,8 @@ namespace Siphon
 
 	class GameManager
 	{
-		// fields
-		private Player player;
+        #region Fields
+        private Player player;
 		private Button backButton;
         private int waveCount = 1;
 		private bool paused;
@@ -32,6 +32,10 @@ namespace Siphon
 
 		// constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+        #endregion
+
+        #region Constructor
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
             Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
@@ -58,17 +62,21 @@ namespace Siphon
 
             //Enemy Textures
             //Enemy test
-            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
-		}
 
-        // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState,
-            MouseState previousMouseState, MouseState currentMouseState, GameTime gameTime)
+            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure, map.Turrets));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure, map.Turrets));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure, map.Turrets));
+            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure, map.Turrets));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure, map.Turrets));
+            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure, map.Turrets));
+
+
+		}
+        #endregion
+
+        #region Methods
+        public void Update(KeyboardState kbState, KeyboardState lastKbState,
+            MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
 			if (!paused)
@@ -78,8 +86,8 @@ namespace Siphon
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
-                
 
+                List<Structure> listOfTurrets = map.Turrets;
                 //Enemey update
                 for(int i = 0; i < enemies.Count; i++)
                 {
@@ -132,5 +140,6 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
-	}
+        #endregion
+    }
 }

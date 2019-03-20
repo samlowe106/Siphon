@@ -69,7 +69,7 @@ namespace Siphon
             // Spawn in 3 additional enemies per wave
             for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
             {
-                activeEnemies.Add(new StarterEnemy(enemyCoords, startTexture, mainStructure));
+                
             }
         }
 

@@ -35,17 +35,15 @@ namespace Siphon
 
 		#region Properties
 
-		public List<BasicTurret> Turrets
+		public List<Structure> Turrets
 		{
 			get
 			{
-				List<BasicTurret> turrets = new List<BasicTurret>();
+				List<Structure> turrets = new List<Structure>();
 				foreach (Structure structure in structures)
-				{
-					if (structure is BasicTurret)
-					{
-						turrets.Add((BasicTurret)structure);
-					}
+				{					
+                    if (!(structure is EmptyTile))
+						turrets.Add(structure);					
 				}
 				return turrets;
 			}
