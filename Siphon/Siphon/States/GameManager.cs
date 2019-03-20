@@ -25,7 +25,7 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
-        private List<Enemy> enemies= new List<Enemy>();
+        private EnemyManager enemyManager;        private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
         // constructor
@@ -41,7 +41,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, groundTexture, stack);
 
             // Enemy manager
-            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, plugEnemyModel);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -56,14 +56,8 @@ namespace Siphon
 
             //Enemy Textures
             //Enemy test
-
-            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure, map.Turrets));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure, map.Turrets));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure, map.Turrets));
-            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure, map.Turrets));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure, map.Turrets));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure, map.Turrets));
-
+            
+            enemyManager.BeginNextWave();
 
 		}
 
@@ -74,26 +68,12 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(enemies, currentMouseState); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
 
-                List<Structure> listOfTurrets = map.Turrets;
-                //Enemey update
-                for(int i = 0; i < enemies.Count; i++)
-                {
-                    if(enemies[i].Active == false)
-                    {
-                        enemies.RemoveAt(i);
-                        i--;
-                    }
-                    else
-                    {
-                        enemies[i].Update();
-
-                    }
-                }
+                enemyManager.Update();
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
@@ -117,13 +97,8 @@ namespace Siphon
 			map.Draw(sp);
 			player.Draw(sp);
 			backButton.Draw(sp);
-            
-            
-			//Enemeies Draw
-            foreach (Enemy e in enemies)
-            {
-				e.Draw(sp);
-            }
+            enemyManager.Draw(sp);
+           
 
             //draws when paused
             if (paused)

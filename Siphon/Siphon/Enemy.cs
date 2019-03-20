@@ -102,13 +102,13 @@ namespace Siphon
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
-        public override void Update()
+        public void Update(List<Structure> turrets)
         {
+            structures = turrets;
             Structure structureIntersect = CheckTurretIntersect();
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
             if (!(structureIntersect.Rectangle.Intersects(this.rectangle)))
-            {
-                
+            {                
                 position += speed;
             }
             // Otherwise, if this enemy is close enough to the main structure, do damage
