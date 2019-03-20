@@ -102,7 +102,7 @@ namespace Siphon
 							structures[r, c] = new EmptyTile(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength),
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)),
-																groundTexture,
+																groundTexture, this, r, c,
 																sideLength, true);
                             break;
                         case 1:
@@ -110,7 +110,6 @@ namespace Siphon
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture, groundTexture,
-
 																sideLength);
 							break;
                         case 2:
@@ -158,6 +157,15 @@ namespace Siphon
                     structure.Draw(sp);
             }
         }
+
+		public void placeTurret(int rows, int cols)
+		{
+			structures[rows, cols] = new BasicTurret(new Vector2(
+												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+												turretTexture, bulletTexture, groundTexture,
+												sideLength);
+		}
 
 		#endregion
 	}
