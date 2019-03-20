@@ -16,17 +16,17 @@ namespace Siphon
         #endregion
 
         #region Fields
-        int waveNumber;
-        List<Enemy> activeEnemies;
-        Random generator;
-        bool stageClear;
-        MainStructure mainStructure;
-        Texture2D plugEnemyModel;
-        int screenWidth;
-        int screenHeight;
-        double timeUnitilNextWave;
+        private int waveNumber;
+        private List<Enemy> activeEnemies;
+        private Random generator;
+        private bool stageClear;
+        private MainStructure mainStructure;
+        private Texture2D plugEnemyModel;
+        private int screenWidth;
+        private int screenHeight;
+        private double timeUnitilNextWave;
         // Starter enemy's texture
-        Texture2D startTexture;
+        private Texture2D startTexture;
         #endregion
 
         #region Constructor
@@ -69,7 +69,7 @@ namespace Siphon
             // Spawn in 3 additional enemies per wave
             for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
             {
-                activeEnemies.Add(new StarterEnemy(enemyCoords, startTexture, mainStructure));
+                
             }
         }
 

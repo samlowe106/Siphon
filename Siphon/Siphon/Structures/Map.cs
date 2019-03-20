@@ -35,17 +35,15 @@ namespace Siphon
 
 		#region Properties
 
-		public List<BasicTurret> Turrets
+		public List<Structure> Turrets
 		{
 			get
 			{
-				List<BasicTurret> turrets = new List<BasicTurret>();
+				List<Structure> turrets = new List<Structure>();
 				foreach (Structure structure in structures)
-				{
-					if (structure is BasicTurret)
-					{
-						turrets.Add((BasicTurret)structure);
-					}
+				{					
+                    if (!(structure is EmptyTile))
+						turrets.Add(structure);					
 				}
 				return turrets;
 			}
@@ -104,7 +102,7 @@ namespace Siphon
 							structures[r, c] = new EmptyTile(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength),
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)),
-																groundTexture,
+																groundTexture, this, r, c,
 																sideLength, true);
                             break;
                         case 1:
@@ -112,7 +110,6 @@ namespace Siphon
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture, groundTexture,
-
 																sideLength);
 							break;
                         case 2:
@@ -160,6 +157,15 @@ namespace Siphon
                     structure.Draw(sp);
             }
         }
+
+		public void placeTurret(int rows, int cols)
+		{
+			structures[rows, cols] = new BasicTurret(new Vector2(
+												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+												turretTexture, bulletTexture, groundTexture,
+												sideLength);
+		}
 
 		#endregion
 	}

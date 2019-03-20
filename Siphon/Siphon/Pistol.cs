@@ -22,6 +22,10 @@ namespace Siphon
             this.fireDelay = 0.5f;
         }
 
+        /// <summary>
+        /// Spawns a bullet and sends it moving towards the mouse's position at the time of shooting
+        /// </summary>
+        /// <param name="currentMouseState"></param>
         protected override void Shoot(MouseState currentMouseState)
         {
             manager.SpawnBullet(this.Position,
