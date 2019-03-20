@@ -42,6 +42,20 @@ namespace Siphon
         }
 
         /// <summary>
+        /// Draws the player and their weapon (if it exists)
+        /// </summary>
+        /// <param name="sp"></param>
+        public override void Draw(SpriteBatch sp)
+        {
+            // Draw the held weapon
+            if (this.CurrentWeapon != null)
+            {
+                CurrentWeapon.Draw(sp);
+            }
+            base.Draw(sp);
+        }
+
+        /// <summary>
         /// Player Movement Method that will be called in the update method
         /// </summary>
         /// <param name="current">Current keyboard state to be tested</param>

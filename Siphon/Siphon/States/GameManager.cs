@@ -62,8 +62,6 @@ namespace Siphon
             enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure));
             enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
             enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
-
-
 		}
 
         // methods
