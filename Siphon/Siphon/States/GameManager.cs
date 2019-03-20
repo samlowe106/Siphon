@@ -33,7 +33,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
@@ -42,7 +42,7 @@ namespace Siphon
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, groundTexture, stack);
+            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, stack);
 
             // Enemy manager
             enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);

@@ -30,6 +30,7 @@ namespace Siphon
         private Texture2D turretTexture;
         private Texture2D bulletTexture;
         private Texture2D groundTexture;
+        private Texture2D attery;
 
 		#endregion
 
@@ -53,7 +54,8 @@ namespace Siphon
 
 		#region Contructor
 
-		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture, Texture2D groundTexture, Stack<gameState> stack)
+		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, 
+					Texture2D bulletTexture, Texture2D groundTexture, Stack<gameState> stack)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
@@ -118,7 +120,7 @@ namespace Siphon
 								mainStructure = new MainStructure(new Vector2(
 																	(int)((screenWidth / 2) - (4 - c) * sideLength),
 																	(int)((screenHeight / 2) - (4 - r) * sideLength)),
-																	mainStructureTexture,
+																	mainStructureTexture, groundTexture,
 																	sideLength * 2);
 								structures[r, c] = mainStructure;
 							}
