@@ -74,7 +74,7 @@ namespace Siphon
 
         #region Methods
         public void Update(KeyboardState kbState, KeyboardState lastKbState,
-            MouseState previousMouseState, MouseState currentMouseState)
+            MouseState previousMouseState, MouseState currentMouseState, GameTime gameTime)
 		{
 			// runs when not paused
 			if (!paused)
