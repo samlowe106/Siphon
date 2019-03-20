@@ -12,8 +12,10 @@ namespace Siphon
 {
     class Map
     {
-        // fields 
-        Structure[ , ] structures;
+
+		#region Fields
+		// fields 
+		Structure[ , ] structures;
         private int sideLength;
         private int screenWidth;
         private int screenHeight;
@@ -27,20 +29,50 @@ namespace Siphon
         private Texture2D mainStructureTexture;
         private Texture2D turretTexture;
         private Texture2D bulletTexture;
+        private Texture2D groundTexture;
 
-        public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture, Stack<gameState> stack)
+		#endregion
+
+		#region Properties
+
+		public List<BasicTurret> Turrets
+		{
+			get
+			{
+				List<BasicTurret> turrets = new List<BasicTurret>();
+				foreach (Structure structure in structures)
+				{
+					if (structure is BasicTurret)
+					{
+						turrets.Add((BasicTurret)structure);
+					}
+				}
+				return turrets;
+			}
+		}
+
+		#endregion
+
+		#region Contructor
+
+		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, Texture2D bulletTexture, Texture2D groundTexture, Stack<gameState> stack)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.mainStructureTexture = mainStructureTexture;
 			this.turretTexture = turretTexture;
 			this.bulletTexture = bulletTexture;
+			this.groundTexture = groundTexture;
             this.stack = stack;
 
             Load();
         }
 
-        private void Load()
+		#endregion
+
+		#region Medthods
+
+		private void Load()
         {
             Load("..\\..\\..\\..\\Content\\demo.level");
             //Load("..\\..\\..\\..\\Content\\empty.level");
@@ -69,41 +101,53 @@ namespace Siphon
                     switch (input.ReadInt32())
                     {
                         case 0:
-                            structures[r, c] = null;
+							structures[r, c] = new EmptyTile(new Vector2(
+																(int)((screenWidth / 2) - (4.5 - c) * sideLength),
+																(int)((screenHeight / 2) - (4.5 - r) * sideLength)),
+																groundTexture, this, r, c,
+																sideLength, true);
                             break;
                         case 1:
 							structures[r, c] = new BasicTurret(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
-                                                                turretTexture, bulletTexture,
-                                                                sideLength);
+                                                                turretTexture, bulletTexture, groundTexture,
+																sideLength);
 							break;
                         case 2:
-                            mainStructure = new MainStructure(new Vector2(
-																(int)((screenWidth / 2) - (4 - c) * sideLength), 
-                                                                (int)((screenHeight / 2) - (4 - r) * sideLength)), 
-                                                                mainStructureTexture, 
-                                                                sideLength * 2);
-							structures[r, c] = mainStructure;
-
+							if (mainStructure == null)
+							{
+								mainStructure = new MainStructure(new Vector2(
+																	(int)((screenWidth / 2) - (4 - c) * sideLength),
+																	(int)((screenHeight / 2) - (4 - r) * sideLength)),
+																	mainStructureTexture,
+																	sideLength * 2);
+								structures[r, c] = mainStructure;
+							}
 							break;
                     }
                 }
             }
         }
 
-        public void Update(List<Enemy> enemies)
+        public void Update(List<Enemy> enemies, MouseState currentMouseState)
         {
             foreach (Structure structure in structures)
             {
-                if (structure != null)
-                    structure.Update(enemies);
-            }
+				if (structure is BasicTurret)
+				{
+					structure.Update(enemies);
+				}
+				if (structure is EmptyTile)
+				{
+					((EmptyTile)structure).Update(enemies, currentMouseState);
+				}
+			}
 
             if (!mainStructure.Active)
             {
-                stack.Pop();
-                Load();
+				Load();
+				stack.Pop();
             }
         }
 
@@ -115,5 +159,16 @@ namespace Siphon
                     structure.Draw(sp);
             }
         }
-    }
+
+		public void placeTurret(int rows, int cols)
+		{
+			structures[rows, cols] = new BasicTurret(new Vector2(
+												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+												turretTexture, bulletTexture, groundTexture,
+												sideLength);
+		}
+
+		#endregion
+	}
 }

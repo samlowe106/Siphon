@@ -21,6 +21,7 @@ namespace Siphon
 		// fields
 		private Player player;
 		private Button backButton;
+        private int waveCount = 1;
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
@@ -29,7 +30,7 @@ namespace Siphon
         private Texture2D plugEnemyModel;
         // constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
-            Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
+            Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
 			// base values
@@ -37,7 +38,7 @@ namespace Siphon
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, stack);
+            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, groundTexture, stack);
 
             // Enemy manager
             EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
@@ -72,16 +73,25 @@ namespace Siphon
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(enemies); 
+                map.Update(enemies, currentMouseState); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
                 
 
                 //Enemey update
-                foreach(Enemy e in enemies)
+                for(int i = 0; i < enemies.Count; i++)
                 {
-                    e.Update();
+                    if(enemies[i].Active == false)
+                    {
+                        enemies.RemoveAt(i);
+                        i--;
+                    }
+                    else
+                    {
+                        enemies[i].Update();
+
+                    }
                 }
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
