@@ -18,8 +18,8 @@ namespace Siphon
 
 	class GameManager
 	{
-		// fields
-		private Player player;
+        #region Fields
+        private Player player;
 		private Button backButton;
         private int waveCount = 1;
 		private bool paused;
@@ -28,8 +28,10 @@ namespace Siphon
         private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
-        // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+        #endregion
+
+        #region Constructor
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
             Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
@@ -63,9 +65,10 @@ namespace Siphon
             enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
             enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
 		}
+        #endregion
 
-        // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState,
+        #region Methods
+        public void Update(KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
@@ -129,5 +132,6 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
-	}
+        #endregion
+    }
 }
