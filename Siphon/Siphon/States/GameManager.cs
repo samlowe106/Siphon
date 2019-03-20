@@ -28,7 +28,9 @@ namespace Siphon
         private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
-        // constructor
+		private EnemyManager enemyManager;
+
+		// constructor
 		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
             Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
@@ -41,7 +43,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, groundTexture, stack);
 
             // Enemy manager
-            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
+            enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -66,12 +68,13 @@ namespace Siphon
 
         // methods
 		public void Update(KeyboardState kbState, KeyboardState lastKbState,
-            MouseState previousMouseState, MouseState currentMouseState)
+            MouseState previousMouseState, MouseState currentMouseState, GameTime gameTime)
 		{
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(enemies, currentMouseState); 
+				// map update
+                map.Update(enemies, currentMouseState, previousMouseState, true, gameTime); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);

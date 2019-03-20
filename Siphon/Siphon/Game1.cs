@@ -143,7 +143,7 @@ namespace Siphon
 					menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, lastKbState, mState, lastMState);
+					gameManager.Update(kbState, lastKbState, mState, lastMState, gameTime);
                     break;
                 case gameState.Options:
                     break;

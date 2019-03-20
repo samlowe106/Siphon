@@ -130,17 +130,17 @@ namespace Siphon
             }
         }
 
-        public void Update(List<Enemy> enemies, MouseState currentMouseState)
+        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime)
         {
             foreach (Structure structure in structures)
             {
 				if (structure is BasicTurret)
 				{
-					structure.Update(enemies);
+					((BasicTurret)structure).Update(enemies, gameTime);
 				}
 				if (structure is EmptyTile)
 				{
-					((EmptyTile)structure).Update(enemies, currentMouseState);
+					((EmptyTile)structure).Update(enemies, currentMouseState, previousMouseState, BuildPhase);
 				}
 			}
 
