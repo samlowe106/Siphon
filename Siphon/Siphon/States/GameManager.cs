@@ -29,9 +29,7 @@ namespace Siphon
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
 		private EnemyManager enemyManager;
-
-		// constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+		
         #endregion
 
         #region Constructor

@@ -36,7 +36,7 @@ namespace Siphon
 				if (rectangle.Contains(mouse.Position))
 				{
 					hover = true;
-					if (mouse.LeftButton == ButtonState.Pressed && lastFrame.LeftButton != ButtonState.Pressed)
+					if ((mouse.LeftButton == ButtonState.Pressed) && (lastFrame.LeftButton != ButtonState.Pressed))
 					{
 						map.placeTurret(rows, cols);
 					}
