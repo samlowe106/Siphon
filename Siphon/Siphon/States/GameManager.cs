@@ -18,8 +18,8 @@ namespace Siphon
 
 	class GameManager
 	{
-		// fields
-		private Player player;
+        #region Fields
+        private Player player;
 		private Button backButton;
         private int waveCount = 1;
 		private bool paused;
@@ -28,8 +28,12 @@ namespace Siphon
         private EnemyManager enemyManager;        private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
-        // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
+		private EnemyManager enemyManager;
+		
+        #endregion
+
+        #region Constructor
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
@@ -38,7 +42,7 @@ namespace Siphon
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, groundTexture, stack);
+            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, stack);
 
             // Enemy manager
             enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, plugEnemyModel);
@@ -60,15 +64,17 @@ namespace Siphon
             enemyManager.BeginNextWave();
 
 		}
+        #endregion
 
-        // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState,
-            MouseState previousMouseState, MouseState currentMouseState)
+        #region Methods
+        public void Update(KeyboardState kbState, KeyboardState lastKbState,
+            MouseState previousMouseState, MouseState currentMouseState, GameTime gameTime)
 		{
 			// runs when not paused
 			if (!paused)
 			{
-                map.Update(enemyManager.ActiveEnemies, currentMouseState); 
+				// map update
+                map.Update(enemies, currentMouseState, previousMouseState, true, gameTime); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
@@ -107,5 +113,6 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
-	}
+        #endregion
+    }
 }

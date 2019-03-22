@@ -59,10 +59,11 @@ namespace Siphon
 
 		#region Methods
 
-		public override void Update(List<Enemy> enemies)
+		public void Update(List<Enemy> enemies, GameTime gameTime)
 		{
-            drawCounter += (1 / 60f);
-            fireRate += (1 / 60f);
+			float deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+            drawCounter += deltaTime;
+            fireRate += deltaTime;
             counter1++;
 
 			if (counter1 > 10)
@@ -78,7 +79,7 @@ namespace Siphon
 
                 if (fireRate >= 0.25f)
                 {
-                    fireRate = 0;
+                    fireRate -= 0.25f;
 
                     target.TakeDamage(1);
 
@@ -147,7 +148,7 @@ namespace Siphon
 
 					if (drawCounter >= .25f)
 					{
-						drawCounter = 0;
+						drawCounter -= 0.25f;
 						fireState = !fireState;
 					}
 
