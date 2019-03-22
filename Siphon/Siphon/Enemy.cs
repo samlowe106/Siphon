@@ -83,36 +83,41 @@ namespace Siphon
             }
         }
 
+        /// <summary>
+        /// Checks if this enemy is intersecting with any structures
+        /// </summary>
+        /// <returns>
+        /// The structure that this enemy is intersecting with
+        /// Null if the enemy isn't intersecting anything
+        /// </returns>
         private Structure CheckTurretIntersect()
         {
             foreach (Structure s in structures)
-            {
-                
-                if (s!= null && s.Rectangle.Intersects(this.rectangle))
+            {   
+                if (s != null && s.Rectangle.Intersects(this.rectangle))
                 {
                     return s;
                 }
-
             }
-            return mainStructure;
-
+            return null;
         }
 
 
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
-        public override void Update()
+        public void Update(GameTime gameTime)
         {
             Structure structureIntersect = CheckTurretIntersect();
-            this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
-            if (!(structureIntersect.Rectangle.Intersects(this.rectangle)))
+            // Move the enemy towards another structure
+            if (structureIntersect == null)
             {
-                
                 position += speed;
+                // Update this enemy's rectangle
+                this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
             }
-            // Otherwise, if this enemy is close enough to the main structure, do damage
-            else
+            // Otherwise, if this enemy is close enough to the main structure, do damage every second
+            else // if (GameTime % SOMETHING == 0)
             {
                 this.DealDamage(structureIntersect);
             }

@@ -83,14 +83,10 @@ namespace Siphon
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
                 activeEnemies[i].Update();
-                // If the enemy isn't active (it's died), remove it from the list
+                // If the enemy isn't active (it died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
                     activeEnemies.RemoveAt(i);
-                }
-                else if (activeEnemies[i].Rectangle.Intersects())
-                {
-
                 }
             }
             // If all the enemies have died, mark the stage as clear
