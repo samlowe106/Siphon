@@ -23,6 +23,7 @@ namespace Siphon
 		private int counter1;
 		private float drawCounter;
 		private float fireRate;
+		private float deltaTime;
 		private GameTime timer;
 		private Texture2D groundTexture;
 
@@ -61,9 +62,9 @@ namespace Siphon
 
 		public void Update(List<Enemy> enemies, GameTime gameTime)
 		{
-			float deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+			deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
             drawCounter += deltaTime;
-            fireRate += deltaTime;
+            
             counter1++;
 
 			if (counter1 > 10)
@@ -79,7 +80,7 @@ namespace Siphon
 
                 if (fireRate >= 0.25f)
                 {
-                    fireRate -= 0.25f;
+                    fireRate = 0f;
 
                     target.TakeDamage(1);
 
@@ -144,11 +145,10 @@ namespace Siphon
 					break;
 
 				case TurretState.firing:
-					//sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
-
-					if (drawCounter >= .25f)
+					fireRate += deltaTime;
+					if (drawCounter >= .125f)
 					{
-						drawCounter -= 0.25f;
+						drawCounter -= 0.125f;
 						fireState = !fireState;
 					}
 

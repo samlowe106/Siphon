@@ -25,7 +25,6 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
-        private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
 		private EnemyManager enemyManager;
@@ -74,7 +73,7 @@ namespace Siphon
 			if (!paused)
 			{
 				// map update
-                map.Update(enemies, currentMouseState, previousMouseState, true, gameTime); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
