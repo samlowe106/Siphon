@@ -47,14 +47,18 @@ namespace Siphon
 			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
-            origin = new Vector2(16, 16);
+            origin = new Vector2(32, 32);
 			this.groundTexture = groundTexture;
+			maxHealth = 60;
+			currentHealth = 60;
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
 			{
 				bullets.Enqueue(new Bullet(bulletTexture));
 			}
+
+			
 		}
 		#endregion
 
@@ -63,7 +67,7 @@ namespace Siphon
 		public void Update(List<Enemy> enemies, GameTime gameTime)
 		{
 			deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
-            drawCounter += deltaTime;
+            fireRate += deltaTime;
             
             counter1++;
 
@@ -133,47 +137,49 @@ namespace Siphon
 		{
 			sp.Draw(groundTexture, rectangle, Color.White);
 
-			switch (turretState)
+			if (active)
 			{
-				case TurretState.idle:
-					sp.Draw(texture,
-							new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
-							new Rectangle(0, 0, 32, 32),
-							Color.White,
-							(float)(angle + (Math.PI / 2)),
-							origin, SpriteEffects.None, 1f);
-					break;
-
-				case TurretState.firing:
-					fireRate += deltaTime;
-					if (drawCounter >= .125f)
-					{
-						drawCounter -= 0.125f;
-						fireState = !fireState;
-					}
-
-					if (fireState)
-					{
+				switch (turretState)
+				{
+					case TurretState.idle:
 						sp.Draw(texture,
 								new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
-								new Rectangle(64, 0, 32, 32),
+								new Rectangle(0, 0, 64, 64),
 								Color.White,
 								(float)(angle + (Math.PI / 2)),
 								origin, SpriteEffects.None, 1f);
-					}
-					else
-					{
-						sp.Draw(texture,
-								new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
-								new Rectangle(32, 0, 32, 32),
-								Color.White,
-								(float)(angle + (Math.PI / 2)),
-								origin, SpriteEffects.None, 1f);
-					}
+						break;
 
-					break;
+					case TurretState.firing:
+						drawCounter += deltaTime;
+						if (drawCounter >= .125f)
+						{
+							drawCounter -= 0.125f;
+							fireState = !fireState;
+						}
+
+						if (fireState)
+						{
+							sp.Draw(texture,
+									new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+									new Rectangle(128, 0, 64, 64),
+									Color.White,
+									(float)(angle + (Math.PI / 2)),
+									origin, SpriteEffects.None, 1f);
+						}
+						else
+						{
+							sp.Draw(texture,
+									new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+									new Rectangle(64, 0, 64, 64),
+									Color.White,
+									(float)(angle + (Math.PI / 2)),
+									origin, SpriteEffects.None, 1f);
+						}
+
+						break;
+				}
 			}
-			
 		}
 
 		public void Shoot(Enemy e, Bullet b)

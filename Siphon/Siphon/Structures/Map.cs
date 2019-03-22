@@ -21,7 +21,6 @@ namespace Siphon
         private int screenHeight;
         private Stack<gameState> stack;
 
-
         public MainStructure mainStructure;
         public Structure[,] Structures { get { return structures; } }
 
@@ -30,7 +29,6 @@ namespace Siphon
         private Texture2D turretTexture;
         private Texture2D bulletTexture;
         private Texture2D groundTexture;
-        private Texture2D attery;
 
 		#endregion
 
@@ -43,7 +41,7 @@ namespace Siphon
 				List<Structure> turrets = new List<Structure>();
 				foreach (Structure structure in structures)
 				{					
-                    if (!(structure is EmptyTile))
+                    if (!(structure is EmptyTile) && (structure != null) && (structure.Active))
 						turrets.Add(structure);					
 				}
 				return turrets;
@@ -134,7 +132,7 @@ namespace Siphon
         {
             foreach (Structure structure in structures)
             {
-				if (structure is BasicTurret)
+				if ((structure is BasicTurret) && (structure.Active))
 				{
 					((BasicTurret)structure).Update(enemies, gameTime);
 				}

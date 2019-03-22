@@ -54,7 +54,7 @@ namespace Siphon
             ++waveNumber;
             // Set the amount of time until the next wave
             //timeUntilNextWave = SOMETHING;
-            for (int i = 0; i < 200; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 // Get coords for the next enemy to be spawned in
                 int xCoord = generator.Next(0, 101);

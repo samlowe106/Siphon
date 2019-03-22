@@ -12,11 +12,6 @@ namespace Siphon
 	interface IDamageable
 	{
         /// <summary>
-        /// Percentage of damage that will be ignored when this object takes damage
-        /// </summary>
-        float ArmorRating { get; }
-
-        /// <summary>
         /// Maximum amount of health that this object can have
         /// </summary>
         float MaximumHealth { get; }
