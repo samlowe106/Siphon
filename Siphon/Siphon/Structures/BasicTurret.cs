@@ -63,7 +63,7 @@ namespace Siphon
 		public void Update(List<Enemy> enemies, GameTime gameTime)
 		{
 			deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
-            drawCounter += deltaTime;
+            fireRate += deltaTime;
             
             counter1++;
 
@@ -145,7 +145,7 @@ namespace Siphon
 					break;
 
 				case TurretState.firing:
-					fireRate += deltaTime;
+					drawCounter += deltaTime;
 					if (drawCounter >= .125f)
 					{
 						drawCounter -= 0.125f;

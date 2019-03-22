@@ -78,7 +78,7 @@ namespace Siphon
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState);
 
-                enemyManager.Update();
+                enemyManager.Update(gameTime);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
