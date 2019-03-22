@@ -108,7 +108,6 @@ namespace Siphon
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            structures = turrets;
             Structure structureIntersect = CheckTurretIntersect();
             // Move the enemy towards another structure
             if (structureIntersect == null)

@@ -59,8 +59,6 @@ namespace Siphon
 
             //Enemy Textures
             //Enemy test
-            
-            enemyManager.BeginNextWave(0);
 
 		}
         #endregion
@@ -69,8 +67,13 @@ namespace Siphon
         public void Update(GameTime gameTime, KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
 		{
-			// runs when not paused
-			if (!paused)
+            // Time that the first wave begins
+            if (gameTime.ElapsedGameTime == TimeSpan.Zero)
+            {
+                enemyManager.BeginNextWave(gameTime);
+            }
+            // runs when not paused
+            if (!paused)
 			{
 				// map update
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime); 
@@ -104,7 +107,6 @@ namespace Siphon
 			backButton.Draw(sp);
             enemyManager.Draw(sp);
            
-
             //draws when paused
             if (paused)
 			{
@@ -112,6 +114,21 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Manages enemies and waves
+        /// </summary>
+        public EnemyManager EnemyManager
+        {
+            get
+            {
+                return enemyManager;
+            }
+        }
+
         #endregion
     }
 }

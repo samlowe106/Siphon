@@ -53,8 +53,14 @@ namespace Siphon
 				sp.Draw(texture, rectangle, Color.White);
 		}
 
-		// Does hover over effect and changes the game state if clicked
-		public void Update(MouseState mouse)
+        // 
+
+        /// <summary>
+        /// Handles hover effect and changes the game state if clicked
+        /// </summary>
+        /// <param name="mouse"></param>
+        /// <returns>True when the button is clicked for the first time, false otherwise</returns>
+        public bool Update(MouseState mouse)
         {
             if (rectangle.Contains(mouse.Position))
 			{
@@ -69,6 +75,7 @@ namespace Siphon
 					else
 					{
 						stack.Push(state);
+                        return true;
 					}
 				}
 			}
@@ -76,6 +83,7 @@ namespace Siphon
 			{
 				mouseHover = false;
 			}
+            return false;
         }
 	}
 }

@@ -141,7 +141,10 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-					menu.Update(mState);
+					if (menu.Update(mState))
+                    {
+                        gameManager.EnemyManager.BeginNextWave(gameTime);
+                    }
                     break;
                 case gameState.Game:
 					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);

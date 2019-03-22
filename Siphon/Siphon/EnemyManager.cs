@@ -55,7 +55,7 @@ namespace Siphon
             // Increment the current wave
             ++waveNumber;
             // Set the amount of time until the next wave
-            //timeUntilNextWave = SOMETHING;
+            timeUntilNextWave = gameTime; // + SOMETHING;
             for (int i = 0; i < 200; ++i)
             {
                 // Get coords for the next enemy to be spawned in
@@ -98,7 +98,7 @@ namespace Siphon
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update(listOfTurrets);
+                activeEnemies[i].Update();
                 // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
