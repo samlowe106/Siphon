@@ -23,7 +23,8 @@ namespace Siphon
 		public MainStructure(Vector2 position, Texture2D texture, Texture2D groundTexture, int dimension)
             : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
         {
-            this.maxHealth = 2000;
+            maxHealth = 2000;
+			currentHealth = maxHealth;
 			this.groundTexture = groundTexture;
 		}
 		#endregion

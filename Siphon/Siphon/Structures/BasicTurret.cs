@@ -37,7 +37,7 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int dimension)
 			: base(position, texture, dimension)
 		{
 			counter1 = 0;
@@ -49,8 +49,8 @@ namespace Siphon
 			timer = new GameTime();
             origin = new Vector2(32, 32);
 			this.groundTexture = groundTexture;
-			maxHealth = 60;
-			currentHealth = 60;
+			maxHealth = 10;
+			currentHealth = 10;
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)

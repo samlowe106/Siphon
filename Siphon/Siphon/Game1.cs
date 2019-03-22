@@ -50,6 +50,7 @@ namespace Siphon
         Texture2D plugEnemyModel;
         Texture2D groundTexture;
         Texture2D batteryTexture;
+        Texture2D healthBar;
 
 
         // sprite fonts 
@@ -91,6 +92,7 @@ namespace Siphon
             plugEnemyModel = Content.Load<Texture2D>("Plug Enemy");
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
+			healthBar = Content.Load<Texture2D>("healthBar");
 
 
 			// states
@@ -98,7 +100,7 @@ namespace Siphon
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, screenWidth, screenHeight, state, Arial12);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
             
             base.Initialize();
         }
