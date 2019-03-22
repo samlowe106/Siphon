@@ -14,26 +14,36 @@ namespace Siphon
     /// </summary>
     class MainStructure : Structure
     {
-        
-        #region Constructor
-
-        // Position vector should be predetermined so the main structure always spawns in the center of the screen
+		private Texture2D groundTexture;
 
 
-        public MainStructure(Vector2 position, Texture2D texture, int dimension)
+
+		#region Constructor
+
+		public MainStructure(Vector2 position, Texture2D texture, Texture2D groundTexture, int dimension)
             : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
         {
             this.maxHealth = 2;
-        }
-        #endregion
+			this.groundTexture = groundTexture;
+		}
+		#endregion
 
-        // This object's OnDeath event should trigger something to end the game
+		// This object's OnDeath event should trigger something to end the game
 
-        #region Methods
+		#region Methods
 
-        
+		public override void Draw(SpriteBatch sp)
+		{
+			sp.Draw(groundTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width / 2, rectangle.Height / 2), Color.White);
+			sp.Draw(groundTexture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y, rectangle.Width / 2, rectangle.Height / 2), Color.White);
+			sp.Draw(groundTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height / 2, rectangle.Width / 2, rectangle.Height / 2), Color.White);
+			sp.Draw(groundTexture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width / 2, rectangle.Height / 2), Color.White);
 
-        #endregion
 
-    }
+			sp.Draw(texture, rectangle, new Rectangle(0, 0, 64, 64), Color.White);
+		}
+
+		#endregion
+
+	}
 }

@@ -29,19 +29,21 @@ namespace Siphon
 		}
 
 		
-		public void Update(List<Enemy> enemies, MouseState mouse)
+		public void Update(List<Enemy> enemies, MouseState mouse, MouseState lastFrame, bool active)
 		{
-			if (rectangle.Contains(mouse.Position))
+			if (active)
 			{
-				hover = true;
-				if (mouse.LeftButton == ButtonState.Pressed)
+				if (rectangle.Contains(mouse.Position))
 				{
-					map.placeTurret(rows, cols);
+					hover = true;
+					if ((mouse.LeftButton == ButtonState.Pressed) && (lastFrame.LeftButton != ButtonState.Pressed))
+					{
+						map.placeTurret(rows, cols);
+					}
 				}
+				else
+					hover = false;
 			}
-			else
-				hover = false;
-
 			
 		}
 

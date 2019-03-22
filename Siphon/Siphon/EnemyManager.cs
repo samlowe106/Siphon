@@ -24,6 +24,11 @@ namespace Siphon
         private Texture2D plugEnemyModel;
         private int screenWidth;
         private int screenHeight;
+        private Map map;
+        private List<Structure> listOfTurrets;
+
+
+        private double timeUnitilNextWave;
         private GameTime nextWaveSpawnTime;
         private GameTime timeUntilNextWave;
         // Starter enemy's texture
@@ -31,14 +36,16 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, MainStructure mainStructure, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
-            this.mainStructure = mainStructure;
             this.activeEnemies = new List<Enemy>();
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+            this.map = map;
+            this.listOfTurrets = map.Turrets;
+            mainStructure = map.mainStructure;
         }
         #endregion
 
@@ -48,29 +55,36 @@ namespace Siphon
             // Increment the current wave
             ++waveNumber;
             // Set the amount of time until the next wave
-            timeUntilNextWave = gameTime; // + SOMETHING;
-            
-            // Get coords for the next enemy to be spawned in
-            int xCoord = generator.Next(0, 101);
-            // 50% chance that the enemy will spawn on the right
-            if (xCoord > 50)
+            //timeUntilNextWave = SOMETHING;
+            for (int i = 0; i < 200; ++i)
             {
-                // make the enemy spawn on the right
-                xCoord = screenWidth - xCoord;
-            }
+                // Get coords for the next enemy to be spawned in
+                int xCoord = generator.Next(0, 101);
+                // 50% chance that the enemy will spawn on the right
+                if (xCoord < 50)
+                {
+                    xCoord = generator.Next(0, screenWidth / 2);
+                    // make the enemy spawn on the right
+                }
+                else
+                {
+                    xCoord = generator.Next(screenWidth / 2, screenWidth);
+                }
 
-            int yCoord = generator.Next(0, 101);
-            // 50% chance that the enemy will spawn on the bottom of the screen
-            if (xCoord > 50)
-            {
-                yCoord = screenWidth - yCoord;
-            }
+                int yCoord = generator.Next(0, 2);
+                // 50% chance that the enemy will spawn on the bottom of the screen
+                if (yCoord == 0)                {
+                    
+                    yCoord = screenHeight;
+                }
+                else
+                {
+                    yCoord = 0;
+                }
 
-            Vector2 enemyCoords = new Vector2(xCoord, yCoord);
-            // Spawn in 3 additional enemies per wave
-            for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
-            {
-                
+                Vector2 enemyCoords = new Vector2(xCoord, yCoord);
+                // Spawn in 3 additional enemies per wave
+                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, listOfTurrets));
             }
         }
 
@@ -79,11 +93,13 @@ namespace Siphon
         /// </summary>
         public void Update()
         {
+            List<Structure> listOfTurrets = map.Turrets;
+            
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update();
-                // If the enemy isn't active (it died), remove it from the list
+                activeEnemies[i].Update(listOfTurrets);
+                // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
                     activeEnemies.RemoveAt(i);
@@ -123,6 +139,11 @@ namespace Siphon
             // If the bullet doesn't intersect with any rectangles, return false
             return null;
         }
+
+        public void AddToList(Enemy e)
+        {
+            activeEnemies.Add(e);
+        }
         #endregion
 
         #region Properties
@@ -158,6 +179,15 @@ namespace Siphon
                 return timeUnitilNextWave;
             }
         }
+
+        public List<Enemy> ActiveEnemies
+        {
+            get
+            {
+                return activeEnemies;
+            }
+        }
+
         #endregion
     }
 }
