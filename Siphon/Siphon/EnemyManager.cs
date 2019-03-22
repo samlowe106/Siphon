@@ -26,10 +26,10 @@ namespace Siphon
         private int screenHeight;
         private Map map;
         private List<Structure> listOfTurrets;
-        private GameTime gameTime;
-        private double timeUnitilNextWave;
 
 
+        private GameTime nextWaveSpawnTime;
+        private GameTime timeUntilNextWave;
         // Starter enemy's texture
         private Texture2D startTexture;
         #endregion
@@ -49,12 +49,12 @@ namespace Siphon
         #endregion
 
         #region Methods
-        public void BeginNextWave()
+        public void BeginNextWave(GameTime gameTime)
         {
             // Increment the current wave
             ++waveNumber;
             // Set the amount of time until the next wave
-            //timeUntilNextWave = SOMETHING;
+            //timeUntilNextWave = gameTime + SOMETHING;
 
             #region StarterEnemySpawn
             for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
@@ -104,7 +104,7 @@ namespace Siphon
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update(listOfTurrets, gameTime);
+                activeEnemies[i].Update();
                 // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {

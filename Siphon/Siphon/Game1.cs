@@ -92,7 +92,6 @@ namespace Siphon
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
 
-
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
@@ -142,10 +141,13 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-					menu.Update(mState);
+					if (menu.Update(mState))
+                    {
+                        gameManager.EnemyManager.BeginNextWave(gameTime);
+                    }
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, lastKbState, mState, lastMState, gameTime);
+					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);
                     break;
                 case gameState.Options:
                     break;
