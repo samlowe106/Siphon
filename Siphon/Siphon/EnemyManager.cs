@@ -24,7 +24,8 @@ namespace Siphon
         private Texture2D plugEnemyModel;
         private int screenWidth;
         private int screenHeight;
-        private double timeUnitilNextWave;
+        private GameTime nextWaveSpawnTime;
+        private GameTime timeUntilNextWave;
         // Starter enemy's texture
         private Texture2D startTexture;
         #endregion
@@ -42,12 +43,12 @@ namespace Siphon
         #endregion
 
         #region Methods
-        public void BeginNextWave()
+        public void BeginNextWave(GameTime gameTime)
         {
             // Increment the current wave
             ++waveNumber;
             // Set the amount of time until the next wave
-            //timeUntilNextWave = SOMETHING;
+            timeUntilNextWave = gameTime; // + SOMETHING;
             
             // Get coords for the next enemy to be spawned in
             int xCoord = generator.Next(0, 101);
@@ -86,6 +87,10 @@ namespace Siphon
                 if (!activeEnemies[i].Active)
                 {
                     activeEnemies.RemoveAt(i);
+                }
+                else if (activeEnemies[i].Rectangle.Intersects())
+                {
+
                 }
             }
             // If all the enemies have died, mark the stage as clear
