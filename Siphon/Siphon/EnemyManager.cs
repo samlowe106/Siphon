@@ -44,7 +44,6 @@ namespace Siphon
             this.screenHeight = screenHeight;
             this.map = map;
             this.listOfTurrets = map.Turrets;
-            this.gameTime = gameTime;
             mainStructure = map.mainStructure;
         }
         #endregion
