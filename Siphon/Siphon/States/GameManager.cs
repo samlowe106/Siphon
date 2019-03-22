@@ -25,7 +25,7 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
-        private EnemyManager enemyManager;        private List<Enemy> enemies= new List<Enemy>();
+        private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
 		private EnemyManager enemyManager;
