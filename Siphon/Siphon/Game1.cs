@@ -92,7 +92,6 @@ namespace Siphon
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
 
-
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);

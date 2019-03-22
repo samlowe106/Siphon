@@ -60,13 +60,13 @@ namespace Siphon
             //Enemy Textures
             //Enemy test
             
-            enemyManager.BeginNextWave();
+            enemyManager.BeginNextWave(0);
 
 		}
         #endregion
 
         #region Methods
-        public void Update(GameTime gametime, KeyboardState kbState, KeyboardState lastKbState,
+        public void Update(GameTime gameTime, KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// runs when not paused
