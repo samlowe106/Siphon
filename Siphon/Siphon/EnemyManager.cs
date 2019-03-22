@@ -26,9 +26,10 @@ namespace Siphon
         private int screenHeight;
         private Map map;
         private List<Structure> listOfTurrets;
-
-
+        private GameTime gameTime;
         private double timeUnitilNextWave;
+
+
         // Starter enemy's texture
         private Texture2D startTexture;
         #endregion
@@ -43,6 +44,7 @@ namespace Siphon
             this.screenHeight = screenHeight;
             this.map = map;
             this.listOfTurrets = map.Turrets;
+            this.gameTime = gameTime;
             mainStructure = map.mainStructure;
         }
         #endregion
@@ -54,49 +56,56 @@ namespace Siphon
             ++waveNumber;
             // Set the amount of time until the next wave
             //timeUntilNextWave = SOMETHING;
-            for (int i = 0; i < 100; ++i)
-            {
-                // Get coords for the next enemy to be spawned in
-                int xCoord = generator.Next(0, 101);
-                // 50% chance that the enemy will spawn on the right
-                if (xCoord < 50)
-                {
-                    xCoord = generator.Next(0, screenWidth / 2);
-                    // make the enemy spawn on the right
-                }
-                else
-                {
-                    xCoord = generator.Next(screenWidth / 2, screenWidth);
-                }
 
-                int yCoord = generator.Next(0, 2);
-                // 50% chance that the enemy will spawn on the bottom of the screen
-                if (yCoord == 0)                {
-                    
-                    yCoord = screenHeight;
+            #region StarterEnemySpawn
+            for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
+            {
+
+                int sideDecider = generator.Next(0, 4);
+                // Get coords for the next enemy to be spawned in
+                int xCoord;
+                int yCoord;
+                // 50% chance that the enemy will spawn on the right
+                if (sideDecider == 0)
+                {
+                    xCoord = generator.Next(0, 50);
+                    yCoord = generator.Next(0, screenHeight);
+                    // make the enemy spawn on the left
+                }
+                else if(sideDecider == 1)
+                {
+                    xCoord = generator.Next(0, screenWidth);
+                    yCoord = generator.Next(0, 50);
+                }
+                else if (sideDecider == 2)
+                {
+                    xCoord = generator.Next(screenWidth - 50, screenWidth);
+                    yCoord = generator.Next(0, screenHeight);
                 }
                 else
                 {
-                    yCoord = 0;
+                    xCoord = generator.Next(0, screenWidth);
+                    yCoord = generator.Next(screenHeight - 50, screenHeight);
                 }
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
                 AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, listOfTurrets));
             }
+            #endregion
         }
 
         /// <summary>
         /// Loops over enemies, updating each one
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             List<Structure> listOfTurrets = map.Turrets;
             
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update(listOfTurrets);
+                activeEnemies[i].Update(listOfTurrets, gameTime);
                 // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
