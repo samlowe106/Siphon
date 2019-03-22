@@ -37,11 +37,15 @@ namespace Siphon
 
 		// methods
 
-		public void Update(MouseState mouse)
+
+        /// <returns>
+        /// True if the startbutton has been clicked to start a new game
+        /// </returns>
+		public bool Update(MouseState mouse)
 		{
-			startButton.Update(mouse);
             exitButton.Update(mouse);
-		}
+            return startButton.Update(mouse);
+        }
 
 		public void Draw(SpriteBatch sp)
 		{

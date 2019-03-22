@@ -94,7 +94,6 @@ namespace Siphon
 			batteryTexture = Content.Load<Texture2D>("Battery");
 			healthBar = Content.Load<Texture2D>("healthBar");
 
-
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
@@ -144,10 +143,13 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-					menu.Update(mState);
+					if (menu.Update(mState))
+                    {
+                        gameManager.EnemyManager.BeginNextWave(gameTime);
+                    }
                     break;
                 case gameState.Game:
-					gameManager.Update(kbState, lastKbState, mState, lastMState, gameTime);
+					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);
                     break;
                 case gameState.Options:
                     break;
