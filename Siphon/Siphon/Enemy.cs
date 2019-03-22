@@ -22,6 +22,7 @@ namespace Siphon
         protected int damage;
         protected Vector2 distanceToStructure;
         protected List<Structure> structures;
+        protected float damageRate = 0;
         #endregion
 
         #region Constructor
@@ -79,6 +80,7 @@ namespace Siphon
             // Deal damage to the specified enemy
             if (this.active)
             {
+
                 target.TakeDamage(this.damage);
             }
         }
@@ -119,7 +121,13 @@ namespace Siphon
             // Otherwise, if this enemy is close enough to the main structure, do damage every second
             else // if (GameTime % SOMETHING == 0)
             {
-                this.DealDamage(structureIntersect);
+                float deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+                damageRate += deltaTime;
+                if (damageRate >= .5)
+                {
+                    damageRate = 0;
+                    this.DealDamage(structureIntersect);
+                }
             }
             base.Update();
         }

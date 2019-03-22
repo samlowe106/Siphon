@@ -79,9 +79,9 @@ namespace Siphon
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime); 
 
                 //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState);
+                //player.Update(kbState, currentMouseState, previousMouseState);
 
-                enemyManager.Update();
+                enemyManager.Update(gameTime);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
