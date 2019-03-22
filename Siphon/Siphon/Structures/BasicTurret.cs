@@ -23,7 +23,9 @@ namespace Siphon
 		private int counter1;
 		private float drawCounter;
 		private float fireRate;
+		private float deltaTime;
 		private GameTime timer;
+		private Texture2D groundTexture;
 
 		private Queue<Bullet> bullets;
 
@@ -35,7 +37,7 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int dimension)
 			: base(position, texture, dimension)
 		{
 			counter1 = 0;
@@ -45,22 +47,28 @@ namespace Siphon
 			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
-            origin = new Vector2(16, 16);
+            origin = new Vector2(32, 32);
+			this.groundTexture = groundTexture;
+			maxHealth = 10;
+			currentHealth = 10;
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
 			{
 				bullets.Enqueue(new Bullet(bulletTexture));
 			}
+
+			
 		}
 		#endregion
 
 		#region Methods
 
-		public override void Update(List<Enemy> enemies)
+		public void Update(List<Enemy> enemies, GameTime gameTime)
 		{
-            drawCounter += (1 / 60f);
-            fireRate += (1 / 60f);
+			deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+            fireRate += deltaTime;
+            
             counter1++;
 
 			if (counter1 > 10)
@@ -76,7 +84,7 @@ namespace Siphon
 
                 if (fireRate >= 0.25f)
                 {
-                    fireRate = 0;
+                    fireRate = 0f;
 
                     target.TakeDamage(1);
 
@@ -127,45 +135,51 @@ namespace Siphon
 
 		public override void Draw(SpriteBatch sp)
 		{
-			switch (turretState)
+			sp.Draw(groundTexture, rectangle, Color.White);
+
+			if (active)
 			{
-				case TurretState.idle:
-                    sp.Draw(texture, 
-                            new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                            new Rectangle(0, 0, 32, 32), 
-                            Color.White, 
-                            (float)(angle + (Math.PI / 2)), 
-                            origin, SpriteEffects.None, 1f);
-                    break;
+				switch (turretState)
+				{
+					case TurretState.idle:
+						sp.Draw(texture,
+								new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+								new Rectangle(0, 0, 64, 64),
+								Color.White,
+								(float)(angle + (Math.PI / 2)),
+								origin, SpriteEffects.None, 1f);
+						break;
 
-				case TurretState.firing:
-					//sp.Draw(texture, rectangle, new Rectangle(32, 0, 32, 32), Color.White);
+					case TurretState.firing:
+						drawCounter += deltaTime;
+						if (drawCounter >= .125f)
+						{
+							drawCounter -= 0.125f;
+							fireState = !fireState;
+						}
 
-                    
+						if (fireState)
+						{
+							sp.Draw(texture,
+									new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+									new Rectangle(128, 0, 64, 64),
+									Color.White,
+									(float)(angle + (Math.PI / 2)),
+									origin, SpriteEffects.None, 1f);
+						}
+						else
+						{
+							sp.Draw(texture,
+									new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+									new Rectangle(64, 0, 64, 64),
+									Color.White,
+									(float)(angle + (Math.PI / 2)),
+									origin, SpriteEffects.None, 1f);
+						}
 
-                    if (drawCounter >= .25f)
-                    {
-                        drawCounter = 0;
-                        fireState = !fireState;
-                    }
-
-                    if (fireState)
-                        sp.Draw(texture,
-                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                                new Rectangle(64, 0, 32, 32), 
-                                Color.White, 
-                                (float)(angle + (Math.PI / 2)), 
-                                origin, SpriteEffects.None, 1f);
-                    else
-                        sp.Draw(texture, 
-                                new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height), 
-                                new Rectangle(32, 0, 32, 32), 
-                                Color.White, 
-                                (float)(angle + (Math.PI / 2)), 
-                                origin, SpriteEffects.None, 1f);
-                    break;
+						break;
+				}
 			}
-			
 		}
 
 		public void Shoot(Enemy e, Bullet b)

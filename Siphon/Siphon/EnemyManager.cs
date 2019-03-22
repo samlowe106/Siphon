@@ -16,80 +16,100 @@ namespace Siphon
         #endregion
 
         #region Fields
-        int waveNumber;
-        List<Enemy> activeEnemies;
-        Random generator;
-        bool stageClear;
-        MainStructure mainStructure;
-        Texture2D plugEnemyModel;
-        int screenWidth;
-        int screenHeight;
-        double timeUnitilNextWave;
+        private int waveNumber;
+        private List<Enemy> activeEnemies;
+        private Random generator;
+        private MainStructure mainStructure;
+        private Texture2D plugEnemyModel;
+        private int screenWidth;
+        private int screenHeight;
+        private Map map;
+        private List<Structure> listOfTurrets;
+
+
+        private GameTime nextWaveSpawnTime;
+        private GameTime timeUntilNextWave;
         // Starter enemy's texture
-        Texture2D startTexture;
+        private Texture2D startTexture;
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, MainStructure mainStructure, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
-            this.mainStructure = mainStructure;
             this.activeEnemies = new List<Enemy>();
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+            this.map = map;
+            this.listOfTurrets = map.Turrets;
+            mainStructure = map.mainStructure;
         }
         #endregion
 
         #region Methods
-        public void BeginNextWave()
+        public void BeginNextWave(GameTime gameTime)
         {
             // Increment the current wave
             ++waveNumber;
             // Set the amount of time until the next wave
-            //timeUntilNextWave = SOMETHING;
-            
-            // Get coords for the next enemy to be spawned in
-            int xCoord = generator.Next(0, 101);
-            // 50% chance that the enemy will spawn on the right
-            if (xCoord > 50)
-            {
-                // make the enemy spawn on the right
-                xCoord = screenWidth - xCoord;
-            }
+            //timeUntilNextWave = gameTime + SOMETHING;
 
-            int yCoord = generator.Next(0, 101);
-            // 50% chance that the enemy will spawn on the bottom of the screen
-            if (xCoord > 50)
+            #region StarterEnemySpawn
+            for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
             {
-                yCoord = screenWidth - yCoord;
-            }
 
-            Vector2 enemyCoords = new Vector2(xCoord, yCoord);
-            // Spawn in 3 additional enemies per wave
-            for (int i = 0; i < waveNumber * ENEMIES_PER_WAVE; ++i)
-            {
-                activeEnemies.Add(new StarterEnemy(enemyCoords, startTexture, mainStructure));
+                int sideDecider = generator.Next(0, 4);
+                // Get coords for the next enemy to be spawned in
+                int xCoord;
+                int yCoord;
+                // 50% chance that the enemy will spawn on the right
+                if (sideDecider == 0)
+                {
+                    xCoord = generator.Next(0, 50);
+                    yCoord = generator.Next(0, screenHeight);
+                    // make the enemy spawn on the left
+                }
+                else if(sideDecider == 1)
+                {
+                    xCoord = generator.Next(0, screenWidth);
+                    yCoord = generator.Next(0, 50);
+                }
+                else if (sideDecider == 2)
+                {
+                    xCoord = generator.Next(screenWidth - 50, screenWidth);
+                    yCoord = generator.Next(0, screenHeight);
+                }
+                else
+                {
+                    xCoord = generator.Next(0, screenWidth);
+                    yCoord = generator.Next(screenHeight - 50, screenHeight);
+                }
+
+                Vector2 enemyCoords = new Vector2(xCoord, yCoord);
+                // Spawn in 3 additional enemies per wave
+                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, map.Turrets));
             }
+            #endregion
         }
 
         /// <summary>
         /// Loops over enemies, updating each one
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            
+            
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update();
+                activeEnemies[i].Update(gameTime, listOfTurrets);
                 // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
                     activeEnemies.RemoveAt(i);
                 }
             }
-            // If all the enemies have died, mark the stage as clear
-            stageClear = activeEnemies.Count == 0;
         }
 
         /// <summary>
@@ -122,6 +142,11 @@ namespace Siphon
             // If the bullet doesn't intersect with any rectangles, return false
             return null;
         }
+
+        public void AddToList(Enemy e)
+        {
+            activeEnemies.Add(e);
+        }
         #endregion
 
         #region Properties
@@ -143,20 +168,32 @@ namespace Siphon
         {
             get
             {
-                return stageClear;
+                return activeEnemies.Count == 0;
             }
         }
 
         /// <summary>
         /// Timer representing the amount of time until the next wave will spawn
         /// </summary>
-        public double TimeUntilNextWave
+        public GameTime TimeUntilNextWave
         {
             get
             {
-                return timeUnitilNextWave;
+                return timeUntilNextWave;
             }
         }
+
+        /// <summary>
+        /// List of all enemies currently active on the map
+        /// </summary>
+        public List<Enemy> ActiveEnemies
+        {
+            get
+            {
+                return activeEnemies;
+            }
+        }
+
         #endregion
     }
 }

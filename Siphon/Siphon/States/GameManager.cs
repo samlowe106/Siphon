@@ -18,18 +18,22 @@ namespace Siphon
 
 	class GameManager
 	{
-		// fields
-		private Player player;
+        #region Fields
+        private Player player;
 		private Button backButton;
+        private int waveCount = 1;
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
-        private List<Enemy> enemies= new List<Enemy>();
         private BulletManager bulletManager;
         private Texture2D plugEnemyModel;
-        // constructor
-		public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture,
-            Texture2D bulletTexture, int screenWidth, int screenHeight, Stack<gameState> stack,
+		private EnemyManager enemyManager;
+		
+        #endregion
+
+        #region Constructor
+        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
+            Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
             SpriteFont Arial12)
 		{
 			// base values
@@ -37,10 +41,10 @@ namespace Siphon
 			this.Arial12 = Arial12;
 
             // map
-            map = new Map(screenWidth, screenHeight, backButtonTexture, turretTexture, bulletTexture, stack);
+            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
 
             // Enemy manager
-            EnemyManager enemyManager = new EnemyManager(playerTexture, map.mainStructure, screenWidth, screenHeight, plugEnemyModel);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, plugEnemyModel);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -48,41 +52,36 @@ namespace Siphon
             // player
             player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30);
             // Player's pistol
-            //player.CurrentWeapon = new Pistol(pistolTexture, player, bulletManager);
+            player.CurrentWeapon = new Pistol(bulletTexture, player, bulletManager);
 
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
 
             //Enemy Textures
             //Enemy test
-            enemies.Add(new StarterEnemy(new Vector2(0, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, 0), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(0, screenHeight), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth / 2, screenHeight), playerTexture, map.mainStructure));
-            enemies.Add(new StarterEnemy(new Vector2(screenWidth, screenHeight), playerTexture, map.mainStructure));
-
 
 		}
+        #endregion
 
-        // methods
-		public void Update(KeyboardState kbState, KeyboardState lastKbState,
+        #region Methods
+        public void Update(GameTime gameTime, KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
 		{
-			// runs when not paused
-			if (!paused)
+            // Time that the first wave begins
+            if (gameTime.ElapsedGameTime == TimeSpan.Zero)
+            {
+                enemyManager.BeginNextWave(gameTime);
+            }
+            // runs when not paused
+            if (!paused)
 			{
-                map.Update(enemies); 
+				// map update
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime); 
 
                 //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState);
-                
+                //player.Update(kbState, currentMouseState, previousMouseState);
 
-                //Enemey update
-                foreach(Enemy e in enemies)
-                {
-                    e.Update();
-                }
+                enemyManager.Update(gameTime);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
@@ -106,14 +105,8 @@ namespace Siphon
 			map.Draw(sp);
 			player.Draw(sp);
 			backButton.Draw(sp);
-            
-            
-			//Enemeies Draw
-            foreach (Enemy e in enemies)
-            {
-				e.Draw(sp);
-            }
-
+            enemyManager.Draw(sp);
+           
             //draws when paused
             if (paused)
 			{
@@ -121,5 +114,21 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
-	}
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Manages enemies and waves
+        /// </summary>
+        public EnemyManager EnemyManager
+        {
+            get
+            {
+                return enemyManager;
+            }
+        }
+
+        #endregion
+    }
 }

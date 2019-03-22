@@ -21,13 +21,16 @@ namespace Siphon
         protected float maxHealth;
         protected int damage;
         protected Vector2 distanceToStructure;
+        protected List<Structure> structures;
+        protected float damageRate = 0;
         #endregion
 
         #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int dimensions,
-            Vector2 speed, MainStructure mainStructure, float maxHealth)
+            Vector2 speed, MainStructure mainStructure, float maxHealth, List<Structure> structures)
             : base(position, texture, dimensions, speed)
         {
+            
             // Set this enemy to know where the main structure is
             this.mainStructure = mainStructure;
             // Set armor rating and health health
@@ -40,7 +43,8 @@ namespace Siphon
 
             // Get the distance from this structure to the main one
             distanceToStructure = this.GetDistanceVector(mainStructure);
-
+            //Array For structures set
+            this.structures = structures;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
             this.speed = distanceToStructure;
@@ -76,24 +80,54 @@ namespace Siphon
             // Deal damage to the specified enemy
             if (this.active)
             {
+
                 target.TakeDamage(this.damage);
             }
         }
 
         /// <summary>
+        /// Checks if this enemy is intersecting with any structures
+        /// </summary>
+        /// <returns>
+        /// The structure that this enemy is intersecting with
+        /// Null if the enemy isn't intersecting anything
+        /// </returns>
+        private Structure CheckTurretIntersect()
+        {
+            foreach (Structure s in structures)
+            {   
+                if (s != null && s.Rectangle.Intersects(this.rectangle))
+                {
+                    return s;
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
-        public override void Update()
+        public void Update(GameTime gameTime, List<Structure> structures)
         {
-            this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
-            if (!(mainStructure.Rectangle.Contains(this.rectangle)))
+            Structure structureIntersect = CheckTurretIntersect();
+            // Move the enemy towards another structure
+            if (structureIntersect == null)
             {
                 position += speed;
+                // Update this enemy's rectangle
+                this.rectangle = new Rectangle((int)position.X, (int)position.Y, rectangle.Width, rectangle.Height);
             }
-            // Otherwise, if this enemy is close enough to the main structure, do damage
-            else
+            // Otherwise, if this enemy is close enough to the main structure, do damage every second
+            else // if (GameTime % SOMETHING == 0)
             {
-                this.DealDamage(mainStructure);
+                float deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+                damageRate += deltaTime;
+                if (damageRate >= .5)
+                {
+                    damageRate = 0;
+                    this.DealDamage(structureIntersect);
+                }
             }
             base.Update();
         }
