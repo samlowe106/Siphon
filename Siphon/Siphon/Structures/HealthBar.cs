@@ -20,6 +20,8 @@ namespace Siphon
 		public HealthBar(Rectangle rectangle, Texture2D texture)
 		{
 			this.rectangle = rectangle;
+			this.texture = texture;
+
 		}
 
 		// methods

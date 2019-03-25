@@ -26,6 +26,7 @@ namespace Siphon
 		private float deltaTime;
 		private GameTime timer;
 		private Texture2D groundTexture;
+		private HealthBar healthBar;
 
 		private Queue<Bullet> bullets;
 
@@ -37,7 +38,7 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBarTexture, int dimension)
 			: base(position, texture, dimension)
 		{
 			counter1 = 0;
@@ -51,6 +52,7 @@ namespace Siphon
 			this.groundTexture = groundTexture;
 			maxHealth = 10;
 			currentHealth = 10;
+			healthBar = new HealthBar(new Rectangle((int) position.X - dimension / 2, (int) position.Y - dimension / 2, dimension, dimension / 4), healthBarTexture);
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
@@ -179,6 +181,7 @@ namespace Siphon
 
 						break;
 				}
+				healthBar.Draw(sp, maxHealth, currentHealth);
 			}
 		}
 
