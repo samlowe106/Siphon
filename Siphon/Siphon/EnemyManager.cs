@@ -98,7 +98,7 @@ namespace Siphon
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            
+			listOfTurrets = map.Turrets;
             
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
