@@ -178,7 +178,6 @@ namespace Siphon
 									(float)(angle + (Math.PI / 2)),
 									origin, SpriteEffects.None, 1f);
 						}
-
 						break;
 				}
 				healthBar.Draw(sp, maxHealth, currentHealth);
