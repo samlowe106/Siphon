@@ -120,7 +120,7 @@ namespace Siphon
 								mainStructure = new MainStructure(new Vector2(
 																	(int)((screenWidth / 2) - (4 - c) * sideLength),
 																	(int)((screenHeight / 2) - (4 - r) * sideLength)),
-																	mainStructureTexture, groundTexture,
+																	mainStructureTexture, groundTexture, healthBar,
 																	sideLength * 2);
 								structures[r, c] = mainStructure;
 							}
