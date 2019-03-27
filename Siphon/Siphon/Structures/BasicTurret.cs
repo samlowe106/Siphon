@@ -48,7 +48,7 @@ namespace Siphon
 			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
-            origin = new Vector2(32, 32);
+            origin = new Vector2(32, 36);
 			this.groundTexture = groundTexture;
 			maxHealth = 10;
 			currentHealth = 10;
@@ -181,6 +181,15 @@ namespace Siphon
 						break;
 				}
 				healthBar.Draw(sp, maxHealth, currentHealth);
+			}
+			else
+			{
+				sp.Draw(texture,
+						new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+						new Rectangle(192, 0, 64, 64),
+						Color.White,
+						(float)(angle + (Math.PI / 2)),
+						origin, SpriteEffects.None, 1f);
 			}
 		}
 
