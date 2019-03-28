@@ -114,6 +114,11 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
+
+        public void Reset()
+        {
+            
+        }
         #endregion
 
         #region Properties
