@@ -150,7 +150,7 @@ namespace Siphon
                     }
                     break;
                 case gameState.Game:
-					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);
+					gameManager.Update(gameTime, kbState, lastKbState, lastMState, mState);
                     break;
                 case gameState.EndGame:
                     {
