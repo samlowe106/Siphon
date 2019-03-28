@@ -112,7 +112,7 @@ namespace Siphon
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture, groundTexture, healthBar,
-																sideLength);
+																sideLength, r, c, this);
 							break;
                         case 2:
 							if (mainStructure == null)
@@ -130,6 +130,17 @@ namespace Siphon
             }
         }
 
+        public void repairUpdate(MouseState mouse)
+        {
+            foreach(Structure structure in structures)
+            {
+                if (structure != null && !structure.Active && (structure is BasicTurret))
+                {
+                    ((BasicTurret)structure).RepairOrDestroy(mouse, false);
+                }
+            }
+        }
+
         public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime)
         {
             foreach (Structure structure in structures)
@@ -143,6 +154,11 @@ namespace Siphon
 					((EmptyTile)structure).Update(enemies, currentMouseState, previousMouseState, BuildPhase);
 				}
 			}
+
+            if (BuildPhase)
+            {
+                repairUpdate(currentMouseState);
+            }
 
             if (!mainStructure.Active)
             {
@@ -166,9 +182,18 @@ namespace Siphon
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
 												turretTexture, bulletTexture, groundTexture, healthBar,
-												sideLength);
+												sideLength, rows, cols, this);
 		}
 
-		#endregion
-	}
+        public void removeTurret(int rows, int cols)
+        {
+            structures[rows, cols] = new EmptyTile(new Vector2(
+                              (int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+                              (int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+                              groundTexture, this, rows, cols,
+                              sideLength, true);
+        }
+
+        #endregion
+    }
 }
