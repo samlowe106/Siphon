@@ -146,8 +146,7 @@ namespace Siphon
 
             if (!mainStructure.Active)
             {
-				Load();
-				stack.Pop();
+				stack.Push(gameState.EndGame);
             }
         }
 

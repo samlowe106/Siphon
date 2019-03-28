@@ -49,6 +49,8 @@ namespace Siphon
             //  where this enemy moves and how fast it moves there
             this.speed = distanceToStructure;
             this.speed.Normalize();
+            this.speed *= 3;
+
         }                             
         #endregion
 

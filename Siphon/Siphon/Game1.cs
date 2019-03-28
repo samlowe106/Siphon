@@ -13,6 +13,7 @@ namespace Siphon
     {
         Menu,
         Game,
+        EndGame,
         Options,
         Back
     }
@@ -147,6 +148,14 @@ namespace Siphon
                     break;
                 case gameState.Game:
 					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);
+                    break;
+                case gameState.EndGame:
+                    {
+                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+                        state.Pop();
+                        state.Pop();
+
+                    }
                     break;
                 case gameState.Options:
                     break;

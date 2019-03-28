@@ -57,7 +57,7 @@ namespace Siphon
             timeUntilNextWave = DELAY;
 
             #region StarterEnemySpawn
-            for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
+            for (int i = 0; i < (waveNumber * 15); ++i)
             {
                 //int xCoord = screenWidth * generator.Next(0, 2);
                 //int yCoord = screenHeight * generator.Next(0, 2);
