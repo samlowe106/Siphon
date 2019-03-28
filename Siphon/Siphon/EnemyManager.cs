@@ -56,7 +56,7 @@ namespace Siphon
             //timeUntilNextWave = gameTime + SOMETHING;
 
             #region StarterEnemySpawn
-            for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
+            for (int i = 0; i < (waveNumber * 15); ++i)
             {
 
                 int sideDecider = generator.Next(0, 4);
