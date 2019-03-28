@@ -26,6 +26,7 @@ namespace Siphon
 		private float deltaTime;
 		private GameTime timer;
 		private Texture2D groundTexture;
+		private HealthBar healthBar;
 
 		private Queue<Bullet> bullets;
 
@@ -37,7 +38,7 @@ namespace Siphon
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBarTexture, int dimension)
 			: base(position, texture, dimension)
 		{
 			counter1 = 0;
@@ -47,10 +48,11 @@ namespace Siphon
 			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
-            origin = new Vector2(32, 32);
+            origin = new Vector2(32, 36);
 			this.groundTexture = groundTexture;
-			maxHealth = 60;
-			currentHealth = 60;
+			maxHealth = 10;
+			currentHealth = 10;
+			healthBar = new HealthBar(new Rectangle((int) position.X - dimension / 2, (int) position.Y - dimension / 2, dimension, dimension / 4), healthBarTexture);
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
@@ -176,9 +178,18 @@ namespace Siphon
 									(float)(angle + (Math.PI / 2)),
 									origin, SpriteEffects.None, 1f);
 						}
-
 						break;
 				}
+				healthBar.Draw(sp, maxHealth, currentHealth);
+			}
+			else
+			{
+				sp.Draw(texture,
+						new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+						new Rectangle(192, 0, 64, 64),
+						Color.White,
+						(float)(angle + (Math.PI / 2)),
+						origin, SpriteEffects.None, 1f);
 			}
 		}
 

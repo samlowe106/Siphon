@@ -19,7 +19,6 @@ namespace Siphon
         private int waveNumber;
         private List<Enemy> activeEnemies;
         private Random generator;
-        private bool stageClear;
         private MainStructure mainStructure;
         private Texture2D plugEnemyModel;
         private int screenWidth;
@@ -89,7 +88,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, listOfTurrets));
+                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, map.Turrets));
             }
             #endregion
         }
@@ -99,20 +98,18 @@ namespace Siphon
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            List<Structure> listOfTurrets = map.Turrets;
+			listOfTurrets = map.Turrets;
             
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
-                activeEnemies[i].Update();
+                activeEnemies[i].Update(gameTime, listOfTurrets);
                 // If the enemy isn't active (it's died), remove it from the list
                 if (!activeEnemies[i].Active)
                 {
                     activeEnemies.RemoveAt(i);
                 }
             }
-            // If all the enemies have died, mark the stage as clear
-            stageClear = activeEnemies.Count == 0;
         }
 
         /// <summary>
@@ -171,21 +168,24 @@ namespace Siphon
         {
             get
             {
-                return stageClear;
+                return activeEnemies.Count == 0;
             }
         }
 
         /// <summary>
         /// Timer representing the amount of time until the next wave will spawn
         /// </summary>
-        public double TimeUntilNextWave
+        public GameTime TimeUntilNextWave
         {
             get
             {
-                return timeUnitilNextWave;
+                return timeUntilNextWave;
             }
         }
 
+        /// <summary>
+        /// List of all enemies currently active on the map
+        /// </summary>
         public List<Enemy> ActiveEnemies
         {
             get

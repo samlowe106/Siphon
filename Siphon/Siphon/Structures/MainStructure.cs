@@ -15,16 +15,19 @@ namespace Siphon
     class MainStructure : Structure
     {
 		private Texture2D groundTexture;
-
+		private HealthBar healthBar;
 
 
 		#region Constructor
 
-		public MainStructure(Vector2 position, Texture2D texture, Texture2D groundTexture, int dimension)
+		public MainStructure(Vector2 position, Texture2D texture, Texture2D groundTexture, Texture2D healthBarTexture, int dimension)
             : base(position, texture, dimension) // : base(new Vector2(X, Y), texture, NUMBER)
         {
-            this.maxHealth = 2000;
+            maxHealth = 2000;
+			currentHealth = maxHealth;
 			this.groundTexture = groundTexture;
+
+			healthBar = new HealthBar(new Rectangle((int)position.X - dimension / 2, (int)position.Y - dimension / 2, dimension, dimension / 8), healthBarTexture);
 		}
 		#endregion
 
@@ -41,6 +44,7 @@ namespace Siphon
 
 
 			sp.Draw(texture, rectangle, new Rectangle(0, 0, 64, 64), Color.White);
+			healthBar.Draw(sp, maxHealth, currentHealth);
 		}
 
 		#endregion

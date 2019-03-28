@@ -29,6 +29,7 @@ namespace Siphon
         private Texture2D turretTexture;
         private Texture2D bulletTexture;
         private Texture2D groundTexture;
+        private Texture2D healthBar;
 
 		#endregion
 
@@ -53,7 +54,7 @@ namespace Siphon
 		#region Contructor
 
 		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, 
-					Texture2D bulletTexture, Texture2D groundTexture, Stack<gameState> stack)
+					Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, Stack<gameState> stack)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
@@ -61,6 +62,7 @@ namespace Siphon
 			this.turretTexture = turretTexture;
 			this.bulletTexture = bulletTexture;
 			this.groundTexture = groundTexture;
+			this.healthBar = healthBar;
             this.stack = stack;
 
             Load();
@@ -109,7 +111,7 @@ namespace Siphon
 							structures[r, c] = new BasicTurret(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
-                                                                turretTexture, bulletTexture, groundTexture,
+                                                                turretTexture, bulletTexture, groundTexture, healthBar,
 																sideLength);
 							break;
                         case 2:
@@ -118,7 +120,7 @@ namespace Siphon
 								mainStructure = new MainStructure(new Vector2(
 																	(int)((screenWidth / 2) - (4 - c) * sideLength),
 																	(int)((screenHeight / 2) - (4 - r) * sideLength)),
-																	mainStructureTexture, groundTexture,
+																	mainStructureTexture, groundTexture, healthBar,
 																	sideLength * 2);
 								structures[r, c] = mainStructure;
 							}
@@ -163,7 +165,7 @@ namespace Siphon
 			structures[rows, cols] = new BasicTurret(new Vector2(
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
-												turretTexture, bulletTexture, groundTexture,
+												turretTexture, bulletTexture, groundTexture, healthBar,
 												sideLength);
 		}
 

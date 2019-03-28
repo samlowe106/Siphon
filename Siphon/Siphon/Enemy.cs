@@ -108,8 +108,9 @@ namespace Siphon
         /// <summary>
         /// Moves this enemy to the main structure; damages the main structure if already there
         /// </summary>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Structure> structures)
         {
+			this.structures = structures;
             Structure structureIntersect = CheckTurretIntersect();
             // Move the enemy towards another structure
             if (structureIntersect == null)
