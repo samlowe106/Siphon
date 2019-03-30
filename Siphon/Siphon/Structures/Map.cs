@@ -162,11 +162,12 @@ namespace Siphon
 
 		public void placeTurret(int rows, int cols)
 		{
-			structures[rows, cols] = new BasicTurret(new Vector2(
+			/*structures[rows, cols] = new BasicTurret(new Vector2(
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
 												turretTexture, bulletTexture, groundTexture,
 												sideLength);
+                                                */
 		}
 
 		#endregion
