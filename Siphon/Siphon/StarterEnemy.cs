@@ -25,6 +25,38 @@ namespace Siphon
 			healthBar = new HealthBar(new Rectangle(), healthBarTexture);
         }
 
+
+        
+
+        #region Methods
+
+        public override void Draw(SpriteBatch sp)
+        {
+            if(drawCounter <= .075f)
+            {
+                sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)),  new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+
+            }
+            else if(drawCounter > .075f && drawCounter <= .125f)
+            {
+                sp.Draw(texture, position, new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+
+            }
+            else if (drawCounter > .125f && drawCounter <= .2f)
+            {
+                sp.Draw(texture, position, new Rectangle(0, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+
+            }
+            else
+            {
+                sp.Draw(texture, position, new Rectangle(32, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+
+                drawCounter = 0f;
+            }
+
+        }
+        #endregion
+    }
 		#region Methods
 
 		public override void Draw(SpriteBatch sp)
