@@ -52,6 +52,7 @@ namespace Siphon
         Texture2D groundTexture;
         Texture2D batteryTexture;
         Texture2D healthBar;
+        Texture2D repairDestroy;
 
 
         // sprite fonts 
@@ -94,13 +95,14 @@ namespace Siphon
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
 			healthBar = Content.Load<Texture2D>("healthBar");
+			repairDestroy = Content.Load<Texture2D>("repairdestroy");
 
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, repairDestroy);
             
             base.Initialize();
         }
@@ -151,10 +153,9 @@ namespace Siphon
                     break;
                 case gameState.EndGame:
                     {
-                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, repairDestroy);
                         state.Pop();
                         state.Pop();
-
                     }
                     break;
                 case gameState.Options:

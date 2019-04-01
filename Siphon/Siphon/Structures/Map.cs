@@ -130,18 +130,18 @@ namespace Siphon
             }
         }
 
-        public void repairUpdate(MouseState mouse)
+        public void repairUpdate(MouseState mouse, bool repair)
         {
             foreach(Structure structure in structures)
             {
                 if (structure != null && !structure.Active && (structure is BasicTurret))
                 {
-                    ((BasicTurret)structure).RepairOrDestroy(mouse, false);
+                    ((BasicTurret)structure).RepairOrDestroy(mouse, repair);
                 }
             }
         }
 
-        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime)
+        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime, bool repair)
         {
             foreach (Structure structure in structures)
             {
@@ -157,7 +157,7 @@ namespace Siphon
 
             if (BuildPhase)
             {
-                repairUpdate(currentMouseState);
+                repairUpdate(currentMouseState, repair);
             }
 
             if (!mainStructure.Active)

@@ -23,6 +23,7 @@ namespace Siphon
         protected Vector2 distanceToStructure;
         protected List<Structure> structures;
         protected float damageRate = 0;
+		
         #endregion
 
         #region Constructor
@@ -50,7 +51,7 @@ namespace Siphon
             this.speed = distanceToStructure;
             this.speed.Normalize();
             this.speed *= 3;
-
+			
         }                             
         #endregion
 
