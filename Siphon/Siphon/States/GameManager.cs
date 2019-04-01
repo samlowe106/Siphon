@@ -69,7 +69,7 @@ namespace Siphon
             // Time that the first wave begins
             if (gameTime.ElapsedGameTime == TimeSpan.Zero)
             {
-                enemyManager.BeginNextWave(gameTime);
+                enemyManager.BeginNextWave();
             }
             // runs when not paused
             if (!paused)
@@ -85,7 +85,6 @@ namespace Siphon
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
-
 			// runs when paused
 			else
 			{
@@ -94,7 +93,6 @@ namespace Siphon
 				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
-
 			// always runs
 			backButton.Update(currentMouseState);
 		}

@@ -21,6 +21,8 @@ namespace Siphon
 
 		private Enemy target;
 		private int counter1;
+		private int row;
+		private int col;
 		private float drawCounter;
 		private float fireRate;
 		private float deltaTime;
@@ -33,14 +35,19 @@ namespace Siphon
 		// draw variables
 		private TurretState turretState;
 		private bool fireState;
+        private Map map;
 
 		#endregion
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBarTexture, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, 
+            Texture2D healthBarTexture, int dimension, int row, int col, Map map)
 			: base(position, texture, dimension)
 		{
+            this.map = map;
+            this.row = row;
+            this.col = col;
 			counter1 = 0;
 			drawCounter = 0f;
 			target = null;
@@ -134,6 +141,19 @@ namespace Siphon
 
 			return e2;
 		}
+
+        public void RepairOrDestroy(MouseState mouse, bool repair)
+        {
+            if (repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
+            {
+                currentHealth = maxHealth;
+                active = true;
+            }
+            if (!repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
+            {
+                map.removeTurret(row, col);
+            }
+        }
 
 		public override void Draw(SpriteBatch sp)
 		{
