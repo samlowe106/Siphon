@@ -23,6 +23,8 @@ namespace Siphon
         protected Vector2 distanceToStructure;
         protected List<Structure> structures;
         protected float damageRate = 0;
+        protected float deltaTime = 0f;
+        public float drawCounter = 0f;
         #endregion
 
         #region Constructor
@@ -49,7 +51,7 @@ namespace Siphon
             //  where this enemy moves and how fast it moves there
             this.speed = distanceToStructure;
             this.speed.Normalize();
-            this.speed *= 3;
+            this.speed *= 1;
 
         }                             
         #endregion
@@ -114,6 +116,8 @@ namespace Siphon
         {
 			this.structures = structures;
             Structure structureIntersect = CheckTurretIntersect();
+            deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
+            drawCounter += deltaTime;
             // Move the enemy towards another structure
             if (structureIntersect == null)
             {
@@ -124,7 +128,6 @@ namespace Siphon
             // Otherwise, if this enemy is close enough to the main structure, do damage every second
             else // if (GameTime % SOMETHING == 0)
             {
-                float deltaTime = (float)(gameTime.ElapsedGameTime.TotalSeconds);
                 damageRate += deltaTime;
                 if (damageRate >= .5)
                 {

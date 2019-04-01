@@ -44,6 +44,7 @@ namespace Siphon
             this.map = map;
             this.listOfTurrets = map.Turrets;
             mainStructure = map.mainStructure;
+            this.plugEnemyModel = plugEnemyModel;
         }
         #endregion
 
@@ -88,7 +89,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, map.Turrets));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, mainStructure, map.Turrets, screenHeight, screenWidth));
             }
             #endregion
         }
@@ -145,6 +146,7 @@ namespace Siphon
 
         public void AddToList(Enemy e)
         {
+            
             activeEnemies.Add(e);
         }
         #endregion

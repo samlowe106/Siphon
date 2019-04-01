@@ -100,7 +100,7 @@ namespace Siphon
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel);
             
             base.Initialize();
         }
@@ -154,7 +154,7 @@ namespace Siphon
                     break;
                 case gameState.EndGame:
                     {
-                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel);
                         state.Pop();
                         state.Pop();
 
