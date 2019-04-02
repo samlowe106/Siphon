@@ -26,7 +26,7 @@ namespace Siphon
         private Map map;
         private List<Structure> listOfTurrets;
         private GameTime currentTime;
-
+		private Texture2D plugEnemyModel;
         private double timeUntilNextWave;
 
 		// health bar stuff
@@ -49,6 +49,7 @@ namespace Siphon
             this.mainStructure = map.mainStructure;
             this.timeUntilNextWave = DELAY;
 			this.bar = bar;
+			this.plugEnemyModel = plugEnemyModel;
         }
         #endregion
 
@@ -96,7 +97,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, mainStructure, map.Turrets, screenHeight, screenWidth));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets));
             }
             #endregion
         }

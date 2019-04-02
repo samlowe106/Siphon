@@ -34,8 +34,7 @@ namespace Siphon
         #region Constructor
         public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12, Texture2D starterEnemyTexture)
-            SpriteFont Arial12, Texture2D repairdestroy)
+            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy)
 		{
 			// base values
 			paused = false;
@@ -45,8 +44,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture);
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, plugEnemyModel, healthBar);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -109,7 +107,9 @@ namespace Siphon
 		public void Draw(SpriteBatch sp)
 		{
 			map.Draw(sp);
-			player.Draw(sp);
+			//player.Draw(sp);
+
+            // buttons
 			backButton.Draw(sp);
 			DestroyOrRepairButton.Draw(sp);
             enemyManager.Draw(sp);
