@@ -13,6 +13,7 @@ namespace Siphon
     {
         #region Constants
         const int ENEMIES_PER_WAVE = 3;
+        const double DELAY = 15000; // in milliseconds
         #endregion
 
         #region Fields
@@ -20,21 +21,23 @@ namespace Siphon
         private List<Enemy> activeEnemies;
         private Random generator;
         private MainStructure mainStructure;
-        private Texture2D plugEnemyModel;
         private int screenWidth;
         private int screenHeight;
         private Map map;
         private List<Structure> listOfTurrets;
+        private GameTime currentTime;
+		private Texture2D plugEnemyModel;
+        private double timeUntilNextWave;
 
+		// health bar stuff
+		private Texture2D bar;
 
-        private GameTime nextWaveSpawnTime;
-        private GameTime timeUntilNextWave;
         // Starter enemy's texture
         private Texture2D startTexture;
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
@@ -43,21 +46,27 @@ namespace Siphon
             this.screenHeight = screenHeight;
             this.map = map;
             this.listOfTurrets = map.Turrets;
-            mainStructure = map.mainStructure;
+            this.mainStructure = map.mainStructure;
+            this.timeUntilNextWave = DELAY;
+			this.bar = bar;
+			this.plugEnemyModel = plugEnemyModel;
         }
         #endregion
 
         #region Methods
-        public void BeginNextWave(GameTime gameTime)
+        public void BeginNextWave()
         {
             // Increment the current wave
             ++waveNumber;
-            // Set the amount of time until the next wave
-            //timeUntilNextWave = gameTime + SOMETHING;
+
+            // Reset the time until the next wave
+            timeUntilNextWave = DELAY;
 
             #region StarterEnemySpawn
-            for (int i = 0; i < (ENEMIES_PER_WAVE * 40); ++i)
+            for (int i = 0; i < (waveNumber * 15); ++i)
             {
+                //int xCoord = screenWidth * generator.Next(0, 2);
+                //int yCoord = screenHeight * generator.Next(0, 2);
 
                 int sideDecider = generator.Next(0, 4);
                 // Get coords for the next enemy to be spawned in
@@ -88,7 +97,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, startTexture, mainStructure, map.Turrets));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets));
             }
             #endregion
         }
@@ -98,8 +107,17 @@ namespace Siphon
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            currentTime = gameTime;
+            timeUntilNextWave -= currentTime.ElapsedGameTime.Milliseconds;
             
-            
+            // Spawn the next wave when it's time
+            if (TimeUntilNextWave <= 1)
+            {
+                BeginNextWave();
+            }
+
+            listOfTurrets = map.Turrets;
+
             // Loop over each enemy, updating them
             for (int i = activeEnemies.Count - 1; i > -1; --i)
             {
@@ -145,6 +163,7 @@ namespace Siphon
 
         public void AddToList(Enemy e)
         {
+            
             activeEnemies.Add(e);
         }
         #endregion
@@ -162,6 +181,17 @@ namespace Siphon
         }
 
         /// <summary>
+        /// The amount of time, in seconds, until the next wave spawns
+        /// </summary>
+        public double TimeUntilNextWave
+        {
+            get
+            {
+                return timeUntilNextWave;
+            }
+        }
+
+        /// <summary>
         /// True if there are no enemies on the stage, false if there are still enemies on the stage
         /// </summary>
         public bool StageClear
@@ -169,17 +199,6 @@ namespace Siphon
             get
             {
                 return activeEnemies.Count == 0;
-            }
-        }
-
-        /// <summary>
-        /// Timer representing the amount of time until the next wave will spawn
-        /// </summary>
-        public GameTime TimeUntilNextWave
-        {
-            get
-            {
-                return timeUntilNextWave;
             }
         }
 

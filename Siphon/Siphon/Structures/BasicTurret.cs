@@ -21,25 +21,33 @@ namespace Siphon
 
 		private Enemy target;
 		private int counter1;
+		private int row;
+		private int col;
 		private float drawCounter;
 		private float fireRate;
 		private float deltaTime;
 		private GameTime timer;
 		private Texture2D groundTexture;
+		private HealthBar healthBar;
 
 		private Queue<Bullet> bullets;
 
 		// draw variables
 		private TurretState turretState;
 		private bool fireState;
+        private Map map;
 
 		#endregion
 
 		#region Constructor
 
-		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int dimension)
+		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, 
+            Texture2D healthBarTexture, int dimension, int row, int col, Map map)
 			: base(position, texture, dimension)
 		{
+            this.map = map;
+            this.row = row;
+            this.col = col;
 			counter1 = 0;
 			drawCounter = 0f;
 			target = null;
@@ -47,10 +55,11 @@ namespace Siphon
 			fireState = true;
 			turretState = TurretState.idle;
 			timer = new GameTime();
-            origin = new Vector2(32, 32);
+            origin = new Vector2(32, 36);
 			this.groundTexture = groundTexture;
 			maxHealth = 10;
 			currentHealth = 10;
+			healthBar = new HealthBar(new Rectangle((int) position.X - dimension / 2, (int) position.Y - dimension / 2, dimension, dimension / 4), healthBarTexture);
 
 			bullets = new Queue<Bullet>();
 			for (int i = 0; i < 20; i++)
@@ -133,6 +142,19 @@ namespace Siphon
 			return e2;
 		}
 
+        public void RepairOrDestroy(MouseState mouse, bool repair)
+        {
+            if (repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
+            {
+                currentHealth = maxHealth;
+                active = true;
+            }
+            if (!repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
+            {
+                map.removeTurret(row, col);
+            }
+        }
+
 		public override void Draw(SpriteBatch sp)
 		{
 			sp.Draw(groundTexture, rectangle, Color.White);
@@ -176,9 +198,18 @@ namespace Siphon
 									(float)(angle + (Math.PI / 2)),
 									origin, SpriteEffects.None, 1f);
 						}
-
 						break;
 				}
+				healthBar.Draw(sp, maxHealth, currentHealth);
+			}
+			else
+			{
+				sp.Draw(texture,
+						new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width, rectangle.Height),
+						new Rectangle(192, 0, 64, 64),
+						Color.White,
+						(float)(angle + (Math.PI / 2)),
+						origin, SpriteEffects.None, 1f);
 			}
 		}
 

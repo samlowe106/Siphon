@@ -112,7 +112,7 @@ namespace Siphon
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture, groundTexture, healthBar,
-																sideLength);
+																sideLength, r, c, this);
 							break;
                         case 2:
 							if (mainStructure == null)
@@ -120,7 +120,7 @@ namespace Siphon
 								mainStructure = new MainStructure(new Vector2(
 																	(int)((screenWidth / 2) - (4 - c) * sideLength),
 																	(int)((screenHeight / 2) - (4 - r) * sideLength)),
-																	mainStructureTexture, groundTexture,
+																	mainStructureTexture, groundTexture, healthBar,
 																	sideLength * 2);
 								structures[r, c] = mainStructure;
 							}
@@ -130,7 +130,18 @@ namespace Siphon
             }
         }
 
-        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime)
+        public void repairUpdate(MouseState mouse, bool repair)
+        {
+            foreach(Structure structure in structures)
+            {
+                if (structure != null && !structure.Active && (structure is BasicTurret))
+                {
+                    ((BasicTurret)structure).RepairOrDestroy(mouse, repair);
+                }
+            }
+        }
+
+        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime, bool repair)
         {
             foreach (Structure structure in structures)
             {
@@ -144,10 +155,14 @@ namespace Siphon
 				}
 			}
 
+            if (BuildPhase)
+            {
+                repairUpdate(currentMouseState, repair);
+            }
+
             if (!mainStructure.Active)
             {
-				Load();
-				stack.Pop();
+				stack.Push(gameState.EndGame);
             }
         }
 
@@ -162,14 +177,22 @@ namespace Siphon
 
 		public void placeTurret(int rows, int cols)
 		{
-			/*structures[rows, cols] = new BasicTurret(new Vector2(
+			structures[rows, cols] = new BasicTurret(new Vector2(
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
-												turretTexture, bulletTexture, groundTexture,
-												sideLength);
-                                                */
+												turretTexture, bulletTexture, groundTexture, healthBar,
+												sideLength, rows, cols, this);
 		}
 
-		#endregion
-	}
+        public void removeTurret(int rows, int cols)
+        {
+            structures[rows, cols] = new EmptyTile(new Vector2(
+                              (int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+                              (int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+                              groundTexture, this, rows, cols,
+                              sideLength, true);
+        }
+
+        #endregion
+    }
 }

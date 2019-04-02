@@ -26,15 +26,15 @@ namespace Siphon
 		private SpriteFont Arial12;
         private Map map;
         private BulletManager bulletManager;
-        private Texture2D plugEnemyModel;
 		private EnemyManager enemyManager;
-		
+
+		private ToggleButton DestroyOrRepairButton;
         #endregion
 
         #region Constructor
         public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12)
+            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy)
 		{
 			// base values
 			paused = false;
@@ -44,7 +44,7 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, plugEnemyModel);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -56,6 +56,8 @@ namespace Siphon
 
 			// button
 			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
+			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle(100, 10, 50, 30));
+
 
             //Enemy Textures
             //Enemy test
@@ -67,16 +69,21 @@ namespace Siphon
         public void Update(GameTime gameTime, KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
 		{
-            // Time that the first wave begins
-            if (gameTime.ElapsedGameTime == TimeSpan.Zero)
+			// always runs
+			backButton.Update(currentMouseState);
+			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
+
+			// Time that the first wave begins
+			if (gameTime.ElapsedGameTime == TimeSpan.Zero)
             {
-                enemyManager.BeginNextWave(gameTime);
+                enemyManager.BeginNextWave();
             }
+
             // runs when not paused
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime, repair); 
 
                 //Player Updates
                 //player.Update(kbState, currentMouseState, previousMouseState);
@@ -86,7 +93,6 @@ namespace Siphon
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
-
 			// runs when paused
 			else
 			{
@@ -95,16 +101,17 @@ namespace Siphon
 				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
-
-			// always runs
-			backButton.Update(currentMouseState);
+			
 		}
 
 		public void Draw(SpriteBatch sp)
 		{
 			map.Draw(sp);
-			player.Draw(sp);
+			//player.Draw(sp);
+
+            // buttons
 			backButton.Draw(sp);
+			DestroyOrRepairButton.Draw(sp);
             enemyManager.Draw(sp);
            
             //draws when paused
@@ -114,6 +121,11 @@ namespace Siphon
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
 			}
 		}
+
+        public void Reset()
+        {
+            
+        }
         #endregion
 
         #region Properties

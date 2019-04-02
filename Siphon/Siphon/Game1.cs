@@ -13,6 +13,7 @@ namespace Siphon
     {
         Menu,
         Game,
+        EndGame,
         Options,
         Back
     }
@@ -51,6 +52,7 @@ namespace Siphon
         Texture2D groundTexture;
         Texture2D batteryTexture;
         Texture2D healthBar;
+        Texture2D repairDestroy;
 
 
         // sprite fonts 
@@ -93,13 +95,14 @@ namespace Siphon
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
 			healthBar = Content.Load<Texture2D>("healthBar");
+			repairDestroy = Content.Load<Texture2D>("repairdestroy");
 
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy);
             
             base.Initialize();
         }
@@ -143,13 +146,17 @@ namespace Siphon
             switch (state.Peek())
             {
                 case gameState.Menu:
-					if (menu.Update(mState))
-                    {
-                        gameManager.EnemyManager.BeginNextWave(gameTime);
-                    }
+                    menu.Update(mState);
                     break;
                 case gameState.Game:
-					gameManager.Update(gameTime, kbState, lastKbState, mState, lastMState);
+					gameManager.Update(gameTime, kbState, lastKbState, lastMState, mState);
+                    break;
+                case gameState.EndGame:
+                    {
+                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy);
+                        state.Pop();
+                        state.Pop();
+                    }
                     break;
                 case gameState.Options:
                     break;

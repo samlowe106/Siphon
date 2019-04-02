@@ -20,6 +20,8 @@ namespace Siphon
 		public HealthBar(Rectangle rectangle, Texture2D texture)
 		{
 			this.rectangle = rectangle;
+			this.texture = texture;
+
 		}
 
 		// methods
@@ -34,5 +36,15 @@ namespace Siphon
 			}
 		}
 
+		public void Draw(SpriteBatch sp, int maxHealth, int currentHealth, Rectangle rectangle)
+		{
+			if (currentHealth > 0)
+			{
+				int g = (int)(((float)currentHealth / maxHealth) * 255);
+				int r = (255 - g);
+				color = new Color(r, g, 0);
+				sp.Draw(texture, rectangle, color);
+			}
+		}
 	}
 }
