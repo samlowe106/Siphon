@@ -13,7 +13,7 @@ namespace Siphon
 	{
 		// fields
 		private Texture2D texture;
-		private bool active;
+		public bool active;
 		private Rectangle rectangle;
 		private bool mouseHover;
 
@@ -29,12 +29,13 @@ namespace Siphon
 			this.texture = texture;
 			this.rectangle = rectangle;
 			mouseHover = false;
+            active = false;
 		}
 
 		// methods
 
 		// Draws the button and checks for hover 
-		public void Draw(SpriteBatch sp)
+		public void DrawSwitch(SpriteBatch sp)
 		{
 			if (!active)
 			{
@@ -50,17 +51,23 @@ namespace Siphon
 				else
 					sp.Draw(texture, rectangle, new Rectangle(128, 0, 128, 64), Color.White);
 			}
-			
-		}
+        }
 
-		// 
+        public void Draw(SpriteBatch sp)
+        {
+            if (mouseHover)
+                sp.Draw(texture, rectangle, Color.DimGray);
+            else
+               sp.Draw(texture, rectangle, Color.White);
+            
+        }
 
-		/// <summary>
-		/// Handles hover effect and changes the game state if clicked
-		/// </summary>
-		/// <param name="mouse"></param>
-		/// <returns>True when the button is clicked for the first time, false otherwise</returns>
-		public bool Update(MouseState mouse, MouseState last)
+        /// <summary>
+        /// Handles hover effect and changes the game state if clicked
+        /// </summary>
+        /// <param name="mouse"></param>
+        /// <returns>True when the button is clicked for the first time, false otherwise</returns>
+        public bool Update(MouseState mouse, MouseState last)
 		{
 			if (rectangle.Contains(mouse.Position))
 			{
