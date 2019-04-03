@@ -20,7 +20,6 @@ namespace Siphon
 	{
         #region Fields
         private Player player;
-		private Button backButton;
         private int waveCount = 1;
 		private bool paused;
 		private SpriteFont Arial12;
@@ -29,12 +28,15 @@ namespace Siphon
 		private EnemyManager enemyManager;
 
 		private ToggleButton DestroyOrRepairButton;
+		private ToggleButton NextWave;
+        private Button backButton;
+        private UIElement BaseHud;
         #endregion
 
         #region Constructor
         public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy)
+            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI)
 		{
 			// base values
 			paused = false;
@@ -55,9 +57,12 @@ namespace Siphon
             player.CurrentWeapon = new Pistol(bulletTexture, player, bulletManager);
 
 			// button
-			backButton = new Button(backButtonTexture, new Rectangle(10, 10, 50, 30), gameState.Back, stack);
-			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle(100, 10, 50, 30));
+			backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 50, screenHeight / 3, 100, 50), gameState.Back, stack);
+			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			NextWave = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
+            // ui
+            BaseHud = new UIElement(GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
 
             //Enemy Textures
             //Enemy test
@@ -73,6 +78,13 @@ namespace Siphon
 			backButton.Update(currentMouseState);
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
+            // next wave logic
+            if (NextWave.Update(currentMouseState, previousMouseState))
+            {
+                NextWave.active = false;
+                enemyManager.BeginNextWave();
+            }
+
 			// Time that the first wave begins
 			if (gameTime.ElapsedGameTime == TimeSpan.Zero)
             {
@@ -86,7 +98,7 @@ namespace Siphon
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime, repair); 
 
                 //Player Updates
-                //player.Update(kbState, currentMouseState, previousMouseState);
+                player.Update(kbState, currentMouseState, previousMouseState);
 
                 bulletManager.Update();
 
@@ -109,11 +121,16 @@ namespace Siphon
 		public void Draw(SpriteBatch sp)
 		{
 			map.Draw(sp);
+
+            // ui
+            BaseHud.Draw(sp);
+            NextWave.Draw(sp);
+
 			//player.Draw(sp);
+			player.Draw(sp);
 
             // buttons
-			backButton.Draw(sp);
-			DestroyOrRepairButton.Draw(sp);
+			DestroyOrRepairButton.DrawSwitch(sp);
             enemyManager.Draw(sp);
             bulletManager.Draw(sp);
 
@@ -122,7 +139,8 @@ namespace Siphon
 			{
 				// TODO pause menu
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
-			}
+                backButton.Draw(sp);
+            }
 		}
 
         public void Reset()
