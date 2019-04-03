@@ -23,14 +23,14 @@ namespace Siphon
 
         #region Constructor
         /// <summary>
-        /// A 5x5 pixel bullet that deals damage to any enemies that it collides with
+        /// A pixel bullet that deals damage to any enemies that it collides with
         /// Spawns at 0,0 and is inactive until shot by a gun
         /// </summary>
         /// <param name="texture"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
         public Bullet(Texture2D texture)
-            : base (new Vector2(0, 0), texture, 5, new Vector2(6,6))
+            : base (new Vector2(0, 0), texture, 6, new Vector2(6,6))
         {
             this.active = false;
         }
@@ -41,11 +41,12 @@ namespace Siphon
         {
             this.active = true;
             this.position = start;
+            this.angle = angle;
+            this.damage = damage;
+            this.rectangle = new Rectangle((int)start.X, (int)start.Y, 6, 6);
             // Get the vector from this bullet's origin to the destination and normalize it
             trajectory = this.GetDistanceVector(destination);
             trajectory.Normalize();
-            this.angle = angle;
-            this.damage = damage;
         }
 
         /// <summary>
@@ -71,6 +72,11 @@ namespace Siphon
         {
             position += speed;
             base.Update();
+        }
+
+        public override void Draw(SpriteBatch sp)
+        {
+            base.Draw(sp);
         }
         #endregion
 

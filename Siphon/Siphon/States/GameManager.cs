@@ -98,7 +98,9 @@ namespace Siphon
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime, repair); 
 
                 //Player Updates
-                //player.Update(kbState, currentMouseState, previousMouseState);
+                player.Update(kbState, currentMouseState, previousMouseState);
+
+                bulletManager.Update();
 
                 enemyManager.Update(gameTime);
 
@@ -125,11 +127,13 @@ namespace Siphon
             NextWave.Draw(sp);
 
 			//player.Draw(sp);
+			player.Draw(sp);
 
             // buttons
 			DestroyOrRepairButton.DrawSwitch(sp);
             enemyManager.Draw(sp);
-           
+            bulletManager.Draw(sp);
+
             //draws when paused
             if (paused)
 			{

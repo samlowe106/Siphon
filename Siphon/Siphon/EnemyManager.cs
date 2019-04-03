@@ -49,7 +49,7 @@ namespace Siphon
             this.mainStructure = map.mainStructure;
             this.timeUntilNextWave = DELAY;
 			this.bar = bar;
-			this.plugEnemyModel = plugEnemyModel;
+			this.plugEnemyModel = plugEnemyModel; //Starter Enemy
         }
         #endregion
 
@@ -75,22 +75,25 @@ namespace Siphon
                 // 50% chance that the enemy will spawn on the right
                 if (sideDecider == 0)
                 {
+                    // make the enemy spawn on the left
                     xCoord = generator.Next(0, 50);
                     yCoord = generator.Next(0, screenHeight);
-                    // make the enemy spawn on the left
                 }
                 else if(sideDecider == 1)
                 {
+                    //Spawn On the top
                     xCoord = generator.Next(0, screenWidth);
                     yCoord = generator.Next(0, 50);
                 }
                 else if (sideDecider == 2)
                 {
+                    //Spawn on the right
                     xCoord = generator.Next(screenWidth - 50, screenWidth);
                     yCoord = generator.Next(0, screenHeight);
                 }
                 else
                 {
+                    //Spawn on the bottom
                     xCoord = generator.Next(0, screenWidth);
                     yCoord = generator.Next(screenHeight - 50, screenHeight);
                 }
