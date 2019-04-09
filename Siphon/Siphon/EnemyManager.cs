@@ -26,6 +26,7 @@ namespace Siphon
         private Map map;
         private List<Structure> listOfTurrets;
         private GameTime currentTime;
+        Texture2D plugEnemyModel;
 
         private double timeUntilNextWave;
         // Starter enemy's texture
@@ -44,6 +45,7 @@ namespace Siphon
             this.listOfTurrets = map.Turrets;
             this.mainStructure = map.mainStructure;
             this.timeUntilNextWave = DELAY;
+            this.plugEnemyModel = plugEnemyModel;
         }
         #endregion
 
