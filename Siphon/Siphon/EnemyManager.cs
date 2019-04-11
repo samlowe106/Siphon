@@ -103,8 +103,8 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player));
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, screenHeight));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player, screenHeight));
+
             }
             #endregion
         }
