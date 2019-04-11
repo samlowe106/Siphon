@@ -26,18 +26,22 @@ namespace Siphon
         private Map map;
         private BulletManager bulletManager;
 		private EnemyManager enemyManager;
-
+        private Texture2D gameBackground;
 		private ToggleButton DestroyOrRepairButton;
 		private ToggleButton NextWave;
         private Button backButton;
         private UIElement BaseHud;
+        private int screenHeight;
+        private int screenWidth;
         #endregion
 
         #region Constructor
         public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI)
+            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI, Texture2D gameBackground)
 		{
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
 			// base values
 			paused = false;
 			this.Arial12 = Arial12;
@@ -69,6 +73,7 @@ namespace Siphon
             // ui
             BaseHud = new UIElement(GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
 
+            this.gameBackground = gameBackground;
             //Enemy Textures
             //Enemy test
 
@@ -125,6 +130,7 @@ namespace Siphon
 
 		public void Draw(SpriteBatch sp)
 		{
+            sp.Draw(gameBackground, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
 			map.Draw(sp);
 
             // Draw the UI
