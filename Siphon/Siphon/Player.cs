@@ -107,7 +107,7 @@ namespace Siphon
 
             set
             {
-                money += value;
+                money = value;
             }
         }
         #endregion
