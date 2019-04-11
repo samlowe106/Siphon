@@ -13,8 +13,8 @@ namespace Siphon
 		// health bar
 		private HealthBar healthBar;
 
-        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, Player player)
-            : base(position, texture, 32, new Vector2(1 , 1), mainStructure, 4f, structures, player)
+        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, int screenHeight)
+            : base(position, texture, screenHeight / 50, new Vector2(1 , 1), mainStructure, 4f, structures)
         {
             // Set this enemy to do one damage per hit
             this.damage = 1;
@@ -23,6 +23,7 @@ namespace Siphon
             this.speed *= 2; //value for starter Enemy
 
 			this.texture = texture;
+
 
 			healthBar = new HealthBar(new Rectangle(), healthBarTexture);
         }
@@ -36,22 +37,22 @@ namespace Siphon
         {
             if(drawCounter <= .075f) //1st Frame
             {
-                sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)),  new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+                sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)),  new Vector2(16, 16), width / 32f, SpriteEffects.None, 1f);
 
             }
             else if(drawCounter > .075f && drawCounter <= .125f) //Second Frame 
             {
-                sp.Draw(texture, position, new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+                sp.Draw(texture, position, new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), width / 32f, SpriteEffects.None, 1f);
 
             }
             else if (drawCounter > .125f && drawCounter <= .2f) //Third Frame
             {
-                sp.Draw(texture, position, new Rectangle(0, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+                sp.Draw(texture, position, new Rectangle(0, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), width / 32f, SpriteEffects.None, 1f);
 
             }
             else //4th and final frame. Reset done here
             {
-                sp.Draw(texture, position, new Rectangle(32, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
+                sp.Draw(texture, position, new Rectangle(32, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), width / 32f, SpriteEffects.None, 1f);
 
                 drawCounter = 0f;
 			}

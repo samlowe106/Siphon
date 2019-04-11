@@ -100,7 +100,7 @@ namespace Siphon
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime, repair); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);

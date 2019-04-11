@@ -58,16 +58,19 @@ namespace Siphon
         {
             if (this.active)
             {
-                sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);                
-                 
-                /*sp.Draw(texture,
-                    rectangle,
+                //sp.Draw(texture, position, null, Color.White, (float)(angle + (Math.PI / 2)), origin, 1f, SpriteEffects.None, 1f);
+
+
+                //sp.Draw(texture, new Rectangle(position.ToPoint(), new Point(width, height)), Color.White);
+
+                sp.Draw(texture,
+                    new Rectangle(position.ToPoint(), new Point(width, height)),
                     null,
                     Color.White,
                     (float)(angle),
                     origin,                    
                     SpriteEffects.None,
-                    0); */
+                    0); 
             }
         }
 
