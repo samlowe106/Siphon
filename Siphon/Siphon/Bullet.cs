@@ -47,6 +47,8 @@ namespace Siphon
             // Get the vector from this bullet's origin to the destination and normalize it
             trajectory = this.GetDistanceVector(destination);
             trajectory.Normalize();
+            // These bullets gotta go fast - speed them up by a factor of 15
+            trajectory *= 15;
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            position += speed;
+            position += trajectory;
             base.Update();
         }
 

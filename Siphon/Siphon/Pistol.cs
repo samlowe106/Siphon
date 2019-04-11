@@ -30,7 +30,8 @@ namespace Siphon
         {
             manager.SpawnBullet(this.Position,
                 new Vector2(currentMouseState.Position.X, currentMouseState.Position.Y),
-                this.angle, this.damage);
+                this.angle, 
+                this.damage);
             base.Shoot(currentMouseState);
         }
     }
