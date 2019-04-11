@@ -31,10 +31,10 @@ namespace Siphon
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
         public Bullet(Texture2D texture, int bulletSize)
-            : base (new Vector2(0, 0), texture, bulletSize, new Vector2(bulletSize, bulletSize))
+            : base (new Vector2(0, 0), texture, bulletSize, new Vector2(0, 0))
         {
             this.active = false;
-            this.bulletSpeed = 15;
+            bulletSpeed = bulletSize;
         }
         #endregion
 

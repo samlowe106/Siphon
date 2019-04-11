@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bank.cs" />
     <Compile Include="Structures\HealthBar.cs" />
     <Compile Include="Structures\BasicTurret.cs" />
     <Compile Include="Bullet.cs" />

@@ -51,7 +51,7 @@ namespace Siphon
         /// <param name="angle"></param>
         public void SpawnBullet(Vector2 position, Vector2 destination, float angle, int damage)
         {
-            Bullet newBullet = new Bullet(bulletTexture, screen.Height / 5);
+            Bullet newBullet = new Bullet(bulletTexture, screen.Height / 75);
             newBullet.Activate(position, destination, angle, damage);
             activeBullets.Add(newBullet);
         }
