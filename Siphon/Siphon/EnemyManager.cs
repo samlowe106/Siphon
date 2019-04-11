@@ -116,8 +116,8 @@ namespace Siphon
             currentTime = gameTime;
             timeUntilNextWave -= currentTime.ElapsedGameTime.Milliseconds;
             
-            // Spawn the next wave when it's time
-            if (TimeUntilNextWave <= 1)
+            // Spawn the next wave when it's time (use the variable timeUntilNextWave for precision)
+            if (timeUntilNextWave <= 1)
             {
                 BeginNextWave();
             }
@@ -189,11 +189,11 @@ namespace Siphon
         /// <summary>
         /// The amount of time, in seconds, until the next wave spawns
         /// </summary>
-        public double TimeUntilNextWave
+        public int TimeUntilNextWave
         {
             get
             {
-                return timeUntilNextWave;
+                return (int)timeUntilNextWave / 1000;
             }
         }
 

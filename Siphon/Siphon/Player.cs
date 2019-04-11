@@ -27,14 +27,14 @@ namespace Siphon
         /// <param name="kbState">Current keyboard state to be tested</param>
         /// <param name="currentMouseState">Current mouse state to be tested</param>
         /// <param name="previousMouseState">Previous mouse state to be tested</param>
-        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
+        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState, bool safe)
         {
             // Move
             PlayerMovement(kbState);
             // Set angle
             SetAngle(currentMouseState.X, currentMouseState.Y);
             // Shoot (if left mouse button is down)
-            if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
+            if (!safe && currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
                 CurrentWeapon.PullTrigger(currentMouseState, previousMouseState);
             }
@@ -51,6 +51,7 @@ namespace Siphon
             if (this.CurrentWeapon != null)
             {
                 CurrentWeapon.Draw(sp);
+                CurrentWeapon.Update();
             }
             base.Draw(sp);
         }
