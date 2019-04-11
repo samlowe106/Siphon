@@ -66,7 +66,7 @@ namespace Siphon
 
 
             // button
-            backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 50, screenHeight / 3, 100, 50), gameState.Back, stack);
+            backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 			NextWave = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
@@ -141,31 +141,31 @@ namespace Siphon
             // If the next wave is close to spawning, make the text flash red
             if (enemyManager.TimeUntilNextWave < 6 && (int)enemyManager.TimeUntilNextWave % 2 == 1)
             {
-                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(115, 50), Color.Red);
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth / 10, screenHeight / 20), Color.Red);
             }
             else
             {
-                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(115, 50), Color.Black);
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth / 10, screenHeight / 20), Color.Black);
             }
 
             // Draw the current wave number
-            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(350, 50), Color.Black);
+            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth / 4, screenHeight / 20), Color.Black);
 
             // Draw the battery's health
             // In green if it's above 50%
             if (map.mainStructure.CurrentHealth > 50)
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.DarkGreen);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.DarkGreen);
             }
             // In yellow if between 50 and 25
             else if (map.mainStructure.CurrentHealth > 25)
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.Yellow);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.Yellow);
             }
             // In red if below 25%
             else
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.Red);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.Red);
             }
             
             // Draw Player
@@ -179,7 +179,7 @@ namespace Siphon
             // Draws the pause menu (but only when paused)
             if (paused)
 			{
-				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
+				sp.DrawString(Arial12, "Paused", new Vector2(screenWidth / 2, screenHeight / 2 - 200), Color.White);
                 backButton.Draw(sp);
             }
 		}
