@@ -98,7 +98,7 @@ namespace Siphon
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, true, gameTime, repair); 
 
                 //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState);
+                player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
 
                 bulletManager.Update();
 
