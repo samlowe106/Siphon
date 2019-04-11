@@ -46,17 +46,20 @@ namespace Siphon
             map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
 
 
-            // Bullet manager
-            bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);
 
             // player
             player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, 30);
-            // Player's pistol
-            player.CurrentWeapon = new Pistol(playerTexture, player, bulletManager);
 
             // Enemy manager
-
             enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player);
+
+            // Bullet manager
+            bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);
+
+            // Player's pistol
+
+            player.CurrentWeapon = new Pistol(playerTexture, player, bulletManager);
+
 
             // button
             backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 50, screenHeight / 3, 100, 50), gameState.Back, stack);
