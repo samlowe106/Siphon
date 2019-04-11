@@ -24,6 +24,7 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
+        private Bank bank;
         private BulletManager bulletManager;
 		private EnemyManager enemyManager;
 
@@ -42,16 +43,17 @@ namespace Siphon
 			paused = false;
 			this.Arial12 = Arial12;
 
+            // bank
+            bank = new Bank();
+
             // map
-            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
-
-
+            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack, bank);
 
             // player
             player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player, bank);
 
             // Bullet manager
             bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);

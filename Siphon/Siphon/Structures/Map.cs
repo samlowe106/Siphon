@@ -20,6 +20,7 @@ namespace Siphon
         private int screenWidth;
         private int screenHeight;
         private Stack<gameState> stack;
+        private Bank bank;
 
         public MainStructure mainStructure;
         public Structure[,] Structures { get { return structures; } }
@@ -54,7 +55,7 @@ namespace Siphon
 		#region Contructor
 
 		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, 
-					Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, Stack<gameState> stack)
+					Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, Stack<gameState> stack, Bank bank)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
@@ -63,6 +64,7 @@ namespace Siphon
 			this.bulletTexture = bulletTexture;
 			this.groundTexture = groundTexture;
 			this.healthBar = healthBar;
+            this.bank = bank;
             this.stack = stack;
 
             Load();
@@ -104,7 +106,7 @@ namespace Siphon
 							structures[r, c] = new EmptyTile(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength),
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)),
-																groundTexture, this, r, c,
+																groundTexture, bank, this, r, c,
 																sideLength, true);
                             break;
                         case 1:
@@ -189,7 +191,7 @@ namespace Siphon
             structures[rows, cols] = new EmptyTile(new Vector2(
                               (int)((screenWidth / 2) - (4.5 - cols) * sideLength),
                               (int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
-                              groundTexture, this, rows, cols,
+                              groundTexture, bank, this, rows, cols,
                               sideLength, true);
         }
 
