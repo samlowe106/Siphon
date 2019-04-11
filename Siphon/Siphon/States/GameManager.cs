@@ -87,7 +87,7 @@ namespace Siphon
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// always runs
-			backButton.Update(currentMouseState);
+			
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
             // next wave logic
@@ -117,15 +117,19 @@ namespace Siphon
                 enemyManager.Update(gameTime);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
-					paused = !paused;
+                {
+                    paused = !paused;
+                }
 			}
 			// runs when paused
 			else
 			{
-				// TODO pause menu
-
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
-					paused = !paused;
+                // TODO pause menu
+                backButton.Update(currentMouseState);
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                {
+                    paused = !paused;
+                }
 			}
 			
 		}
