@@ -98,7 +98,7 @@ namespace Siphon
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair); 
 
                 //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState);
+                player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
 
                 bulletManager.Update();
 
@@ -122,22 +122,52 @@ namespace Siphon
 		{
 			map.Draw(sp);
 
-            // ui
+            // Draw the UI
             BaseHud.Draw(sp);
             NextWave.Draw(sp);
 
-			//player.Draw(sp);
-			player.Draw(sp);
+            // Draw how much time until next wave spawns
+            // If the next wave is close to spawning, make the text flash red
+            if (enemyManager.TimeUntilNextWave < 6 && (int)enemyManager.TimeUntilNextWave % 2 == 1)
+            {
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(115, 50), Color.Red);
+            }
+            else
+            {
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(115, 50), Color.Black);
+            }
 
-            // buttons
+            // Draw the current wave number
+            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(350, 50), Color.Black);
+
+            // Draw the battery's health
+            // In green if it's above 50%
+            if (map.mainStructure.CurrentHealth > 50)
+            {
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.DarkGreen);
+            }
+            // In yellow if between 50 and 25
+            else if (map.mainStructure.CurrentHealth > 25)
+            {
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.Yellow);
+            }
+            // In red if below 25%
+            else
+            {
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(515, 50), Color.Red);
+            }
+            
+            // Draw Player
+            player.Draw(sp);
+
+            // Draw Buttons
 			DestroyOrRepairButton.DrawSwitch(sp);
             enemyManager.Draw(sp);
             bulletManager.Draw(sp);
 
-            //draws when paused
+            // Draws the pause menu (but only when paused)
             if (paused)
 			{
-				// TODO pause menu
 				sp.DrawString(Arial12, "Paused", new Vector2(50, 500), Color.Black);
                 backButton.Draw(sp);
             }
