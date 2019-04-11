@@ -20,7 +20,7 @@ namespace Siphon
             this.damage = 1;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
-            this.speed *= 2; //value for starter Enemy
+            this.speed *= screenHeight / 250; //value for starter Enemy
 
 			this.texture = texture;
 

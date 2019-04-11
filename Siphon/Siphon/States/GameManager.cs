@@ -52,7 +52,7 @@ namespace Siphon
             bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);
 
             // player
-            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20);
+            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 40);
             // Player's pistol
             player.CurrentWeapon = new Pistol(playerTexture, player, bulletManager);
 
