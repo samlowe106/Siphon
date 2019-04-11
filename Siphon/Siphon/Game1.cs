@@ -56,6 +56,7 @@ namespace Siphon
         Texture2D GameUI;
         Texture2D menuBackground;
         Texture2D gameBackground;
+        Texture2D NextWave;
 
 
         // sprite fonts 
@@ -101,13 +102,15 @@ namespace Siphon
 			repairDestroy = Content.Load<Texture2D>("repairdestroy");
 			GameUI = Content.Load<Texture2D>("GameUI");
             menuBackground = Content.Load<Texture2D>("menuBackground");
+            NextWave = Content.Load<Texture2D>("NextWave");
             gameBackground = Content.Load < Texture2D>("gameBackground");
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
 			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight, menuBackground);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground);
+			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, 
+                                            state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground, NextWave);
             
             base.Initialize();
         }
@@ -158,7 +161,7 @@ namespace Siphon
                     break;
                 case gameState.EndGame:
                     {
-                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground);
+                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground, NextWave);
                         state.Pop();
                         state.Pop();
                     }

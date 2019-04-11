@@ -29,6 +29,7 @@ namespace Siphon
 		private GameTime timer;
 		private Texture2D groundTexture;
 		private HealthBar healthBar;
+        private Bank bank;
         
 		// draw variables
 		private TurretState turretState;
@@ -40,10 +41,11 @@ namespace Siphon
 		#region Constructor
 
 		public BasicTurret(Vector2 position, Texture2D texture, Texture2D bulletTexture, Texture2D groundTexture, 
-            Texture2D healthBarTexture, int dimension, int row, int col, Map map)
+            Texture2D healthBarTexture, int dimension, int row, int col, Map map, Bank bank)
 			: base(position, texture, dimension)
 		{
             this.map = map;
+            this.bank = bank;
             this.row = row;
             this.col = col;
 			counter1 = 0;
@@ -139,12 +141,16 @@ namespace Siphon
         {
             if (repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
             {
-                currentHealth = maxHealth;
-                active = true;
+                if (bank.Purchase(25))
+                {
+                    currentHealth = maxHealth;
+                    active = true;
+                }
             }
             if (!repair && (mouse.LeftButton == ButtonState.Pressed) && rectangle.Contains(mouse.Position))
             {
                 map.removeTurret(row, col);
+                bank.Deposit(50);
             }
         }
 

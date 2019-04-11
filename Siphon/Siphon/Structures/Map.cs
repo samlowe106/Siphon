@@ -114,7 +114,7 @@ namespace Siphon
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
 																(int)((screenHeight / 2) - (4.5 - r) * sideLength)), 
                                                                 turretTexture, bulletTexture, groundTexture, healthBar,
-																sideLength, r, c, this);
+																sideLength, r, c, this, bank);
 							break;
                         case 2:
 							if (mainStructure == null)
@@ -183,7 +183,7 @@ namespace Siphon
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
 												turretTexture, bulletTexture, groundTexture, healthBar,
-												sideLength, rows, cols, this);
+												sideLength, rows, cols, this, bank);
 		}
 
         public void removeTurret(int rows, int cols)
