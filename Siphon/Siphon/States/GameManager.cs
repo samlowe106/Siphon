@@ -48,7 +48,7 @@ namespace Siphon
 
 
             // player
-            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20);
+            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20, screenHeight, screenWidth);
 
             // Enemy manager
             enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player);
