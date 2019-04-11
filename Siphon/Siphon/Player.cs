@@ -17,7 +17,7 @@ namespace Siphon
         Weapon currentWeapon;
         int money;
         public Player(Vector2 position, Texture2D texture, int dimensions)
-            : base(position, texture, dimensions, new Vector2(3, 3))
+            : base(position, texture, dimensions, new Vector2(dimensions / 3, dimensions / 3))
         {
         }
 

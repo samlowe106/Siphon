@@ -29,9 +29,7 @@ namespace Siphon
 		private GameTime timer;
 		private Texture2D groundTexture;
 		private HealthBar healthBar;
-
-		private Queue<Bullet> bullets;
-
+        
 		// draw variables
 		private TurretState turretState;
 		private bool fireState;
@@ -60,12 +58,7 @@ namespace Siphon
 			maxHealth = 10;
 			currentHealth = 10;
 			healthBar = new HealthBar(new Rectangle((int) position.X - dimension / 2, (int) position.Y - dimension / 2, dimension, dimension / 4), healthBarTexture);
-
-			bullets = new Queue<Bullet>();
-			for (int i = 0; i < 20; i++)
-			{
-				bullets.Enqueue(new Bullet(bulletTexture));
-			}
+            
 
 			
 		}
