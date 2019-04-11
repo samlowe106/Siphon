@@ -29,12 +29,16 @@ namespace Siphon
         Texture2D plugEnemyModel;
 
         private double timeUntilNextWave;
+
+		// health bar stuff
+		private Texture2D bar;
+
         // Starter enemy's texture
         private Texture2D startTexture;
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
@@ -45,7 +49,8 @@ namespace Siphon
             this.listOfTurrets = map.Turrets;
             this.mainStructure = map.mainStructure;
             this.timeUntilNextWave = DELAY;
-            this.plugEnemyModel = plugEnemyModel;
+			this.bar = bar;
+			this.plugEnemyModel = plugEnemyModel; //Starter Enemy
         }
         #endregion
 
@@ -71,29 +76,32 @@ namespace Siphon
                 // 50% chance that the enemy will spawn on the right
                 if (sideDecider == 0)
                 {
+                    // make the enemy spawn on the left
                     xCoord = generator.Next(0, 50);
                     yCoord = generator.Next(0, screenHeight);
-                    // make the enemy spawn on the left
                 }
                 else if(sideDecider == 1)
                 {
+                    //Spawn On the top
                     xCoord = generator.Next(0, screenWidth);
                     yCoord = generator.Next(0, 50);
                 }
                 else if (sideDecider == 2)
                 {
+                    //Spawn on the right
                     xCoord = generator.Next(screenWidth - 50, screenWidth);
                     yCoord = generator.Next(0, screenHeight);
                 }
                 else
                 {
+                    //Spawn on the bottom
                     xCoord = generator.Next(0, screenWidth);
                     yCoord = generator.Next(screenHeight - 50, screenHeight);
                 }
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, mainStructure, map.Turrets, screenHeight, screenWidth));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets));
             }
             #endregion
         }

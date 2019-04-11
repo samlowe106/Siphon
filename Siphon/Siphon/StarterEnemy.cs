@@ -10,17 +10,21 @@ namespace Siphon
 {
     class StarterEnemy : Enemy
     {
+		// health bar
+		private HealthBar healthBar;
 
-        public StarterEnemy(Vector2 position, Texture2D texture, MainStructure mainStructure, List<Structure> structures, int screenHeight, int screenWidth)
+        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures)
             : base(position, texture, 32, new Vector2(1 , 1), mainStructure, 4f, structures)
         {
             // Set this enemy to do one damage per hit
             this.damage = 1;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
-            this.speed *= 3; //value for starter Enemy
-            this.texture = texture;
+            this.speed *= 2; //value for starter Enemy
 
+			this.texture = texture;
+
+			healthBar = new HealthBar(new Rectangle(), healthBarTexture);
         }
 
 
@@ -30,29 +34,31 @@ namespace Siphon
 
         public override void Draw(SpriteBatch sp)
         {
-            if(drawCounter <= .075f)
+            if(drawCounter <= .075f) //1st Frame
             {
                 sp.Draw(texture, position, new Rectangle(0, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)),  new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
 
             }
-            else if(drawCounter > .075f && drawCounter <= .125f)
+            else if(drawCounter > .075f && drawCounter <= .125f) //Second Frame 
             {
                 sp.Draw(texture, position, new Rectangle(32, 0, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
 
             }
-            else if (drawCounter > .125f && drawCounter <= .2f)
+            else if (drawCounter > .125f && drawCounter <= .2f) //Third Frame
             {
                 sp.Draw(texture, position, new Rectangle(0, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
 
             }
-            else
+            else //4th and final frame. Reset done here
             {
                 sp.Draw(texture, position, new Rectangle(32, 32, 32, 32), Color.White, (float)(angle + (Math.PI / 2)), new Vector2(16, 16), 1f, SpriteEffects.None, 1f);
 
                 drawCounter = 0f;
-            }
-
-        }
+			}
+            //Health Bars
+			int dimension = rectangle.Width;
+			healthBar.Draw(sp, (int)maxHealth, (int)currentHealth, new Rectangle((int)position.X - dimension / 2, (int)position.Y - dimension / 2, dimension, dimension / 4));
+		}
         #endregion
     }
 }

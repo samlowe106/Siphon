@@ -29,7 +29,8 @@ namespace Siphon
             this.bulletTexture = bulletTexture;
             this.enemyManager = enemyManager;
             this.screen = new Rectangle(0, 0, screenWidth, screenHeight);
-            // Create a new queue
+            // Create the bullet list and queue
+            activeBullets = new List<Bullet>(NUM_BULLETS);
             inactiveBullets = new Queue<Bullet>(NUM_BULLETS);
             // Populate the queue with bullets
             for (int i = 0; i < NUM_BULLETS; ++i)
@@ -50,6 +51,7 @@ namespace Siphon
         {
             Bullet newBullet = inactiveBullets.Dequeue();
             newBullet.Activate(position, destination, angle, damage);
+            activeBullets.Add(newBullet);
         }
 
         /// <summary>
@@ -62,7 +64,6 @@ namespace Siphon
             {
                 activeBullets[i].Update();
                 // Check collision with enemies
-                // -- This code should be refactored/simplified at some point --
                 Enemy enemyHit = enemyManager.CheckCollision(activeBullets[i]);
                 if (enemyHit != null)
                 {
