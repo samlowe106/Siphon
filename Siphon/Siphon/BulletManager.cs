@@ -15,7 +15,7 @@ namespace Siphon
     class BulletManager
     {
         #region Fields
-        const int NUM_BULLETS = 10;
+        const int NUM_BULLETS = 100;
         Queue<Bullet> inactiveBullets;
         List<Bullet> activeBullets;
         Texture2D bulletTexture;
