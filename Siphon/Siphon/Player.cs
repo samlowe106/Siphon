@@ -14,11 +14,16 @@ namespace Siphon
     /// </summary>
 	class Player : GameObject
 	{
-        Weapon currentWeapon;
-        int money;
-        public Player(Vector2 position, Texture2D texture, int dimensions)
-            : base(position, texture, dimensions, new Vector2(dimensions / 3, dimensions / 3))
+        protected Weapon currentWeapon;
+        protected int money;
+        protected int screenHeight;
+        protected int screenWidth;
+
+        public Player(Vector2 position, Texture2D texture, int dimensions, int screenHeight, int screenWidth)
+            : base(position, texture, dimensions, new Vector2(dimensions / 10, dimensions / 10))
         {
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
         }
 
         /// <summary>
@@ -62,19 +67,19 @@ namespace Siphon
         /// <param name="current">Current keyboard state to be tested</param>
         public void PlayerMovement(KeyboardState current)
         {
-            if (current.IsKeyDown(Keys.W))
+            if (current.IsKeyDown(Keys.W) && position.Y - speed.Y > screenHeight / 10)
             {
                 position = new Vector2(position.X, position.Y - speed.Y);
             }
-            if (current.IsKeyDown(Keys.A))
+            if (current.IsKeyDown(Keys.A) && position.X - speed.X > 0)
             {
                 position = new Vector2(position.X - speed.X, position.Y);
             }
-            if (current.IsKeyDown(Keys.S))
+            if (current.IsKeyDown(Keys.S) && position.Y - speed.Y < screenHeight)
             {
                 position = new Vector2(position.X, position.Y + speed.Y);
             }
-            if (current.IsKeyDown(Keys.D))
+            if (current.IsKeyDown(Keys.D) && position.X < screenWidth)
             {
                 position = new Vector2(position.X + speed.X, position.Y);
             }
