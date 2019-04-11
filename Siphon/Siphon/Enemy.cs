@@ -25,11 +25,12 @@ namespace Siphon
         protected float damageRate = 0;
         protected float deltaTime = 0f;
         public float drawCounter = 0f;
+        protected Player player;
         #endregion
 
         #region Constructor
         public Enemy(Vector2 position, Texture2D texture, int dimensions,
-            Vector2 speed, MainStructure mainStructure, float maxHealth, List<Structure> structures)
+            Vector2 speed, MainStructure mainStructure, float maxHealth, List<Structure> structures, Player player)
             : base(position, texture, dimensions, speed)
         {
             
@@ -52,7 +53,7 @@ namespace Siphon
             this.speed = distanceToStructure;
             this.speed.Normalize();
             this.speed *= 1;
-
+            this.player = player;
         }                             
         #endregion
 
@@ -71,6 +72,8 @@ namespace Siphon
             {
                 active = false;
                 // trigger the on-death event
+                Random random = new Random();
+                player.Money += random.Next(5, 10);
             }
             return currentHealth - damage;
         }

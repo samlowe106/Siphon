@@ -27,6 +27,7 @@ namespace Siphon
         private List<Structure> listOfTurrets;
         private GameTime currentTime;
         Texture2D plugEnemyModel;
+        private Player player;
 
         private double timeUntilNextWave;
 
@@ -38,7 +39,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
@@ -51,6 +52,7 @@ namespace Siphon
             this.timeUntilNextWave = DELAY;
 			this.bar = bar;
 			this.plugEnemyModel = plugEnemyModel; //Starter Enemy
+            this.player = player;
         }
         #endregion
 
@@ -101,7 +103,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player));
             }
             #endregion
         }

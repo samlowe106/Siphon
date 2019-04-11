@@ -14,25 +14,31 @@ namespace Siphon
 		// fields
 		private Button startButton;
 		private Button exitButton;
+        private Texture2D menuBackground;
+        int screenWidth;
+        int screenHeight;
 
 
 		// constructor
-		public MenuManager(Texture2D startButtonTexture, Texture2D exitButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight)
+		public MenuManager(Texture2D startButtonTexture, Texture2D exitButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight, Texture2D menuBackground)
 		{
 			startButton = new Button(startButtonTexture,
 										new Rectangle((int)(screenWidth * 0.2), 
-										(int)(screenHeight * 0.1), 
-										(int)(screenWidth * 0.6), 
-										(int)(screenHeight * 0.2)), 
+										(int)(screenHeight * 0.6), 
+										(int)(screenWidth * 0.2), 
+										(int)(screenHeight * 0.1)), 
 										gameState.Game, 
 										stack);
             exitButton = new Button(exitButtonTexture,
                                         new Rectangle((int)(screenWidth * 0.2),
-                                        (int)(screenHeight * 0.6),
-                                        (int)(screenWidth * 0.6),
-                                        (int)(screenHeight * 0.2)),
+                                        (int)(screenHeight * 0.8),
+                                        (int)(screenWidth * 0.2),
+                                        (int)(screenHeight * 0.1)),
                                         gameState.Back,
                                         stack);
+            this.menuBackground = menuBackground;
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
         }
 
 		// methods
@@ -49,7 +55,9 @@ namespace Siphon
 
 		public void Draw(SpriteBatch sp)
 		{
-			startButton.Draw(sp);
+            sp.Draw(menuBackground, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
+            startButton.Draw(sp);
 			exitButton.Draw(sp);
 		}
 	}

@@ -45,8 +45,6 @@ namespace Siphon
             // map
             map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
 
-            // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar);
 
             // Bullet manager
             bulletManager = new BulletManager(bulletTexture, screenWidth, screenHeight, enemyManager);
@@ -56,8 +54,12 @@ namespace Siphon
             // Player's pistol
             player.CurrentWeapon = new Pistol(bulletTexture, player, bulletManager);
 
-			// button
-			backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 50, screenHeight / 3, 100, 50), gameState.Back, stack);
+            // Enemy manager
+
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player);
+
+            // button
+            backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 50, screenHeight / 3, 100, 50), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 			NextWave = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 

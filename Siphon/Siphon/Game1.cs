@@ -54,6 +54,7 @@ namespace Siphon
         Texture2D healthBar;
         Texture2D repairDestroy;
         Texture2D GameUI;
+        Texture2D menuBackground;
 
 
         // sprite fonts 
@@ -76,7 +77,7 @@ namespace Siphon
             //Full Screen
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            //graphics.IsFullScreen = true; This line toggles if its full screen or not.
+            graphics.IsFullScreen = true; 
             graphics.ApplyChanges();
 			IsMouseVisible = true;
 
@@ -98,12 +99,12 @@ namespace Siphon
 			healthBar = Content.Load<Texture2D>("healthBar");
 			repairDestroy = Content.Load<Texture2D>("repairdestroy");
 			GameUI = Content.Load<Texture2D>("GameUI");
-
+            menuBackground = Content.Load<Texture2D>("menuBackground");
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
-			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight);
+			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight, menuBackground);
 			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy, GameUI);
             
             base.Initialize();
