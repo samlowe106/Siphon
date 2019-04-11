@@ -13,14 +13,14 @@ namespace Siphon
 		// health bar
 		private HealthBar healthBar;
 
-        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, int screenHeight)
-            : base(position, texture, screenHeight / 50, new Vector2(1 , 1), mainStructure, 4f, structures)
+        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, Player player, int screenHeight)
+            : base(position, texture, screenHeight / 50, new Vector2(1 , 1), mainStructure, 4f, structures, player)
         {
             // Set this enemy to do one damage per hit
             this.damage = 1;
             // Combine structure distance vector with speed in some way so we can decide
             //  where this enemy moves and how fast it moves there
-            this.speed *= 2; //value for starter Enemy
+            this.speed *= screenHeight / 250; //value for starter Enemy
 
 			this.texture = texture;
 

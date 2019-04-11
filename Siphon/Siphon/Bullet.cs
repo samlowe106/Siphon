@@ -30,8 +30,8 @@ namespace Siphon
         /// <param name="texture"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        public Bullet(Texture2D texture)
-            : base (new Vector2(0, 0), texture, 0, new Vector2(6,6))
+        public Bullet(Texture2D texture, int bulletSize)
+            : base (new Vector2(0, 0), texture, bulletSize, new Vector2(bulletSize, bulletSize))
         {
             this.active = false;
             this.bulletSpeed = 15;
