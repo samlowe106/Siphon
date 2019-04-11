@@ -73,6 +73,7 @@ namespace Siphon
         public override void Update()
         {
             position += trajectory;
+            this.rectangle = new Rectangle((int)position.X, (int)position.Y, 6, 6);
             base.Update();
         }
 
