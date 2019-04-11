@@ -31,12 +31,14 @@ namespace Siphon
             this.screen = new Rectangle(0, 0, screenWidth, screenHeight);
             // Create the bullet list and queue
             activeBullets = new List<Bullet>(NUM_BULLETS);
-            inactiveBullets = new Queue<Bullet>(NUM_BULLETS);
+
             // Populate the queue with bullets
+            /* inactiveBullets = new Queue<Bullet>(NUM_BULLETS);
             for (int i = 0; i < NUM_BULLETS; ++i)
             {
                 inactiveBullets.Enqueue(new Bullet(bulletTexture));
             }
+            */
         }
         #endregion
 
@@ -49,7 +51,7 @@ namespace Siphon
         /// <param name="angle"></param>
         public void SpawnBullet(Vector2 position, Vector2 destination, float angle, int damage)
         {
-            Bullet newBullet = inactiveBullets.Dequeue();
+            Bullet newBullet = new Bullet(bulletTexture);
             newBullet.Activate(position, destination, angle, damage);
             activeBullets.Add(newBullet);
         }
@@ -79,7 +81,7 @@ namespace Siphon
                 //  remove it from this list and requeue it
                 if (!activeBullets[i].Active)
                 {
-                    inactiveBullets.Enqueue(activeBullets[i]);
+                    //inactiveBullets.Enqueue(activeBullets[i]);
                     activeBullets.RemoveAt(i);
                 }
             }

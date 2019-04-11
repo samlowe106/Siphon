@@ -51,6 +51,7 @@ namespace Siphon
             if (this.CurrentWeapon != null)
             {
                 CurrentWeapon.Draw(sp);
+                CurrentWeapon.Update();
             }
             base.Draw(sp);
         }
