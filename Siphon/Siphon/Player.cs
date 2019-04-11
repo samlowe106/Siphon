@@ -15,7 +15,7 @@ namespace Siphon
 	class Player : GameObject
 	{
         Weapon currentWeapon;
-        
+        int money;
         public Player(Vector2 position, Texture2D texture, int dimensions)
             : base(position, texture, dimensions, new Vector2(dimensions / 3, dimensions / 3))
         {
@@ -96,6 +96,18 @@ namespace Siphon
             {
                 currentWeapon = value;
                 currentWeapon.Holder = this;
+            }
+        }
+
+        public int Money
+        {
+            get{
+                return money;
+            }
+
+            set
+            {
+                money += value;
             }
         }
         #endregion
