@@ -57,6 +57,7 @@ namespace Siphon
         Texture2D menuBackground;
         Texture2D gameBackground;
         Texture2D NextWave;
+        Texture2D instructions;
 
 
         // sprite fonts 
@@ -103,12 +104,13 @@ namespace Siphon
 			GameUI = Content.Load<Texture2D>("GameUI");
             menuBackground = Content.Load<Texture2D>("menuBackground");
             NextWave = Content.Load<Texture2D>("NextWave");
+            instructions = Content.Load<Texture2D>("instructions");
             gameBackground = Content.Load < Texture2D>("gameBackground");
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
-			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight, menuBackground);
+			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight, menuBackground, instructions);
 			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, 
                                             state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground, NextWave);
             
