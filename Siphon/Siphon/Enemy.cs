@@ -26,14 +26,17 @@ namespace Siphon
         protected float deltaTime = 0f;
         public float drawCounter = 0f;
         protected Player player;
+        private Bank bank;
         #endregion
 
         #region Constructor
-        public Enemy(Vector2 position, Texture2D texture, int dimensions,
+        public Enemy(Vector2 position, Texture2D texture, int dimensions, Bank bank,
             Vector2 speed, MainStructure mainStructure, float maxHealth, List<Structure> structures, Player player)
             : base(position, texture, dimensions, speed)
         {
-            
+            // bank
+            this.bank = bank;
+
             // Set this enemy to know where the main structure is
             this.mainStructure = mainStructure;
             // Set armor rating and health health
@@ -73,7 +76,7 @@ namespace Siphon
                 active = false;
                 // trigger the on-death event
                 Random random = new Random();
-                player.Money += random.Next(5, 10);
+                bank.Deposit(random.Next(5, 10));
             }
             return currentHealth - damage;
         }

@@ -24,6 +24,7 @@ namespace Siphon
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
+        private Bank bank;
         private BulletManager bulletManager;
 		private EnemyManager enemyManager;
         private Texture2D gameBackground;
@@ -38,7 +39,7 @@ namespace Siphon
         #region Constructor
         public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
             Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI, Texture2D gameBackground)
+            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI, Texture2D gameBackground, Texture2D NextWaveTex)
 		{
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -46,16 +47,17 @@ namespace Siphon
 			paused = false;
 			this.Arial12 = Arial12;
 
+            // bank
+            bank = new Bank();
+
             // map
-            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack);
-
-
+            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack, bank);
 
             // player
             player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20, screenHeight, screenWidth);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player);
+            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player, bank);
 
             // Bullet manager
             bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);
@@ -68,7 +70,7 @@ namespace Siphon
             // button
             backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
-			NextWave = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			NextWave = new ToggleButton(NextWaveTex, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
             // ui
             BaseHud = new UIElement(GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
@@ -85,7 +87,7 @@ namespace Siphon
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// always runs
-			backButton.Update(currentMouseState);
+			
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
             // next wave logic
@@ -115,15 +117,19 @@ namespace Siphon
                 enemyManager.Update(gameTime);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
-					paused = !paused;
+                {
+                    paused = !paused;
+                }
 			}
 			// runs when paused
 			else
 			{
-				// TODO pause menu
-
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
-					paused = !paused;
+                // TODO pause menu
+                backButton.Update(currentMouseState);
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                {
+                    paused = !paused;
+                }
 			}
 			
 		}

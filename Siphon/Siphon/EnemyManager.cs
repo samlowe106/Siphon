@@ -28,6 +28,7 @@ namespace Siphon
         private GameTime currentTime;
         Texture2D plugEnemyModel;
         private Player player;
+        private Bank bank;
 
         private double timeUntilNextWave;
 
@@ -39,7 +40,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player, Bank bank)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
@@ -53,6 +54,7 @@ namespace Siphon
 			this.bar = bar;
 			this.plugEnemyModel = plugEnemyModel; //Starter Enemy
             this.player = player;
+            this.bank = bank;
         }
         #endregion
 
@@ -103,7 +105,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player, screenHeight));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player, bank, screenHeight));
             }
             #endregion
         }

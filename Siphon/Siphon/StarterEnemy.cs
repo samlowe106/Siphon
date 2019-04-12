@@ -13,8 +13,8 @@ namespace Siphon
 		// health bar
 		private HealthBar healthBar;
 
-        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, Player player, int screenHeight)
-            : base(position, texture, screenHeight / 50, new Vector2(1 , 1), mainStructure, 4f, structures, player)
+        public StarterEnemy(Vector2 position, Texture2D texture, Texture2D healthBarTexture, MainStructure mainStructure, List<Structure> structures, Player player, Bank bank, int screenHeight)
+            : base(position, texture, screenHeight / 50, bank, new Vector2(1 , 1), mainStructure, 4f, structures, player)
         {
             // Set this enemy to do one damage per hit
             this.damage = 1;
