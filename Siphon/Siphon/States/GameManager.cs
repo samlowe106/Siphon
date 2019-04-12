@@ -167,7 +167,9 @@ namespace Siphon
             {
                 sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.Red);
             }
-            
+
+            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth * 3 / 4 , screenHeight / 20), Color.Black);
+
             // Draw Player
             player.Draw(sp);
 
