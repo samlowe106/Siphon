@@ -24,13 +24,13 @@ namespace Siphon
 		{
 			startButton = new Button(startButtonTexture,
 										new Rectangle((int)(screenWidth * 0.2), 
-										(int)(screenHeight * 0.6), 
+										(int)(screenHeight * 0.8), 
 										(int)(screenWidth * 0.2), 
 										(int)(screenHeight * 0.1)), 
 										gameState.Game, 
 										stack);
             exitButton = new Button(exitButtonTexture,
-                                        new Rectangle((int)(screenWidth * 0.2),
+                                        new Rectangle((int)(screenWidth * 0.6),
                                         (int)(screenHeight * 0.8),
                                         (int)(screenWidth * 0.2),
                                         (int)(screenHeight * 0.1)),
