@@ -126,8 +126,8 @@ namespace Siphon
             BaseHud.Draw(sp);
             NextWave.Draw(sp);
 
-			//player.Draw(sp);
-			player.Draw(sp);
+            //player.Draw(sp);
+            player.Draw(sp);
 
             // buttons
 			DestroyOrRepairButton.DrawSwitch(sp);
