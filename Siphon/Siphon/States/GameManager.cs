@@ -87,7 +87,6 @@ namespace Siphon
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// always runs
-			backButton.Update(currentMouseState);
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
             // next wave logic
@@ -122,9 +121,11 @@ namespace Siphon
 			// runs when paused
 			else
 			{
-				// TODO pause menu
+                // TODO pause menu
 
-				if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
+                backButton.Update(currentMouseState);
+
+                if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
 			
@@ -152,6 +153,10 @@ namespace Siphon
 
             // Draw the current wave number
             sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth / 4, screenHeight / 20), Color.Black);
+
+            // draw the bank balance
+            sp.DrawString(Arial12, bank.money.ToString(), new Vector2(screenWidth / 2 + 20, screenHeight / 20), Color.Black);
+            sp.DrawString(Arial12, "Balance: ", new Vector2(screenWidth / 2, screenHeight / 50), Color.Black);
 
             // Draw the battery's health
             // In green if it's above 50%

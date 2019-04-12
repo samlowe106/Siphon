@@ -76,8 +76,8 @@ namespace Siphon
 
 		private void Load()
         {
-            Load("..\\..\\..\\..\\Content\\demo.level");
-            //Load("..\\..\\..\\..\\Content\\empty.level");
+            //Load("..\\..\\..\\..\\Content\\demo.level");
+            Load("..\\..\\..\\..\\Content\\empty.level");
         }
 
         private void Load(string filePath)

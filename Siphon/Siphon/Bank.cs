@@ -14,7 +14,7 @@ namespace Siphon
         // constructor
         public Bank()
         {
-            money = 300;
+            money = 500;
         }
 
         // methods
