@@ -14,11 +14,16 @@ namespace Siphon
     /// </summary>
 	class Player : GameObject
 	{
-        Weapon currentWeapon;
-        
-        public Player(Vector2 position, Texture2D texture, int dimensions)
-            : base(position, texture, dimensions, new Vector2(3, 3))
+        protected Weapon currentWeapon;
+        protected int money;
+        protected int screenHeight;
+        protected int screenWidth;
+
+        public Player(Vector2 position, Texture2D texture, int dimensions, int screenHeight, int screenWidth)
+            : base(position, texture, dimensions / 2, new Vector2(dimensions / 10, dimensions / 10))
         {
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
         }
 
         /// <summary>
@@ -27,14 +32,14 @@ namespace Siphon
         /// <param name="kbState">Current keyboard state to be tested</param>
         /// <param name="currentMouseState">Current mouse state to be tested</param>
         /// <param name="previousMouseState">Previous mouse state to be tested</param>
-        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState)
+        public void Update(KeyboardState kbState, MouseState currentMouseState, MouseState previousMouseState, bool safe)
         {
             // Move
             PlayerMovement(kbState);
             // Set angle
             SetAngle(currentMouseState.X, currentMouseState.Y);
             // Shoot (if left mouse button is down)
-            if (currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
+            if (!safe && currentMouseState.LeftButton == ButtonState.Pressed && CurrentWeapon != null)
             {
                 CurrentWeapon.PullTrigger(currentMouseState, previousMouseState);
             }
@@ -51,6 +56,7 @@ namespace Siphon
             if (this.CurrentWeapon != null)
             {
                 CurrentWeapon.Draw(sp);
+                CurrentWeapon.Update();
             }
             base.Draw(sp);
         }
@@ -61,19 +67,19 @@ namespace Siphon
         /// <param name="current">Current keyboard state to be tested</param>
         public void PlayerMovement(KeyboardState current)
         {
-            if (current.IsKeyDown(Keys.W))
+            if (current.IsKeyDown(Keys.W) && position.Y - speed.Y > screenHeight / 10)
             {
                 position = new Vector2(position.X, position.Y - speed.Y);
             }
-            if (current.IsKeyDown(Keys.A))
+            if (current.IsKeyDown(Keys.A) && position.X - speed.X > 0)
             {
                 position = new Vector2(position.X - speed.X, position.Y);
             }
-            if (current.IsKeyDown(Keys.S))
+            if (current.IsKeyDown(Keys.S) && position.Y - speed.Y < screenHeight)
             {
                 position = new Vector2(position.X, position.Y + speed.Y);
             }
-            if (current.IsKeyDown(Keys.D))
+            if (current.IsKeyDown(Keys.D) && position.X < screenWidth)
             {
                 position = new Vector2(position.X + speed.X, position.Y);
             }
@@ -95,6 +101,18 @@ namespace Siphon
             {
                 currentWeapon = value;
                 currentWeapon.Holder = this;
+            }
+        }
+
+        public int Money
+        {
+            get{
+                return money;
+            }
+
+            set
+            {
+                money = value;
             }
         }
         #endregion

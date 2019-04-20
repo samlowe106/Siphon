@@ -26,7 +26,10 @@ namespace Siphon
         private Map map;
         private List<Structure> listOfTurrets;
         private GameTime currentTime;
-		private Texture2D plugEnemyModel;
+        Texture2D plugEnemyModel;
+        private Player player;
+        private Bank bank;
+
         private double timeUntilNextWave;
 
 		// health bar stuff
@@ -37,7 +40,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar)
+        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player, Bank bank)
         {
             this.generator = new Random();
             this.startTexture = startTexture;
@@ -50,6 +53,8 @@ namespace Siphon
             this.timeUntilNextWave = DELAY;
 			this.bar = bar;
 			this.plugEnemyModel = plugEnemyModel; //Starter Enemy
+            this.player = player;
+            this.bank = bank;
         }
         #endregion
 
@@ -100,7 +105,7 @@ namespace Siphon
 
                 Vector2 enemyCoords = new Vector2(xCoord, yCoord);
                 // Spawn in 3 additional enemies per wave
-                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets));
+                AddToList(new StarterEnemy(enemyCoords, plugEnemyModel, bar, mainStructure, map.Turrets, player, bank, screenHeight));
             }
             #endregion
         }
@@ -113,8 +118,8 @@ namespace Siphon
             currentTime = gameTime;
             timeUntilNextWave -= currentTime.ElapsedGameTime.Milliseconds;
             
-            // Spawn the next wave when it's time
-            if (TimeUntilNextWave <= 1)
+            // Spawn the next wave when it's time (use the variable timeUntilNextWave for precision)
+            if (timeUntilNextWave <= 1)
             {
                 BeginNextWave();
             }
@@ -186,11 +191,11 @@ namespace Siphon
         /// <summary>
         /// The amount of time, in seconds, until the next wave spawns
         /// </summary>
-        public double TimeUntilNextWave
+        public int TimeUntilNextWave
         {
             get
             {
-                return timeUntilNextWave;
+                return (int)timeUntilNextWave / 1000;
             }
         }
 

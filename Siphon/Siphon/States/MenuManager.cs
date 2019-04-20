@@ -14,25 +14,38 @@ namespace Siphon
 		// fields
 		private Button startButton;
 		private Button exitButton;
+        private Texture2D menuBackground;
+        private UIElement instructions;
+        int screenWidth;
+        int screenHeight;
 
 
 		// constructor
-		public MenuManager(Texture2D startButtonTexture, Texture2D exitButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight)
+		public MenuManager(Texture2D startButtonTexture, Texture2D exitButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight, Texture2D menuBackground, Texture2D instructionsTex)
 		{
 			startButton = new Button(startButtonTexture,
 										new Rectangle((int)(screenWidth * 0.2), 
-										(int)(screenHeight * 0.1), 
-										(int)(screenWidth * 0.6), 
-										(int)(screenHeight * 0.2)), 
+										(int)(screenHeight * 0.8), 
+										(int)(screenWidth * 0.2), 
+										(int)(screenHeight * 0.1)), 
 										gameState.Game, 
 										stack);
             exitButton = new Button(exitButtonTexture,
-                                        new Rectangle((int)(screenWidth * 0.2),
-                                        (int)(screenHeight * 0.6),
-                                        (int)(screenWidth * 0.6),
-                                        (int)(screenHeight * 0.2)),
+                                        new Rectangle((int)(screenWidth * 0.6),
+                                        (int)(screenHeight * 0.8),
+                                        (int)(screenWidth * 0.2),
+                                        (int)(screenHeight * 0.1)),
                                         gameState.Back,
                                         stack);
+
+            instructions = new UIElement(instructionsTex, new Rectangle(
+                                        (int)(screenWidth * 0.2),
+                                        (int)(screenHeight * 0.4),
+                                        (int)(screenWidth * 0.6),
+                                        (int)(screenHeight * 0.3)));
+            this.menuBackground = menuBackground;
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
         }
 
 		// methods
@@ -49,7 +62,10 @@ namespace Siphon
 
 		public void Draw(SpriteBatch sp)
 		{
-			startButton.Draw(sp);
+            sp.Draw(menuBackground, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
+            instructions.Draw(sp);
+            startButton.Draw(sp);
 			exitButton.Draw(sp);
 		}
 	}

@@ -17,6 +17,7 @@ namespace Siphon
 	class Bullet : GameObject, IDealDamage
 	{
         #region Fields
+        int bulletSpeed;
         int damage;
         Vector2 trajectory;
         #endregion
@@ -29,10 +30,11 @@ namespace Siphon
         /// <param name="texture"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        public Bullet(Texture2D texture)
-            : base (new Vector2(0, 0), texture, 6, new Vector2(6,6))
+        public Bullet(Texture2D texture, int bulletSize)
+            : base (new Vector2(0, 0), texture, bulletSize, new Vector2(0, 0))
         {
             this.active = false;
+            bulletSpeed = bulletSize;
         }
         #endregion
 
@@ -43,10 +45,12 @@ namespace Siphon
             this.position = start;
             this.angle = angle;
             this.damage = damage;
-            this.rectangle = new Rectangle((int)start.X, (int)start.Y, 6, 6);
+            this.rectangle = new Rectangle((int)start.X, (int)start.Y, width, height);
             // Get the vector from this bullet's origin to the destination and normalize it
             trajectory = this.GetDistanceVector(destination);
             trajectory.Normalize();
+            // These bullets gotta go fast - speed them up by a factor of 15
+            trajectory *= bulletSpeed;
         }
 
         /// <summary>
@@ -70,7 +74,8 @@ namespace Siphon
         /// </summary>
         public override void Update()
         {
-            position += speed;
+            position += trajectory;
+            this.rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
             base.Update();
         }
 

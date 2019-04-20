@@ -18,7 +18,7 @@ namespace Siphon
             : base(texture, holder, manager)
         {
             this.fireType = FireType.SemiAutomatic;
-            this.damage = 1;
+            this.damage = 4;
             this.fireDelay = 0.5f;
         }
 
@@ -30,7 +30,8 @@ namespace Siphon
         {
             manager.SpawnBullet(this.Position,
                 new Vector2(currentMouseState.Position.X, currentMouseState.Position.Y),
-                this.angle, this.damage);
+                this.angle, 
+                this.damage);
             base.Shoot(currentMouseState);
         }
     }

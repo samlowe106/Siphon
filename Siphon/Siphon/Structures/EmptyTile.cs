@@ -16,8 +16,9 @@ namespace Siphon
 		private int rows;
 		private int cols;
 		private Map map;
+        private Bank bank;
 
-		public EmptyTile(Vector2 position, Texture2D texture, 
+		public EmptyTile(Vector2 position, Texture2D texture, Bank bank,
 			Map map, int rows, int cols, int dimensions, bool clear) : 
 			base(position, texture, dimensions)
 		{
@@ -25,6 +26,7 @@ namespace Siphon
 			this.cols = cols;
 			this.map = map;
 			this.clear = clear;
+            this.bank = bank;
 			hover = false;
 		}
 
@@ -38,7 +40,8 @@ namespace Siphon
 					hover = true;
 					if ((mouse.LeftButton == ButtonState.Pressed) && (lastFrame.LeftButton != ButtonState.Pressed))
 					{
-						map.placeTurret(rows, cols);
+                        if (bank.Purchase(100))
+						    map.placeTurret(rows, cols);
 					}
 				}
 				else
