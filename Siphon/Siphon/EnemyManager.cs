@@ -34,16 +34,13 @@ namespace Siphon
 
 		// health bar stuff
 		private Texture2D bar;
-
-        // Starter enemy's texture
-        private Texture2D startTexture;
+		
         #endregion
 
         #region Constructor
-        public EnemyManager(Texture2D startTexture, Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player, Bank bank)
+        public EnemyManager(Map map, int screenWidth, int screenHeight, Texture2D plugEnemyModel, Texture2D bar, Player player, Bank bank)
         {
             this.generator = new Random();
-            this.startTexture = startTexture;
             this.activeEnemies = new List<Enemy>();
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;

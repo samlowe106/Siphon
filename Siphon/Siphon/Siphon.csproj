@@ -46,6 +46,7 @@
     <Compile Include="Structures\BasicTurret.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletManager.cs" />
+    <Compile Include="TextureManager.cs" />
     <Compile Include="UIElement.cs" />
     <Compile Include="UI\ToggleButton.cs" />
     <Compile Include="UI\Button.cs" />

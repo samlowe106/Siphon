@@ -42,6 +42,9 @@ namespace Siphon
 		int screenHeight;
 
 		// textures
+		TextureManager textureManager;
+
+		/*
 		Texture2D startButtonTexture;
 		Texture2D backButtonTexture;
         Texture2D arrow;
@@ -58,7 +61,7 @@ namespace Siphon
         Texture2D gameBackground;
         Texture2D NextWave;
         Texture2D instructions;
-
+		*/
 
         // sprite fonts 
         SpriteFont Arial12;
@@ -88,14 +91,17 @@ namespace Siphon
 			screenHeight = GraphicsDevice.Viewport.Height;
 			screenWidth = GraphicsDevice.Viewport.Width;
 			
-			// load menu content
+			// load fonts
+			Arial12 = Content.Load<SpriteFont>("Arial12");
+			
+			// load textures content
+			/*
 			startButtonTexture = Content.Load<Texture2D>("start");
 			backButtonTexture = Content.Load<Texture2D>("back");
 			arrow = Content.Load<Texture2D>("Arrow"); //Test Player Model
             playerModel = Content.Load<Texture2D>("Player"); //Player Model
 			turret = Content.Load<Texture2D>("Turret");
 			bullet = Content.Load<Texture2D>("bullet");
-			Arial12 = Content.Load<SpriteFont>("Arial12");
             plugEnemyModel = Content.Load<Texture2D>("Plug Enemy");
 			groundTexture = Content.Load<Texture2D>("ground");
 			batteryTexture = Content.Load<Texture2D>("Battery");
@@ -106,13 +112,36 @@ namespace Siphon
             NextWave = Content.Load<Texture2D>("NextWave");
             instructions = Content.Load<Texture2D>("instructions");
             gameBackground = Content.Load < Texture2D>("gameBackground");
+			*/
+
+			textureManager = new TextureManager(
+				Content.Load<Texture2D>("start"),
+				Content.Load<Texture2D>("back"),
+				Content.Load<Texture2D>("Arrow"),
+				Content.Load<Texture2D>("Turret"),
+				Content.Load<Texture2D>("bullet"),
+				Content.Load<Texture2D>("Player"),
+				Content.Load<Texture2D>("Plug Enemy"),
+				Content.Load<Texture2D>("ground"),
+				Content.Load<Texture2D>("Battery"),
+				Content.Load<Texture2D>("healthBar"),
+				Content.Load<Texture2D>("repairdestroy"),
+				Content.Load<Texture2D>("GameUI"),
+				Content.Load<Texture2D>("menuBackground"),
+				Content.Load<Texture2D>("gameBackground"),
+				Content.Load<Texture2D>("NextWave"),
+				Content.Load<Texture2D>("instructions"),
+				// placeholder textures
+				// pistol texture
+				Content.Load<Texture2D>("Player"));
+
+
 			// states
 			state = new Stack<gameState>();
 			state.Push(gameState.Back);
 			state.Push(gameState.Menu);
-			menu = new MenuManager(startButtonTexture, backButtonTexture, state, screenWidth, screenHeight, menuBackground, instructions);
-			gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, 
-                                            state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground, NextWave);
+			menu = new MenuManager(textureManager, state, screenWidth, screenHeight);
+			gameManager = new GameManager(textureManager, screenWidth, screenHeight, state, Arial12);
             
             base.Initialize();
         }
@@ -163,8 +192,8 @@ namespace Siphon
                     break;
                 case gameState.EndGame:
                     {
-                        gameManager = new GameManager(playerModel, backButtonTexture, turret, batteryTexture, bullet, groundTexture, healthBar, screenWidth, screenHeight, state, Arial12, plugEnemyModel, repairDestroy, GameUI, gameBackground, NextWave);
-                        state.Pop();
+						gameManager = new GameManager(textureManager, screenWidth, screenHeight, state, Arial12);
+						state.Pop();
                         state.Pop();
                     }
                     break;
