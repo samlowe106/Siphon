@@ -48,8 +48,7 @@ namespace Siphon
             bank = new Bank();
 
             // map
-            map = new Map(screenWidth, screenHeight, textureManager.batteryTexture, textureManager.turret, 
-				textureManager.bullet, textureManager.groundTexture, textureManager.healthBar, stack, bank);
+            map = new Map(screenWidth, screenHeight, textureManager, stack, bank);
 
             // player
             player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), textureManager.playerModel, screenHeight / 20, screenHeight, screenWidth);
@@ -104,7 +103,7 @@ namespace Siphon
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, TurretType.Turret); 
 
                 //Player Updates
                 player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);

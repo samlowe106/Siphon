@@ -131,9 +131,10 @@ namespace Siphon
 				Content.Load<Texture2D>("gameBackground"),
 				Content.Load<Texture2D>("NextWave"),
 				Content.Load<Texture2D>("instructions"),
+				Content.Load<Texture2D>("pistol"),
 				// placeholder textures
 				// pistol texture
-				Content.Load<Texture2D>("Player"));
+				Content.Load<Texture2D>("pistol"));
 
 
 			// states

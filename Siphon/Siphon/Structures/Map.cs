@@ -10,6 +10,8 @@ using System.IO;
 
 namespace Siphon
 {
+	enum TurretType { Wall, Turret };
+	
     class Map
     {
 
@@ -28,6 +30,7 @@ namespace Siphon
         // textures
         private Texture2D mainStructureTexture;
         private Texture2D turretTexture;
+        private Texture2D wallTexture;
         private Texture2D bulletTexture;
         private Texture2D groundTexture;
         private Texture2D healthBar;
@@ -54,16 +57,17 @@ namespace Siphon
 
 		#region Contructor
 
-		public Map(int screenWidth, int screenHeight, Texture2D mainStructureTexture, Texture2D turretTexture, 
-					Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, Stack<gameState> stack, Bank bank)
+		public Map(int screenWidth, int screenHeight, TextureManager textureManager, Stack<gameState> stack, Bank bank)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
-            this.mainStructureTexture = mainStructureTexture;
-			this.turretTexture = turretTexture;
-			this.bulletTexture = bulletTexture;
-			this.groundTexture = groundTexture;
-			this.healthBar = healthBar;
+
+            mainStructureTexture = textureManager.batteryTexture;
+			turretTexture = textureManager.turret;
+			bulletTexture = textureManager.bullet;
+			groundTexture = textureManager.groundTexture;
+			healthBar = textureManager.healthBar;
+
             this.bank = bank;
             this.stack = stack;
 
@@ -109,6 +113,7 @@ namespace Siphon
 																groundTexture, bank, this, r, c,
 																sideLength, true);
                             break;
+
                         case 1:
 							structures[r, c] = new BasicTurret(new Vector2(
 																(int)((screenWidth / 2) - (4.5 - c) * sideLength), 
@@ -116,6 +121,7 @@ namespace Siphon
                                                                 turretTexture, bulletTexture, groundTexture, healthBar,
 																sideLength, r, c, this, bank);
 							break;
+
                         case 2:
 							if (mainStructure == null)
 							{
@@ -127,7 +133,15 @@ namespace Siphon
 								structures[r, c] = mainStructure;
 							}
 							break;
-                    }
+
+						case 3:
+							structures[r, c] = new Wall(new Vector2(
+																(int)((screenWidth / 2) - (4.5 - c) * sideLength),
+																(int)((screenHeight / 2) - (4.5 - r) * sideLength)),
+																wallTexture, groundTexture, healthBar, bank, this,
+																sideLength, r, c);
+							break;
+					}
                 }
             }
         }
@@ -143,7 +157,7 @@ namespace Siphon
             }
         }
 
-        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime, bool repair)
+        public void Update(List<Enemy> enemies, MouseState currentMouseState, MouseState previousMouseState, bool BuildPhase, GameTime gameTime, bool repair, TurretType type)
         {
             foreach (Structure structure in structures)
             {
@@ -153,7 +167,7 @@ namespace Siphon
 				}
 				if (structure is EmptyTile)
 				{
-					((EmptyTile)structure).Update(enemies, currentMouseState, previousMouseState, BuildPhase);
+					((EmptyTile)structure).Update(enemies, currentMouseState, previousMouseState, BuildPhase, type);
 				}
 			}
 
@@ -177,13 +191,28 @@ namespace Siphon
             }
         }
 
-		public void placeTurret(int rows, int cols)
+		public void placeTurret(int rows, int cols, TurretType type)
 		{
-			structures[rows, cols] = new BasicTurret(new Vector2(
+			switch (type)
+			{
+				case TurretType.Turret:
+					if (bank.Purchase(100))
+						structures[rows, cols] = new BasicTurret(new Vector2(
 												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
 												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
 												turretTexture, bulletTexture, groundTexture, healthBar,
 												sideLength, rows, cols, this, bank);
+					break;
+
+				case TurretType.Wall:
+					if (bank.Purchase(50))
+						structures[rows, cols] = new Wall(new Vector2(
+												(int)((screenWidth / 2) - (4.5 - cols) * sideLength),
+												(int)((screenHeight / 2) - (4.5 - rows) * sideLength)),
+												wallTexture, groundTexture, healthBar, bank, this,
+												sideLength, rows, cols);
+					break;
+			}
 		}
 
         public void removeTurret(int rows, int cols)

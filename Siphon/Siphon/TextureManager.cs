@@ -31,6 +31,7 @@ namespace Siphon
 		public Texture2D NextWave;
 		public Texture2D instructions;
 		public Texture2D pistol;
+		public Texture2D wall;
 
 		// constructor
 		public TextureManager(
@@ -50,7 +51,8 @@ namespace Siphon
 			Texture2D gameBackground,
 			Texture2D NextWave,
 			Texture2D instructions,
-			Texture2D pistol)
+			Texture2D pistol,
+			Texture2D wall)
 		{
 			this.startButtonTexture = startButtonTexture;
 			this.backButtonTexture = backButtonTexture;
@@ -69,6 +71,7 @@ namespace Siphon
 			this.NextWave = NextWave;
 			this.instructions = instructions;
 			this.pistol = pistol;
+			this.wall = wall;
 		}
 
 	}
