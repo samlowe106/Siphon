@@ -67,6 +67,7 @@ namespace Siphon
 			bulletTexture = textureManager.bullet;
 			groundTexture = textureManager.groundTexture;
 			healthBar = textureManager.healthBar;
+            wallTexture = textureManager.wall;
 
             this.bank = bank;
             this.stack = stack;
@@ -154,6 +155,10 @@ namespace Siphon
                 {
                     ((BasicTurret)structure).RepairOrDestroy(mouse, repair);
                 }
+                if (structure != null && !structure.Active && (structure is Wall))
+                {
+                    ((Wall)structure).RepairOrDestroy(mouse, repair);
+                }
             }
         }
 
@@ -176,7 +181,7 @@ namespace Siphon
                 repairUpdate(currentMouseState, repair);
             }
 
-            if (!mainStructure.Active)
+            if (mainStructure.endGame)
             {
 				stack.Push(gameState.EndGame);
             }

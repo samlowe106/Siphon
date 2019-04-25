@@ -30,6 +30,8 @@ namespace Siphon
 			this.row = row;
 			this.col = col;
 
+            this.groundTexture = groundTexture;
+
 			maxHealth = 30;
 			currentHealth = 30;
 			healthBar = new HealthBar(new Rectangle((int)position.X - dimensions / 2, (int)position.Y - dimensions / 2, dimensions, dimensions / 4), healthBarTexture);
@@ -40,7 +42,13 @@ namespace Siphon
 		public override void Draw(SpriteBatch sp)
 		{
 			sp.Draw(groundTexture, rectangle, Color.White);
-			base.Draw(sp);
+
+            if (active)
+                sp.Draw(texture, rectangle, Color.White);
+            else
+                sp.Draw(texture, rectangle, Color.DarkGray);
+
+            healthBar.Draw(sp, maxHealth, currentHealth);
 		}
 
 		public void RepairOrDestroy(MouseState mouse, bool repair)

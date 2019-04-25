@@ -64,7 +64,7 @@ namespace Siphon
             player.CurrentWeapon = new Pistol(textureManager.pistol, player, bulletManager);
 
 
-            // button
+            // buttons
             backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
@@ -104,13 +104,15 @@ namespace Siphon
 			{
 				// map update
                 map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, TurretType.Turret); 
-
-                //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
-
+                
                 bulletManager.Update();
 
-                enemyManager.Update(gameTime);
+                if (map.mainStructure.Active)
+                {
+                    enemyManager.Update(gameTime);
+                    player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
+                }
+                    
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
                 {
