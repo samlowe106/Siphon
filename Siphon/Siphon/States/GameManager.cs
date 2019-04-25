@@ -33,11 +33,13 @@ namespace Siphon
         private UIElement BaseHud;
         private int screenHeight;
         private int screenWidth;
+        private TextureManager textureManager;
         #endregion
 
         #region Constructor
         public GameManager(TextureManager textureManager,int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
 		{
+            this.textureManager = textureManager;
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
 			// base values
@@ -187,7 +189,11 @@ namespace Siphon
             // Draws the pause menu (but only when paused)
             if (paused)
 			{
-				sp.DrawString(Arial12, "Paused", new Vector2(screenWidth / 2, screenHeight / 2 - 200), Color.White);
+                // Background
+                sp.Draw(textureManager.menuBackground, new Rectangle(screenWidth / 3, screenHeight / 3, screenWidth / 3, screenHeight / 3), Color.White);
+                // Menu title
+                sp.DrawString(Arial12, "Paused", new Vector2(screenWidth / 2 - 75, screenHeight / 2 - 40), Color.White);
+                // Back button
                 backButton.Draw(sp);
             }
 		}
