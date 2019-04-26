@@ -20,7 +20,6 @@ namespace Siphon
 	{
         #region Fields
         private Player player;
-        private int waveCount = 1;
 		private bool paused;
 		private SpriteFont Arial12;
         private Map map;
@@ -37,9 +36,7 @@ namespace Siphon
         #endregion
 
         #region Constructor
-        public GameManager(Texture2D playerTexture, Texture2D backButtonTexture, Texture2D turretTexture, Texture2D Battery,
-            Texture2D bulletTexture, Texture2D groundTexture, Texture2D healthBar, int screenWidth, int screenHeight, Stack<gameState> stack,
-            SpriteFont Arial12, Texture2D starterEnemyTexture, Texture2D repairdestroy, Texture2D GameUI, Texture2D gameBackground, Texture2D NextWaveTex)
+        public GameManager(TextureManager textureManager,int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
 		{
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -51,31 +48,31 @@ namespace Siphon
             bank = new Bank();
 
             // map
-            map = new Map(screenWidth, screenHeight, Battery, turretTexture, bulletTexture, groundTexture, healthBar, stack, bank);
+            map = new Map(screenWidth, screenHeight, textureManager, stack, bank);
 
             // player
-            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), playerTexture, screenHeight / 20, screenHeight, screenWidth);
+            player = new Player(new Vector2(screenWidth * 0.5f, screenHeight * 0.5f), textureManager.playerModel, screenHeight / 20, screenHeight, screenWidth);
 
             // Enemy manager
-            enemyManager = new EnemyManager(playerTexture, map, screenWidth, screenHeight, starterEnemyTexture, healthBar, player, bank);
+            enemyManager = new EnemyManager(map, screenWidth, screenHeight, textureManager.plugEnemyModel, textureManager.healthBar, player, bank);
 
             // Bullet manager
-            bulletManager = new BulletManager(playerTexture, screenWidth, screenHeight, enemyManager);
+            bulletManager = new BulletManager(textureManager.playerModel, screenWidth, screenHeight, enemyManager);
 
             // Player's pistol
 
-            player.CurrentWeapon = new Pistol(playerTexture, player, bulletManager);
+            player.CurrentWeapon = new Pistol(textureManager.pistol, player, bulletManager);
 
 
-            // button
-            backButton = new Button(backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
-			DestroyOrRepairButton = new ToggleButton(repairdestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
-			NextWave = new ToggleButton(NextWaveTex, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+            // buttons
+            backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
+			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
             // ui
-            BaseHud = new UIElement(GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
+            BaseHud = new UIElement(textureManager.GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
 
-            this.gameBackground = gameBackground;
+            this.gameBackground = textureManager.gameBackground;
             //Enemy Textures
             //Enemy test
 
@@ -106,14 +103,16 @@ namespace Siphon
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair); 
-
-                //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
-
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, TurretType.Turret); 
+                
                 bulletManager.Update();
 
-                enemyManager.Update(gameTime);
+                if (map.mainStructure.Active)
+                {
+                    enemyManager.Update(gameTime);
+                    player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
+                }
+                    
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
                 {

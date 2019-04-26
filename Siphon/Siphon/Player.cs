@@ -20,7 +20,7 @@ namespace Siphon
         protected int screenWidth;
 
         public Player(Vector2 position, Texture2D texture, int dimensions, int screenHeight, int screenWidth)
-            : base(position, texture, dimensions / 2, new Vector2(dimensions / 10, dimensions / 10))
+            : base(position, texture, dimensions, new Vector2(dimensions / 10, dimensions / 10))
         {
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
@@ -52,13 +52,13 @@ namespace Siphon
         /// <param name="sp"></param>
         public override void Draw(SpriteBatch sp)
         {
-            // Draw the held weapon
-            if (this.CurrentWeapon != null)
+			// Draw the held weapon
+			base.Draw(sp);
+			if (this.CurrentWeapon != null)
             {
                 CurrentWeapon.Draw(sp);
                 CurrentWeapon.Update();
             }
-            base.Draw(sp);
         }
 
         /// <summary>

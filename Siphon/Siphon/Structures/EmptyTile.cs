@@ -31,7 +31,7 @@ namespace Siphon
 		}
 
 		
-		public void Update(List<Enemy> enemies, MouseState mouse, MouseState lastFrame, bool active)
+		public void Update(List<Enemy> enemies, MouseState mouse, MouseState lastFrame, bool active, TurretType type)
 		{
 			if (active)
 			{
@@ -40,8 +40,7 @@ namespace Siphon
 					hover = true;
 					if ((mouse.LeftButton == ButtonState.Pressed) && (lastFrame.LeftButton != ButtonState.Pressed))
 					{
-                        if (bank.Purchase(100))
-						    map.placeTurret(rows, cols);
+						map.placeTurret(rows, cols, type);
 					}
 				}
 				else

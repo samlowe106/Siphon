@@ -21,16 +21,16 @@ namespace Siphon
 
 
 		// constructor
-		public MenuManager(Texture2D startButtonTexture, Texture2D exitButtonTexture, Stack<gameState> stack, int screenWidth, int screenHeight, Texture2D menuBackground, Texture2D instructionsTex)
+		public MenuManager(TextureManager textureManager,  Stack<gameState> stack, int screenWidth, int screenHeight)
 		{
-			startButton = new Button(startButtonTexture,
+			startButton = new Button(textureManager.startButtonTexture,
 										new Rectangle((int)(screenWidth * 0.2), 
 										(int)(screenHeight * 0.8), 
 										(int)(screenWidth * 0.2), 
 										(int)(screenHeight * 0.1)), 
 										gameState.Game, 
 										stack);
-            exitButton = new Button(exitButtonTexture,
+            exitButton = new Button(textureManager.backButtonTexture,
                                         new Rectangle((int)(screenWidth * 0.6),
                                         (int)(screenHeight * 0.8),
                                         (int)(screenWidth * 0.2),
@@ -38,12 +38,12 @@ namespace Siphon
                                         gameState.Back,
                                         stack);
 
-            instructions = new UIElement(instructionsTex, new Rectangle(
+            instructions = new UIElement(textureManager.instructions, new Rectangle(
                                         (int)(screenWidth * 0.2),
                                         (int)(screenHeight * 0.4),
                                         (int)(screenWidth * 0.6),
                                         (int)(screenHeight * 0.3)));
-            this.menuBackground = menuBackground;
+            this.menuBackground = textureManager.menuBackground;
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
         }
