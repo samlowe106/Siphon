@@ -46,7 +46,10 @@ namespace Siphon
 				else
 					hover = false;
 			}
-			
+			else
+			{
+				hover = false;
+			}
 		}
 
 		public override void Draw(SpriteBatch sp)

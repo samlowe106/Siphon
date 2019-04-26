@@ -191,8 +191,10 @@ namespace Siphon
         {
             foreach (Structure structure in structures)
             {
-                if (structure != null)
-                    structure.Draw(sp);
+				if (structure != null)
+				{
+					structure.Draw(sp);
+				}
             }
         }
 
