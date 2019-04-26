@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../../../GDAPS 2/Siphon/GameUI.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../../../GDAPS 2/Siphon/GameUI.png;GameUI.png
+
 #begin Arrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -247,28 +259,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Turret.png
-
-#begin Z:/GDAPS 2/Siphon/GameUI.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Z:/GDAPS 2/Siphon/GameUI.png;GameUI.png
-
-#begin Z:/GDAPS 2/Siphon/GameUI.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Z:/GDAPS 2/Siphon/GameUI.png;GameUI.png
 

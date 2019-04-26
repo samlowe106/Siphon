@@ -90,7 +90,7 @@ namespace Siphon
                 {
                     fireRate = 0f;
 
-                    target.TakeDamage(1);
+                    target.TakeDamage(2);
 
                     //Bullet b = bullets.Dequeue();
                     //Shoot(target, b);
