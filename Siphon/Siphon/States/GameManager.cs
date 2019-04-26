@@ -69,7 +69,7 @@ namespace Siphon
 
             // buttons
             backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth * 4 / 10, screenHeight / 2, screenWidth / 5, 150), gameState.Back, stack);
-			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle(0, (int)(screenHeight * 0.92), (int)(screenWidth * 0.16), (int)(screenHeight * 0.08)));
 			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.4), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
 			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
 
