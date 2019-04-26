@@ -167,8 +167,16 @@ namespace Siphon
                 sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth * 189 / 200, screenHeight / 10), Color.White);
             }
 
-            // Draw the current wave number
-            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth / 4, screenHeight / 20), Color.Black);
+            // Draw the current wave number, ensuring that single-digit waves and double-digit numbers are disaplayed properly
+            if (enemyManager.WaveNumber < 10)
+            {
+                sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth / 27, (screenHeight / 11) + 5), Color.Red);
+            }
+            else
+            {
+                sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth / 33, (screenHeight / 11) + 5), Color.Red);
+            }
+
 
             // draw the bank balance
             sp.DrawString(Arial12, bank.money.ToString(), new Vector2(screenWidth / 2 + 20, screenHeight / 20), Color.Black);
@@ -178,17 +186,17 @@ namespace Siphon
             // In green if it's above 50%
             if (map.mainStructure.CurrentHealth > 50)
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.DarkGreen);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.2f, screenHeight / 20), Color.DarkGreen);
             }
             // In yellow if between 50 and 25
             else if (map.mainStructure.CurrentHealth > 25)
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.Yellow);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.2f, screenHeight / 20), Color.Yellow);
             }
             // In red if below 25%
             else
             {
-                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.7f, screenHeight / 20), Color.Red);
+                sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.2f, screenHeight / 20), Color.Red);
             }
 
             sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth * 3 / 4 , screenHeight / 20), Color.Black);
