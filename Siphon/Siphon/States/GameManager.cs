@@ -70,8 +70,8 @@ namespace Siphon
             // buttons
             backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth * 4 / 10, screenHeight / 2, screenWidth / 5, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle(0, (int)(screenHeight * 0.92), (int)(screenWidth * 0.16), (int)(screenHeight * 0.08)));
-			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.4), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
-			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
+			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.42), (int)(screenHeight * 0.92), (int)(screenWidth * 0.16), (int)(screenHeight * 0.08)));
+			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.84), (int)(screenHeight * 0.92), (int)(screenWidth * 0.16), (int)(screenHeight * 0.08)));
 
             // ui
             BaseHud = new UIElement(textureManager.GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
@@ -198,9 +198,7 @@ namespace Siphon
             {
                 sp.DrawString(Arial12, String.Format("{0}%", map.mainStructure.CurrentHealth), new Vector2(screenWidth / 2.2f, screenHeight / 20), Color.Red);
             }
-
-            sp.DrawString(Arial12, enemyManager.WaveNumber.ToString(), new Vector2(screenWidth * 3 / 4 , screenHeight / 20), Color.Black);
-
+			
             // Draw Player
             player.Draw(sp);
 
