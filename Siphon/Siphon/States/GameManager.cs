@@ -28,16 +28,19 @@ namespace Siphon
 		private EnemyManager enemyManager;
         private Texture2D gameBackground;
 		private ToggleButton DestroyOrRepairButton;
+		private ToggleButton wallTurret;
 		private ToggleButton NextWave;
         private Button backButton;
         private UIElement BaseHud;
         private int screenHeight;
         private int screenWidth;
+        private TextureManager textureManager;
         #endregion
 
         #region Constructor
         public GameManager(TextureManager textureManager,int screenWidth, int screenHeight, Stack<gameState> stack, SpriteFont Arial12)
 		{
+            this.textureManager = textureManager;
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
 			// base values
@@ -67,6 +70,7 @@ namespace Siphon
             // buttons
             backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle(0, (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
 			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
             // ui
@@ -86,6 +90,17 @@ namespace Siphon
 			// always runs
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
+            TurretType type;
+            if (wallTurret.Update(currentMouseState, previousMouseState))
+            {
+                type = TurretType.Wall;
+            }
+            else
+            {
+                type = TurretType.Turret;
+            }
+
+
             // next wave logic
             if (NextWave.Update(currentMouseState, previousMouseState))
             {
@@ -103,7 +118,7 @@ namespace Siphon
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, TurretType.Turret); 
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, type); 
                 
                 bulletManager.Update();
 
@@ -183,13 +198,18 @@ namespace Siphon
 
             // Draw Buttons
 			DestroyOrRepairButton.DrawSwitch(sp);
+            wallTurret.DrawSwitch(sp);
             enemyManager.Draw(sp);
             bulletManager.Draw(sp);
 
             // Draws the pause menu (but only when paused)
             if (paused)
 			{
-				sp.DrawString(Arial12, "Paused", new Vector2(screenWidth / 2, screenHeight / 2 - 200), Color.White);
+                // Background
+                sp.Draw(textureManager.menuBackground, new Rectangle(screenWidth / 3, screenHeight / 3, screenWidth / 3, screenHeight / 3), Color.White);
+                // Menu title
+                sp.DrawString(Arial12, "Paused", new Vector2(screenWidth / 2 - 75, screenHeight / 2 - 40), Color.White);
+                // Back button
                 backButton.Draw(sp);
             }
 		}

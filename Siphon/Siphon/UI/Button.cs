@@ -41,19 +41,17 @@ namespace Siphon
 			mouseHover = false;
         }
 
-		// methods
+        // methods
 
-		// Draws the button and checks for hover 
-		public void Draw(SpriteBatch sp)
-		{
-			if (mouseHover)
-				sp.Draw(texture, rectangle, Color.DimGray);
+        // Draws the button and checks for hover 
+        public void Draw(SpriteBatch sp)
+        {
+            if (mouseHover)
+                sp.Draw(texture, rectangle, Color.DimGray);
 
-			else
-				sp.Draw(texture, rectangle, Color.White);
-		}
-
-        // 
+            else
+                sp.Draw(texture, rectangle, Color.White);
+        }
 
         /// <summary>
         /// Handles hover effect and changes the game state if clicked
