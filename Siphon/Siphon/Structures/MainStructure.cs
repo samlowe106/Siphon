@@ -16,7 +16,9 @@ namespace Siphon
     {
 		private Texture2D groundTexture;
 		private HealthBar healthBar;
+        private int animationNum;
 
+        public bool endGame;
 
 		#region Constructor
 
@@ -26,6 +28,9 @@ namespace Siphon
             maxHealth = 100;
 			currentHealth = maxHealth;
 			this.groundTexture = groundTexture;
+
+            endGame = false;
+            animationNum = 0;
 
 			healthBar = new HealthBar(new Rectangle((int)position.X - dimension / 2, (int)position.Y - dimension / 2, dimension, dimension / 8), healthBarTexture);
 		}
@@ -37,15 +42,64 @@ namespace Siphon
 
 		public override void Draw(SpriteBatch sp)
 		{
+            // ground tiles
 			sp.Draw(groundTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width / 2, rectangle.Height / 2), Color.White);
 			sp.Draw(groundTexture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y, rectangle.Width / 2, rectangle.Height / 2), Color.White);
 			sp.Draw(groundTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height / 2, rectangle.Width / 2, rectangle.Height / 2), Color.White);
 			sp.Draw(groundTexture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2, rectangle.Width / 2, rectangle.Height / 2), Color.White);
 
+            if (active)
+            {
+                sp.Draw(texture, rectangle, new Rectangle(0, 0, 64, 64), Color.White);
+                healthBar.Draw(sp, maxHealth, currentHealth);
+            }
+            else
+            {
+                if (animationNum < 10)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(64, 0, 64, 64), Color.White);
+                }
+                else if (animationNum < 20)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(128, 0, 64, 64), Color.White);
+                }
+                else if (animationNum < 30)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(0, 64, 64, 64), Color.White);
+                }
+                else if (animationNum < 40)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(64, 64, 64, 64), Color.White);
+                }
+                else if (animationNum < 50)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(128, 64, 64, 64), Color.White);
+                }
+                else if (animationNum < 60)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(0, 128, 64, 64), Color.White);
+                }
+                else if (animationNum < 70)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(64, 128, 64, 64), Color.White);
+                }
+                else if (animationNum < 80)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(128, 128, 64, 64), Color.White);
+                }
+                else if (animationNum < 90)
+                {
+                    sp.Draw(texture, rectangle, new Rectangle(192, 0, 64, 64), Color.White);
+                }
+                else if (animationNum < 100)
+                {
+                    endGame = true;
+                }
 
-			sp.Draw(texture, rectangle, new Rectangle(0, 0, 64, 64), Color.White);
-			healthBar.Draw(sp, maxHealth, currentHealth);
+                animationNum++;
+            }
 		}
+        
 
 		#endregion
 

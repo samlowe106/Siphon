@@ -28,6 +28,7 @@ namespace Siphon
 		private EnemyManager enemyManager;
         private Texture2D gameBackground;
 		private ToggleButton DestroyOrRepairButton;
+		private ToggleButton wallTurret;
 		private ToggleButton NextWave;
         private Button backButton;
         private UIElement BaseHud;
@@ -66,9 +67,10 @@ namespace Siphon
             player.CurrentWeapon = new Pistol(textureManager.pistol, player, bulletManager);
 
 
-            // button
+            // buttons
             backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle(0, (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
 			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
 
             // ui
@@ -88,6 +90,17 @@ namespace Siphon
 			// always runs
 			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
+            TurretType type;
+            if (wallTurret.Update(currentMouseState, previousMouseState))
+            {
+                type = TurretType.Wall;
+            }
+            else
+            {
+                type = TurretType.Turret;
+            }
+
+
             // next wave logic
             if (NextWave.Update(currentMouseState, previousMouseState))
             {
@@ -105,14 +118,16 @@ namespace Siphon
             if (!paused)
 			{
 				// map update
-                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, TurretType.Turret); 
-
-                //Player Updates
-                player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
-
+                map.Update(enemyManager.ActiveEnemies, currentMouseState, previousMouseState, enemyManager.StageClear, gameTime, repair, type); 
+                
                 bulletManager.Update();
 
-                enemyManager.Update(gameTime);
+                if (map.mainStructure.Active)
+                {
+                    enemyManager.Update(gameTime);
+                    player.Update(kbState, currentMouseState, previousMouseState, enemyManager.StageClear);
+                }
+                    
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
                 {
@@ -183,6 +198,7 @@ namespace Siphon
 
             // Draw Buttons
 			DestroyOrRepairButton.DrawSwitch(sp);
+            wallTurret.DrawSwitch(sp);
             enemyManager.Draw(sp);
             bulletManager.Draw(sp);
 
