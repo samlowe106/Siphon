@@ -68,10 +68,10 @@ namespace Siphon
 
 
             // buttons
-            backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth / 2 - 75, screenHeight / 2, 300, 150), gameState.Back, stack);
+            backButton = new Button(textureManager.backButtonTexture, new Rectangle(screenWidth * 4 / 10, screenHeight / 2, screenWidth / 5, 150), gameState.Back, stack);
 			DestroyOrRepairButton = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.6), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
-			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle(0, (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
-			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), 10, (int)(screenWidth * 0.2), (int)(screenHeight * 0.09)));
+			wallTurret = new ToggleButton(textureManager.repairDestroy, new Rectangle((int)(screenWidth * 0.4), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
+			NextWave = new ToggleButton(textureManager.NextWave, new Rectangle((int)(screenWidth * 0.8), (int)(screenHeight * 0.9), (int)(screenWidth * 0.2), (int)(screenHeight * 0.1)));
 
             // ui
             BaseHud = new UIElement(textureManager.GameUI, new Rectangle(0, 0, screenWidth, screenHeight));
@@ -82,7 +82,7 @@ namespace Siphon
 
 		}
         #endregion
-
+		
         #region Methods
         public void Update(GameTime gameTime, KeyboardState kbState, KeyboardState lastKbState,
             MouseState previousMouseState, MouseState currentMouseState)
@@ -160,11 +160,11 @@ namespace Siphon
             // If the next wave is close to spawning, make the text flash red
             if (enemyManager.TimeUntilNextWave < 6 && (int)enemyManager.TimeUntilNextWave % 2 == 1)
             {
-                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth / 10, screenHeight / 20), Color.Red);
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth * 189 / 200, screenHeight / 10), Color.Red);
             }
             else
             {
-                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth / 10, screenHeight / 20), Color.Black);
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth * 189 / 200, screenHeight / 10), Color.White);
             }
 
             // Draw the current wave number, ensuring that single-digit waves and double-digit numbers are disaplayed properly

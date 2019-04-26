@@ -93,9 +93,9 @@ namespace Siphon
 			
 			// load fonts
 			Arial12 = Content.Load<SpriteFont>("Arial12");
-			
-			// load textures content
-			/*
+
+            // load textures content
+            /*
 			startButtonTexture = Content.Load<Texture2D>("start");
 			backButtonTexture = Content.Load<Texture2D>("back");
 			arrow = Content.Load<Texture2D>("Arrow"); //Test Player Model
@@ -114,25 +114,25 @@ namespace Siphon
             gameBackground = Content.Load < Texture2D>("gameBackground");
 			*/
 
-			textureManager = new TextureManager(
-				Content.Load<Texture2D>("start"),
-				Content.Load<Texture2D>("back"),
-				Content.Load<Texture2D>("Arrow"),
-				Content.Load<Texture2D>("Turret"),
-				Content.Load<Texture2D>("bullet"),
-				Content.Load<Texture2D>("Player"),
-				Content.Load<Texture2D>("Plug Enemy"),
-				Content.Load<Texture2D>("ground"),
-				Content.Load<Texture2D>("Battery"),
-				Content.Load<Texture2D>("healthBar"),
-				Content.Load<Texture2D>("repairdestroy"),
-				Content.Load<Texture2D>("GameUI"),
-				Content.Load<Texture2D>("menuBackground"),
-				Content.Load<Texture2D>("gameBackground"),
-				Content.Load<Texture2D>("NextWave"),
-				Content.Load<Texture2D>("instructions"),
-				Content.Load<Texture2D>("pistol"),
-				Content.Load<Texture2D>("squarewall"));
+            textureManager = new TextureManager(
+                Content.Load<Texture2D>("start"),
+                Content.Load<Texture2D>("back"),
+                Content.Load<Texture2D>("Arrow"),
+                Content.Load<Texture2D>("Turret"),
+                Content.Load<Texture2D>("bullet"),
+                Content.Load<Texture2D>("Player"),
+                Content.Load<Texture2D>("Plug Enemy"),
+                Content.Load<Texture2D>("ground"),
+                Content.Load<Texture2D>("Battery"),
+                Content.Load<Texture2D>("healthBar"),
+                Content.Load<Texture2D>("repairdestroyACTUAL"),
+                Content.Load<Texture2D>("GameUI"),
+                Content.Load<Texture2D>("menuBackground"),
+                Content.Load<Texture2D>("gameBackground"),
+                Content.Load<Texture2D>("NextWaveACTUAL"),
+                Content.Load<Texture2D>("instructions"),               
+                Content.Load<Texture2D>("pistol"),
+                Content.Load<Texture2D>("squarewall"));
 
 
 			// states
