@@ -17,6 +17,9 @@ namespace Siphon
 		private Rectangle rectangle;
 		private bool mouseHover;
 
+		private int texWidth;
+		private int texHeight;
+
 		/// <summary>
 		/// When clicked, the button will change the game state
 		/// </summary>
@@ -30,6 +33,9 @@ namespace Siphon
 			this.rectangle = rectangle;
 			mouseHover = false;
             active = false;
+
+			texHeight = texture.Height;
+			texWidth = texture.Width;
 		}
 
 		// methods
@@ -40,16 +46,16 @@ namespace Siphon
 			if (!active)
 			{
 				if (mouseHover)
-					sp.Draw(texture, rectangle, new Rectangle(0, 0, 128, 64), Color.DimGray);
+					sp.Draw(texture, rectangle, new Rectangle(0, 0, texWidth / 2, texHeight), Color.DimGray);
 				else
-					sp.Draw(texture, rectangle, new Rectangle(0, 0, 128, 64), Color.White);
+					sp.Draw(texture, rectangle, new Rectangle(0, 0, texWidth / 2, texHeight), Color.White);
 			}
 			else
 			{
 				if (mouseHover)
-					sp.Draw(texture, rectangle, new Rectangle(128, 0, 128, 64), Color.DimGray);
+					sp.Draw(texture, rectangle, new Rectangle(texWidth / 2, 0, texWidth / 2, texHeight), Color.DimGray);
 				else
-					sp.Draw(texture, rectangle, new Rectangle(128, 0, 128, 64), Color.White);
+					sp.Draw(texture, rectangle, new Rectangle(texWidth / 2, 0, texWidth / 2, texHeight), Color.White);
 			}
         }
 

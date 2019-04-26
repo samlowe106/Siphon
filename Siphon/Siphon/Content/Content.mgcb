@@ -90,7 +90,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GameUI.png;GameUIOld.png
+/build:GameUI.png
 
 #begin ground.jpg
 /importer:TextureImporter
@@ -176,6 +176,18 @@
 /processorParam:TextureFormat=Color
 /build:NextWaveNEW.png
 
+#begin pistol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pistol.png
+
 #begin Player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -248,6 +260,18 @@
 /processorParam:TextureFormat=Color
 /build:SoilTexture.jpg;gameBackground
 
+#begin squarewall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:squarewall.png
+
 #begin start.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -283,16 +307,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Turret.png
-
-#begin Z:/GDAPS 2/Siphon/GameUI.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Z:/GDAPS 2/Siphon/GameUI.png;GameUI.png
 
