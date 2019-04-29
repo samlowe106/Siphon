@@ -137,14 +137,11 @@ namespace Siphon
 			// runs when paused
 			else
 			{
-                // TODO pause menu
-
                 backButton.Update(currentMouseState);
 
                 if (kbState.IsKeyDown(Keys.Escape) && lastKbState.IsKeyUp(Keys.Escape))
 					paused = !paused;
 			}
-			
 		}
 
 		public void Draw(SpriteBatch sp)
@@ -156,12 +153,17 @@ namespace Siphon
             BaseHud.Draw(sp);
             NextWave.Draw(sp);
 
-            // Draw how much time until next wave spawns
+
             // If the next wave is close to spawning, make the text flash red
             if (enemyManager.TimeUntilNextWave < 6 && (int)enemyManager.TimeUntilNextWave % 2 == 1)
             {
-                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth * 189 / 200, screenHeight / 10), Color.Red);
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2((screenWidth * 189 / 200) + 15, screenHeight / 10), Color.Red);
             }
+            else if (enemyManager.TimeUntilNextWave < 10)
+            {
+                sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2((screenWidth * 189 / 200) + 15, screenHeight / 10), Color.White);
+            }
+            // Ensure double-digit numbers are drawn correctly
             else
             {
                 sp.DrawString(Arial12, enemyManager.TimeUntilNextWave.ToString(), new Vector2(screenWidth * 189 / 200, screenHeight / 10), Color.White);
@@ -179,8 +181,7 @@ namespace Siphon
 
 
             // draw the bank balance
-            sp.DrawString(Arial12, bank.money.ToString(), new Vector2(screenWidth / 2 + 20, screenHeight / 20), Color.Black);
-            sp.DrawString(Arial12, "Balance: ", new Vector2(screenWidth / 2, screenHeight / 50), Color.Black);
+            sp.DrawString(Arial12, bank.money.ToString(), new Vector2(180, screenHeight - 125), Color.Black);
 
             // Draw the battery's health
             // In green if it's above 50%
