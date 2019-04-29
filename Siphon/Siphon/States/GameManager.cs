@@ -88,7 +88,7 @@ namespace Siphon
             MouseState previousMouseState, MouseState currentMouseState)
 		{
 			// always runs
-			bool repair = DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
+			bool repair = !DestroyOrRepairButton.Update(currentMouseState, previousMouseState);
 
             TurretType type;
             if (wallTurret.Update(currentMouseState, previousMouseState))

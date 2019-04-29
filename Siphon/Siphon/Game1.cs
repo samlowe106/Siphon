@@ -133,7 +133,7 @@ namespace Siphon
                 Content.Load<Texture2D>("instructions"),               
                 Content.Load<Texture2D>("pistol"),
                 Content.Load<Texture2D>("Selection"),
-                Content.Load<Texture2D>("squarewall"));
+                Content.Load<Texture2D>("Wall"));
 
 
 			// states
